@@ -32,6 +32,12 @@ I have loaded three objects from three seperate analysis types:
 * `df.deseq` A `DESeq2` object class.
 * `df.edger` An `edgeR` object class.
 
+To load these data sets, navigate to the working directory to where they are located (`setwd()`), and load by:
+
+`load("<object-type>.RData")`
+
+...where `<object-type>` is one of the previously mentioned data sets.
+
 Getting help
 ------------
 For additional information on these functions, please see the given documentation in the `ggvseq` package by adding the `?` help operator before any of the given functions in this package or by using the `help()` function. 
