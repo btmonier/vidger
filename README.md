@@ -28,9 +28,9 @@ Loading test data
 -----------------
 I have loaded three objects from three seperate analysis types:
 
-* 'df.cuff' A `cuffdiff` output file.
-* 'df.deseq' A `DESeq2` object class.
-* 'df.edger' An `edgeR` object class.
+* `df.cuff` A `cuffdiff` output file.
+* `df.deseq` A `DESeq2` object class.
+* `df.edger` An `edgeR` object class.
 
 Getting help
 ------------
