@@ -43,8 +43,9 @@ I have loaded three objects from three seperate analysis types:
 
 To load these data sets, navigate to the working directory to where they are located (`setwd()`), and load by:
 
-`load("<object-type>.RData")`
-
+``` r
+load("<object-type>.RData")
+```
 ...where `<object-type>` is one of the previously mentioned data sets.
 
 Getting help
