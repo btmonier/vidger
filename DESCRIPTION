@@ -3,7 +3,7 @@ Title: ggviseq: rapid visualizations of RNAseq data in R
 Version: 0.0.0.9000
 Authors@R: person("Brandon", "Monier", email = "brandon.monier@sdstate.edu", role = c("aut", "cre"))
 Description: The aim of ggviseq is to produce rapid visualizations from three of the most common RNAseq analytical tool packages.
-Depends: R (>= 3.3.3)
+Depends: R (>= 3.3.2)
 Imports:
 	ggplot2, 
 	dplyr, 
