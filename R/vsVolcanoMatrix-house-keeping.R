@@ -72,57 +72,70 @@ vomat.col.count <- function(data) {
 
 #' edgeR - REQUIRES `getEdgeScatter()`
 #' @export
-getEdgeVolcano <- function(x, y, data) {
-  dat <- getEdgeScatter(x, y, data)
-  deg <- exactTest(data, pair = c(x, y))
-  deg <- topTags(deg, n = nrow(deg$table))
-  deg <- deg$table[order(as.numeric(rownames(deg$table))),]
-  dat$logFC <- deg$logFC
-  dat$pval <- deg$PValue
-  dat$padj <- deg$FDR
-  return(dat)
+getEdgeVolcanoMatrix <- function(data) {
+  v_1 <- as.vector(unique(data$sample$group))
+  m_a <- expand.grid(v_1, v_1)
+  m_a <- as.matrix(m_a[which(m_a$Var1 != m_a$Var2), ])
+  l_a <- split(m_a, row(m_a))
+  
+  l1 <- list()
+  for(i in 1:length(l_a)){
+    l1[[i]] <- getEdgeVolcano(l_a[[i]][1], l_a[[i]][2], data)
+    l1[[i]]$id_x <- l_a[[i]][1]
+    l1[[i]]$id_y <- l_a[[i]][2]
+  }
+  dat1 <- do.call('rbind', l1)
+  dat1 <- dat1[, c(6:7, 1:2, 3:5)]
+  dat1$id_x <- as.factor(dat1$id_x)
+  dat1$id_y <- as.factor(dat1$id_y)
+  return(dat1)
 }
 
 
 #' cuffdiff - NO PREREQUISITES
 #' @export
-getCuffVolcano <- function(x, y, data) {
-  deg <- data
-  deg <- subset(deg, (sample_1 == x & sample_2 == y) | 
-                  (sample_1 == y & sample_2 == x))
-  dat <- data.frame(test_id = deg$test_id)
-  if (x %in% deg$sample_1 & y %in% deg$sample_2) {
-    dat$x <- deg$value_1
-    dat$y <- deg$value_2
-  } else if (y %in% deg$sample_1 & x %in% deg$sample_2) {
-    dat$x <- deg$value_2
-    dat$y <- deg$value_1
+getCuffVolcanoMatrix <- function(data) {
+  dat <- data
+  v_1 <- union(dat$sample_1, dat$sample_2)
+  m_a <- expand.grid(v_1, v_1)
+  m_a <- as.matrix(m_a[which(m_a$Var1 != m_a$Var2), ])
+  l_a <- split(m_a, row(m_a))
+  
+  l1 <- list()
+  for(i in 1:length(l_a)){
+    l1[[i]] <- getCuffVolcano(l_a[[i]][1], l_a[[i]][2], data)
+    l1[[i]]$id_x <- l_a[[i]][1]
+    l1[[i]]$id_y <- l_a[[i]][2]
   }
-  dat$logFC <- log2(dat$y / dat$x)
-  dat$pval <- deg$p_value
-  dat$padj <- deg$q_value
-  dat[is.na(dat)] <- 0
-  return(dat)
+  dat1 <- do.call('rbind', l1)
+  dat1 <- dat1[, c(1, 7:8, 2:6)]
+  dat1$id_x <- as.factor(dat1$id_x)
+  dat1$id_y <- as.factor(dat1$id_y)
+  return(dat1)
 }
 
 
 #' DESeq2 - NO PREREQUISITES
 #' @export
-getDeseqVolcano <- function(x, y, data, d.factor) {
-  if(missing(d.factor)) {
+getDeseqVolcanoMatrix <- function(data, d.factor) {
+  if(is.null(d.factor)) {
     stop('This appears to be a DESeq object. Please state d.factor variable.')
   }
-  dat1 <- as.data.frame(colData(data))
-  dat2 <- fpkm(data)
-  dat3 <- results(data, contrast = c(d.factor, y, x))
-  nam_x <- row.names(dat1[which(dat1[d.factor] == x),])
-  nam_y <- row.names(dat1[which(dat1[d.factor] == y),])
-  x <- rowMeans(dat2[, nam_x])
-  y <- rowMeans(dat2[, nam_y])
-  dat4 <- data.frame(x, y)
-  dat4$logFC <- log2(dat4$y / dat4$x)
-  dat4$pval <- dat3$pvalue
-  dat4$padj <- dat3$padj
-  dat4 <- dat4[complete.cases(dat4),]
-  return(dat4)
+  dat <- as.data.frame(colData(data))
+  v_1 <- as.vector(unique(dat[[d.factor]]))
+  m_a <- expand.grid(v_1, v_1)
+  m_a <- as.matrix(m_a[which(m_a$Var1 != m_a$Var2), ])
+  l_a <- split(m_a, row(m_a))
+  
+  l1 <- list()
+  for(i in 1:length(l_a)){
+    l1[[i]] <- getDeseqVolcano(l_a[[i]][1], l_a[[i]][2], data, d.factor)
+    l1[[i]]$id_x <- l_a[[i]][1]
+    l1[[i]]$id_y <- l_a[[i]][2]
+  }
+  dat1 <- do.call('rbind', l1)
+  dat1 <- dat1[, c(1:2, 6:7, 3:5)]
+  dat1$id_x <- as.factor(dat1$id_x)
+  dat1$id_y <- as.factor(dat1$id_y)
+  return(dat1)
 }
