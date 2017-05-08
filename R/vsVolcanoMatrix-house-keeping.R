@@ -66,9 +66,9 @@ vomat.col.count <- function(data) {
 
 
 
-#'------------------------
-#' Volcano plot extraction
-#'------------------------
+#'-------------------------------
+#' Volcano matrix plot extraction
+#'-------------------------------
 
 #' edgeR - REQUIRES `getEdgeScatter()`
 #' @export
