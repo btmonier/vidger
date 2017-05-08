@@ -4,6 +4,11 @@
 #' @author 
 #' Brandon Monier, \email{brandon.monier@sdstate.edu}
 #'
+#' @import ggplot2
+#' @import GGally
+#' @import tidyr
+#' @import dplyr
+#'
 #' @description
 #' This function will generate a matrix of scatterplots for all possible treatment combinations  
 #' with additional distribution info.
