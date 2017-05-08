@@ -92,7 +92,7 @@ getDeseqMA <- function(x, y, data, d.factor) {
 ma.comp1 <- function(y.lim, padj, lfc, b, g) {
   list(sh1 = paste('lfc < ', round(y.lim[1], 2)),
        sh2 = paste('lfc > ', round(y.lim[2], 2)),
-       sh3 = paste(round(y.lim[1], 2), '< lfc \u2264', round(y.lim[2], 2)),
+       sh3 = paste(round(y.lim[1], 2), '< lfc <', round(y.lim[2], 2)),
        col1 = paste('padj >', padj),
        col2 = paste('padj \u2264', padj, '; lfc >' , lfc, ' (', b ,')'),
        col3 = paste('padj \u2264', padj, '; lfc <', lfc, ' (', g ,')'),
