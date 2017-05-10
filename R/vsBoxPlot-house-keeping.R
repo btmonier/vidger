@@ -70,7 +70,7 @@ getDeseqBox <- function(data, d.factor) {
   names(ls.mean) <- sapply(nam, paste)
   dat3 <- as.data.frame(ls.mean)
   dat3 <- tidyr::gather(as.data.frame(dat3))
-  dat3$key <- as.d.factor(dat3$key)
+  dat3$key <- as.factor(dat3$key)
   return(dat3)
 }
 
