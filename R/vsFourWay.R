@@ -113,9 +113,9 @@ vsFourWay <- function(x, y, control, data, d.factor = NULL, type, padj = 0.1,
   
   #' Conditional plot components
   if (is.null(x.lim))
-    x.lim = c(-1, 1) * quantile(abs(px[is.finite(px)]), probs = 0.99)
+    x.lim = c(-1, 1) * quantile(abs(px[is.finite(px)]), probs = 0.99) * 2
   if (is.null(y.lim))
-    y.lim = c(-1, 1) * quantile(abs(py[is.finite(py)]), probs = 0.99)
+    y.lim = c(-1, 1) * quantile(abs(py[is.finite(py)]), probs = 0.99) * 2
   if (is.null(lfc))
     lfc = 1 
   
