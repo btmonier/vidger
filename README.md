@@ -11,7 +11,7 @@ The easiest way to obtain this package is to install `devtools` and pull the pac
 # Development version from GitHub
 # install.packages("devtools")
 
-devtools::install_github("btmonier/ggviseq")
+devtools::install_github("btmonier/vidger")
 ```
 
 New Functions
@@ -51,4 +51,4 @@ data("<object-type>")
 
 Getting help
 ------------
-For additional information on these functions, please see the given documentation in the `ggviseq` package by adding the `?` help operator before any of the given functions in this package or by using the `help()` function. 
+For additional information on these functions, please see the given documentation in the `vidger` package by adding the `?` help operator before any of the given functions in this package or by using the `help()` function. 
