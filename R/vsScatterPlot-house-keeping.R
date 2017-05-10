@@ -55,8 +55,8 @@ getDeseqScatter <- function(x, y, data, d.factor) {
   }
   dat1 <- as.data.frame(colData(data))
   dat2 <- fpkm(data)
-  nam_x <- row.names(dat1[which(dat1[factor] == x),])
-  nam_y <- row.names(dat1[which(dat1[factor] == y),])
+  nam_x <- row.names(dat1[which(dat1[d.factor] == x),])
+  nam_y <- row.names(dat1[which(dat1[d.factor] == y),])
   x <- rowMeans(dat2[, nam_x])
   y <- rowMeans(dat2[, nam_y])
   dat3 <- data.frame(x, y)
