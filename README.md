@@ -1,5 +1,5 @@
-vidger <img src="logo.png" align="right" />
-============================================
+vidger <img src="vidger-logo.png" align="right" />
+==================================================
 Make rapid visualizations of RNAseq data in R
 
 Installation
