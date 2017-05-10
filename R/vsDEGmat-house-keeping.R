@@ -79,8 +79,8 @@ getDeseqDEGMat <- function(data, d.factor, padj) {
   dat3 <- do.call('rbind', ls2)
   dat3 <- dat3[, c('x', 'y', 'pvalue', 'padj')]
   names(dat3)[names(dat3) == 'pvalue'] <- 'pval'
-  dat3$x <- as.d.factor(dat3$x)
-  dat3$y <- as.d.factor(dat3$y)
+  dat3$x <- as.factor(dat3$x)
+  dat3$y <- as.factor(dat3$y)
   dat3 <- dat3[which(dat3$padj <= padj), ]
   return(dat3)
 }
