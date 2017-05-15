@@ -1,6 +1,6 @@
 vidger <img src="vidger-logo.png" align="right" />
 ==================================================
-**Vi**sualization of **D**ifferential **G**ene **E**expression using **R**
+**Vi**sualization of **D**ifferential **G**ene **E**xpression using **R**
 
 Installation
 ------------
