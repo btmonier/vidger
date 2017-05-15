@@ -1,6 +1,6 @@
 vidger <img src="vidger-logo.png" align="right" />
 ==================================================
-Make rapid visualizations of RNAseq data in R
+__Vi__sualization of __D__ifferential __G__ene __E__expression using __R__
 
 Installation
 ------------
