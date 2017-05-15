@@ -1,6 +1,6 @@
 vidger <img src="vidger-logo.png" align="right" />
 ==================================================
-__Vi__sualization of __D__ifferential __G__ene __E__expression using __R__
+**Vi**sualization of **D**ifferential **G**ene **E**expression using **R**
 
 Installation
 ------------
