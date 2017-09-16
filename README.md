@@ -4,7 +4,6 @@ vidger <img src="vidger-logo.png" align="right" />
 
 Installation
 ------------
-
 The easiest way to obtain this package is to install `devtools` and pull the package contents directly from GitHub.
 
 ``` r
