@@ -85,7 +85,7 @@ getDeseqFourWay <- function(x, y, control, data, d.factor) {
     stop('This appears to be a DESeq object. Please state d.factor variable.')
   }
   dat1 <- as.data.frame(colData(data))
-  dat2 <- fpkm(data)
+  dat2 <- fpm(data)
   dat3_x <- results(data, contrast = c(d.factor, x, control))
   dat3_y <- results(data, contrast = c(d.factor, y, control))
   

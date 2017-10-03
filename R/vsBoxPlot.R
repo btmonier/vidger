@@ -54,7 +54,7 @@ vsBoxPlot <- function(data, d.factor = NULL, type, title = TRUE, legend = TRUE,
   } else if (isTRUE(title) & type == 'edger') {
     m.title <- ggtitle('CPM distribution')
   } else {
-    m.title <- ggtitle('FPKM distribution')
+    m.title <- ggtitle('FPM distribution')
   }
   if (!isTRUE(legend)) {
     leg <- guides(fill = FALSE)
@@ -69,7 +69,7 @@ vsBoxPlot <- function(data, d.factor = NULL, type, title = TRUE, legend = TRUE,
   if (type == 'edger') {
     y.lab <- expression(paste('log'['10'], ' (CPM)'))
   } else {
-    y.lab <- expression(paste('log'['10'], ' (FPKM)'))
+    y.lab <- expression(paste('log'['10'], ' (FPM)'))
   }
   tmp.plot <- ggplot(dat, aes(x = key, y = log10(value + 1), fill = key)) +
     geom_boxplot() +

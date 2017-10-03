@@ -62,8 +62,8 @@ vsScatterPlot <- function(x, y, data, d.factor = NULL, type, title = TRUE,
     aes.xlab <- bquote('log'['10'] ~ '(CPM) -' ~ .(x))
     aes.ylab <- bquote('log'['10'] ~ '(CPM) -' ~ .(y))
   } else {
-    aes.xlab <- bquote('log'['10'] ~ '(FPKM) -' ~ .(x))
-    aes.ylab <- bquote('log'['10'] ~ '(FPKM) -' ~ .(y))
+    aes.xlab <- bquote('log'['10'] ~ '(FPM) -' ~ .(x))
+    aes.ylab <- bquote('log'['10'] ~ '(FPM) -' ~ .(y))
   }
   
   tmp.plot <- ggplot(dat, aes(x = log10(x + 1), y = log10(y + 1))) +

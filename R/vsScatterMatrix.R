@@ -81,8 +81,8 @@ vsScatterMatrix <- function(data, d.factor = NULL, type, comp = NULL,
     aes.xlab <- bquote('log'['10'] ~ '(CPM)')
     aes.ylab <- bquote('log'['10'] ~ '(CPM)')
   } else {
-    aes.xlab <- bquote('log'['10'] ~ '(FPKM)')
-    aes.ylab <- bquote('log'['10'] ~ '(FPKM)')
+    aes.xlab <- bquote('log'['10'] ~ '(FPM)')
+    aes.ylab <- bquote('log'['10'] ~ '(FPM)')
   }
   
   GGally::ggpairs(log10(dat + 1), title = m.title, xlab = aes.xlab, 

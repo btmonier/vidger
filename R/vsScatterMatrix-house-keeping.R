@@ -38,7 +38,7 @@ getDeseqScatterMatrix <- function(data, d.factor = NULL) {
     stop('This appears to be a DESeq object. Please state d.factor variable.')
   }
   dat1 <- as.data.frame(colData(data))
-  dat2 <- fpkm(data)
+  dat2 <- fpm(data)
   nam <- as.vector(unique(dat1[[d.factor]]))
   ls.nam <- list()
   ls.mean <- list()
