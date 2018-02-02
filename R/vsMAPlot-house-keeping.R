@@ -25,7 +25,9 @@ getEdgeMA <- function(x, y, data) {
   deg <- deg$table[order(as.numeric(rownames(deg$table))),]
   dat$x <- log10(dat$x + 1)
   dat$y <- log10(dat$y + 1)
-  dat$A <- 0.5 * log2(dat$x * dat$y)
+  dat$A <- rowMeans(data$counts)
+  dat$A <- log10(dat$A)
+  # dat$A <- 0.5 * log2(dat$x * dat$y)
   dat$M <- deg$logFC
   dat$pval <- deg$PValue
   dat$padj <- deg$FDR
@@ -74,8 +76,9 @@ getDeseqMA <- function(x, y, data, d.factor) {
   x <- log10(rowMeans(dat2[, nam_x]) + 1)
   y <- log10(rowMeans(dat2[, nam_y]) + 1)
   dat4 <- data.frame(x, y)
-  dat4$A <- 0.5 * log2(dat4$x * dat4$y)
-  dat4$M <- log2(dat4$y / dat4$x)
+  dat4$A <- log10(dat3$baseMean)
+  # dat4$A <- 0.5 * log2(dat4$x * dat4$y)
+  dat4$M <- dat3$log2FoldChange
   dat4$pval <- dat3$pvalue
   dat4$padj <- dat3$padj
   dat4 <- dat4[complete.cases(dat4), ]

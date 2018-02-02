@@ -91,7 +91,7 @@ vsMAPlot <- function(x, y, data, d.factor = NULL, type, padj = 0.1, y.lim = NULL
   
   #' Conditional plot components
   if (is.null(y.lim)) {
-    y.lim = c(-1, 1) * quantile(abs(py[is.finite(py)]), probs = 0.99) * 0.8
+    y.lim = c(-1.5, 1.5) * quantile(abs(py[is.finite(py)]), probs = 0.99)
   }
   if (is.null(lfc)) {
     lfc = 1

@@ -87,7 +87,7 @@ vsVolcano <- function(x, y, data, d.factor = NULL, type, padj = 0.1,
   
   
   #' Configure data
-  dat$isDE <- ifelse(dat$padj <= padj, TRUE, FALSE)
+  dat$isDE <- ifelse(dat$padj < padj, TRUE, FALSE)
   px <- dat$logFC
   p <- padj
   
@@ -122,7 +122,7 @@ vsVolcano <- function(x, y, data, d.factor = NULL, type, padj = 0.1,
   
   #' Plot layers
   tmp.plot <- ggplot(dat, aes(x = pmax(x.lim[1], pmin(x.lim[2], px)), 
-                              y = -log10(pval) )) +
+                              y = -log10(padj) )) +
     point + comp2$color + comp2$shape + comp1$vline1 + comp1$vline2 + comp1$vline3 + 
     comp1$x.lab + comp1$y.lab + comp1$hline1 + grid  + m.lab + xlim(x.lim) + 
     comp2$size + leg
