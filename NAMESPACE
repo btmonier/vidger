@@ -4,6 +4,8 @@ import(ggplot2)
 import(GGally)
 import(dplyr)
 import(tidyr)
+import(DESeq2)
+import(edgeR)
 
 export(four.col.counter)
 export(four.col.ranker)
