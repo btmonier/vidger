@@ -23,9 +23,9 @@ knitr::opts_chunk$set(echo = TRUE, fig.pos = 'h')
 require(vidger)
 require(DESeq2)
 require(edgeR)
-data(df.cuff)
-data(df.deseq)
-data(df.edger)
+data("df.cuff")
+data("df.deseq")
+data("df.edger")
 ```
 
 # Example S1: Installation and data examples
@@ -299,14 +299,7 @@ vsFourWay(x = 'iPS', y = 'hESC', control = 'Fibroblasts', data = df.cuff,
           y.lim = NULL, lfc = NULL, legend = TRUE, title = TRUE, grid = TRUE)
 ```
 
-\newpage
 
-<!-- ## With DESeq2
-```{r,  message=FALSE, fig.width=8, fig.height=5, fig.align='center', fig.cap='A four way plot visualization using the `vsFourWay()` function with `DESeq2} data. In this example, LFCs comparisons between two treatments and a control are made. Blue nodes indicate statistically significant LFCs which are greater than a given user-defined value for both x and y-axes. Green nodes reflect statistically significant LFCs which are less than a user-defined value for treatment y and greater than said value for treatment x. Similar to green nodes, red nodes reflect statistically significant LFCs which are greater than a user-defined vlaue treatment y and less than said value for treatment x. Gray nodes are data points that are not statistically significant for both x and y-axes. Triangular shapes indicate values which exceed the viewing are for the graph. Size change reflects the magnitude of LFC values (i.e. larger shapes reflect larger LFC values). Vertical and horizontal dashed lines indicate user-defined LFC values.'}
-vsFourWay(x = 'N052611', y = 'N061011', control = 'N080611', data = df.deseq,
-          d.factor = 'cell', type = 'deseq', padj = 0.05, x.lim = NULL,
-          y.lim = NULL, lfc = NULL, legend = TRUE, title = TRUE, grid = TRUE)
-``` -->
 
 \newpage
 
