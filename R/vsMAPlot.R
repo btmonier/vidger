@@ -35,9 +35,10 @@
 #' # DESeq2 example
 #' data("df.deseq")
 #' require(DESeq2)
-#' vsMAPlot(x = 'trt', y = 'untrt', data = df.deseq, d.factor = 'dex', 
-#'          type = 'deseq', padj = 0.05, y.lim = NULL, lfc = NULL, 
-#'          title = TRUE, legend = TRUE, grid = TRUE, data.return = FALSE)
+#' vsMAPlot(x = 'treated', y = 'untreated', data = df.deseq, 
+#'          d.factor = 'condition', type = 'deseq', padj = 0.05, 
+#'          y.lim = NULL, lfc = NULL, title = TRUE, legend = TRUE, 
+#'          grid = TRUE, data.return = FALSE)
 #' 
 #' # edgeR example
 #' data("df.edger")
@@ -55,9 +56,10 @@
 #' df.ma <- tmp[[1]]
 #' head(df.ma)
 
-vsMAPlot <- function(x, y, data, d.factor = NULL, type, padj = 0.1, y.lim = NULL,
-                     lfc = NULL, title = TRUE, legend = TRUE, grid = TRUE,
-                     data.return = FALSE){
+vsMAPlot <- function(
+  x, y, data, d.factor = NULL, type, padj = 0.1, y.lim = NULL,
+  lfc = NULL, title = TRUE, legend = TRUE, grid = TRUE, data.return = FALSE
+) {
   if (missing(type)) {
     stop('Please specify analysis type ("cuffdiff", "deseq", or "edger")')
   }
@@ -112,8 +114,9 @@ vsMAPlot <- function(x, y, data, d.factor = NULL, type, padj = 0.1, y.lim = NULL
     alpha = 0.7, 
     aes(color = tmp.col, shape = tmp.shp, size = tmp.size)
   )
-  comp2 <- .ma.comp2(comp1[[4]], comp1[[6]], comp1[[5]], comp1[[1]], comp1[[2]], 
-                    comp1[[3]])
+  comp2 <- .ma.comp2(
+    comp1[[4]], comp1[[6]], comp1[[5]], comp1[[1]], comp1[[2]], comp1[[3]]
+  )
   
   A <- NULL
   tmp.plot <- ggplot(dat, aes(x = A, y = pmax(y.lim[1], pmin(y.lim[2], py)))) +

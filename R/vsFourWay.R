@@ -46,14 +46,6 @@
 #'           y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
 #'           data.return = FALSE)
 #' 
-#' # DESeq2 example
-#' data("df.deseq")
-#' require(DESeq2)
-#' vsFourWay(x = 'N61311', y = 'N052611', control = 'N061011', data = df.deseq, 
-#'           d.factor = 'cell', type = 'deseq', padj = 0.05, x.lim = NULL, 
-#'           y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
-#'           data.return = FALSE)
-#' 
 #' # edgeR example
 #' data("df.edger")
 #' require(edgeR)
@@ -65,8 +57,9 @@
 #' # Extract data frame from visualization
 #' data("df.cuff")
 #' tmp <- vsFourWay(x = 'WM', y = 'WW', control = 'MM', data = df.edger, 
-#'                  d.factor = NULL, type = 'edger', padj = 0.05, x.lim = NULL, 
-#'                  y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
+#'                  d.factor = NULL, type = 'edger', padj = 0.05, 
+#'                  x.lim = NULL, y.lim = NULL, lfc = 2, title = TRUE, 
+#' grid = TRUE, 
 #'                  data.return = FALSE)
 #' df.four <- tmp[[1]]
 #' head(df.four)
@@ -107,7 +100,9 @@ vsFourWay <- function(x, y, control, data, d.factor = NULL, type, padj = 0.1,
   
   dat$isDE_x   <- ifelse(dat$padj_x <= padj, TRUE, FALSE)
   dat$isDE_y   <- ifelse(dat$padj_y <= padj, TRUE, FALSE)
-  dat$isDE_all <- ifelse((dat$isDE_x == TRUE) & (dat$isDE_y == TRUE), TRUE, FALSE)
+  dat$isDE_all <- ifelse(
+    (dat$isDE_x == TRUE) & (dat$isDE_y == TRUE), TRUE, FALSE
+  )
   px   <- dat$logFC_x
   py   <- dat$logFC_y
   pall <- dat$isDE_all == TRUE
@@ -144,14 +139,15 @@ vsFourWay <- function(x, y, control, data, d.factor = NULL, type, padj = 0.1,
     alpha = 0.7, 
     aes(color = tmp.col, shape = tmp.shp, size = tmp.size)
   )
-  comp2 <- .four.comp2(comp1[[3]], comp1[[4]], comp1[[6]], comp1[[5]], comp1[[1]], 
-                      comp1[[2]])
+  comp2 <- .four.comp2(
+    comp1[[3]], comp1[[4]], comp1[[6]], comp1[[5]], comp1[[1]], comp1[[2]]
+  )
   
   
   tmp.plot <- ggplot(dat, aes(x = aes.x, y = aes.y)) +
     point + comp1$vline1 + comp1$vline2 + comp1$vline3 + comp1$hline1 + 
     comp1$hline2 + comp1$hline3 + comp2$color + comp2$shape + comp2$size + 
-    comp1$x.lab + comp1$y.lab + grid  + m.lab + xlim(x.lim) + ylim(y.lim) + leg 
+    comp1$x.lab + comp1$y.lab + grid  + m.lab + xlim(x.lim) + ylim(y.lim) + leg
   
   if (isTRUE(data.return)) {
     plot.l <- list(data = dat, plot = tmp.plot)

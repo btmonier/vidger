@@ -35,7 +35,7 @@ vsDEGMatrix(df.cuff, padj = 0.05, d.factor = NULL, type = 'cuffdiff',
 # DESeq2 example
 data("df.deseq")
 require(DESeq2)
-vsDEGMatrix(df.deseq, padj = 0.05, d.factor = 'cell', type = 'deseq', 
+vsDEGMatrix(df.deseq, padj = 0.05, d.factor = 'condition', type = 'deseq', 
             title = TRUE, legend = TRUE, grid = TRUE)
 
 # edgeR example
