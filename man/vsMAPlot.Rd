@@ -2,7 +2,8 @@
 % Please edit documentation in R/vsMAPlot.R
 \name{vsMAPlot}
 \alias{vsMAPlot}
-\title{MA plot from mean expression and log fold changes from different analytical objects}
+\title{MA plot from mean expression and log fold changes from different analytical 
+objects}
 \usage{
 vsMAPlot(x, y, data, d.factor = NULL, type, padj = 0.1, y.lim = NULL,
   lfc = NULL, title = TRUE, legend = TRUE, grid = TRUE,
@@ -15,15 +16,18 @@ vsMAPlot(x, y, data, d.factor = NULL, type, padj = 0.1, y.lim = NULL,
 
 \item{data}{a cuffdiff, DESeq2, or edgeR object.}
 
-\item{d.factor}{a specified factor; for use with DESeq2 objects only. Defaults to `NULL`}
+\item{d.factor}{a specified factor; for use with DESeq2 objects only.
+Defaults to `NULL`}
 
-\item{type}{an analysis classifier to tell the function how to process the data. Must be either `cuffdiff`, `deseq`, or `edgeR`.}
+\item{type}{an analysis classifier to tell the function how to process the 
+data. Must be either `cuffdiff`, `deseq`, or `edgeR`.}
 
 \item{padj}{a user defined adjusted p-value cutoff point. Defaults to `0.1`.}
 
 \item{y.lim}{set manual limits to the y axis. Defaults to `NULL`.}
 
-\item{lfc}{log fold change level for setting conditonals. If no user input is added (`NULL`), value defaults to `1`.}
+\item{lfc}{log fold change level for setting conditonals. If no user input 
+is added (`NULL`), value defaults to `1`.}
 
 \item{title}{show title of plot. Defaults to `TRUE`.}
 
@@ -31,7 +35,11 @@ vsMAPlot(x, y, data, d.factor = NULL, type, padj = 0.1, y.lim = NULL,
 
 \item{grid}{show major and minor axis lines. Defaults to `TRUE`.}
 
-\item{data.return}{returns data output of plot if set to `TRUE`. Defaults to `FASLSE`.}
+\item{data.return}{returns data output of plot if set to `TRUE`. Defaults 
+to `FASLSE`.}
+}
+\value{
+An object created by \code{ggplot}
 }
 \description{
 This function allows you to extract necessary results-based data from 
