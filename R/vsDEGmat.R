@@ -27,7 +27,7 @@
 #' # DESeq2 example
 #' data("df.deseq")
 #' require(DESeq2)
-#' vsDEGMatrix(df.deseq, padj = 0.05, d.factor = 'cell', type = 'deseq', 
+#' vsDEGMatrix(df.deseq, padj = 0.05, d.factor = 'condition', type = 'deseq', 
 #'             title = TRUE, legend = TRUE, grid = TRUE)
 #' 
 #' # edgeR example
@@ -58,7 +58,9 @@ vsDEGMatrix <- function(data, padj = 0.05, d.factor = NULL, type, title = TRUE,
   if (!isTRUE(title)) {
     m.lab <- NULL
   } else {
-    m.lab  <- ggtitle(bquote('Significant transcripts at ' ~ alpha ~ ' = ' ~ .(padj))) 
+    m.lab  <- ggtitle(
+      bquote('Significant transcripts at ' ~ alpha ~ ' = ' ~ .(padj))
+    ) 
   }
   if (!isTRUE(grid)) {
     grid <- theme_classic()
@@ -72,7 +74,9 @@ vsDEGMatrix <- function(data, padj = 0.05, d.factor = NULL, type, title = TRUE,
     scale_fill_continuous(low = "white", high = "royalblue3", 
                           name = 'Number of \ntranscripts') + 
     expand_limits(fill = 0) + leg +
-    stat_sum(aes(label = ..n..), geom = "text", size = 5, show.legend = FALSE) +
+    stat_sum(
+      aes(label = ..n..), geom = "text", size = 5, show.legend = FALSE
+    ) +
     m.lab + grid + xlab('') + ylab('')
   print(tmp.plot)
 }

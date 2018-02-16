@@ -47,7 +47,7 @@ vsVolcanoMatrix(data = df.cuff, d.factor = NULL, type = 'cuffdiff',
 # DESeq2 example
 data("df.deseq")
 require(DESeq2)
-vsVolcanoMatrix(data = df.deseq, d.factor = 'cell', type = 'deseq', 
+vsVolcanoMatrix(data = df.deseq, d.factor = 'condition', type = 'deseq', 
                 padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE, 
                 grid = TRUE, counts = TRUE, data.return = FALSE)
 

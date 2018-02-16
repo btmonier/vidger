@@ -28,7 +28,7 @@
 #' # DESeq2 example
 #' data("df.deseq")
 #' require(DESeq2)
-#' vsScatterMatrix(data = df.deseq, d.factor = 'cell', type = 'deseq',
+#' vsScatterMatrix(data = df.deseq, d.factor = 'condition', type = 'deseq',
 #'                 comp = NULL, title = TRUE, grid = FALSE, man.title = NULL)
 #' 
 #' # edgeR example

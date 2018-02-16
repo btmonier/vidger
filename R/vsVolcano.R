@@ -13,15 +13,19 @@
 #' @param x treatment `x` for comparison (log2(y/x)).
 #' @param y treatment `y` for comparison (log2(y/x)).
 #' @param data a cuffdiff, DESeq2, or edgeR object.
-#' @param d.factor a specified factor; for use with DESeq2 objects only. Defaults to `NULL`
-#' @param type an analysis classifier to tell the function how to process the data. Must be either `cuffdiff`, `deseq`, or `edgeR`.
+#' @param d.factor a specified factor; for use with DESeq2 objects only.
+#'  Defaults to `NULL`
+#' @param type an analysis classifier to tell the function how to process the
+#'  data. Must be either `cuffdiff`, `deseq`, or `edgeR`.
 #' @param padj a user defined adjusted p-value cutoff point. Defaults to `0.1`.
 #' @param x.lim set manual limits to the x axis. Defaults to `NULL`.
-#' @param lfc log fold change level for setting conditonals. If no user input is added (`NULL`), value defaults to `1`.
+#' @param lfc log fold change level for setting conditonals. If no user input
+#'  is added (`NULL`), value defaults to `1`.
 #' @param title show title of plot. Defaults to `TRUE`.
 #' @param legend shows legend of plot. Defaults to `TRUE`.
 #' @param grid show major and minor axis lines. Defaults to `TRUE`.
-#' @param data.return returns data output of plot if set to `TRUE`. Defaults to `FASLSE`.
+#' @param data.return returns data output of plot if set to `TRUE`. 
+#'  Defaults to `FASLSE`.
 #' 
 #' @export
 #' 
@@ -35,9 +39,10 @@
 #' # DESeq2 example
 #' data("df.deseq")
 #' require(DESeq2)
-#' vsVolcano(x = 'trt', y = 'untrt', data = df.deseq, d.factor = 'dex', 
-#'           type = 'deseq', padj = 0.05, x.lim = NULL, lfc = NULL, 
-#'           title = TRUE, grid = TRUE, data.return = FALSE)
+#' vsVolcano(x = 'treated', y = 'untreated', data = df.deseq, 
+#'           d.factor = 'condition', type = 'deseq', padj = 0.05, 
+#'           x.lim = NULL, lfc = NULL, title = TRUE, grid = TRUE, 
+#'           data.return = FALSE)
 #' 
 #' # edgeR example
 #' data("df.edger")
@@ -114,14 +119,15 @@ vsVolcano <- function(x, y, data, d.factor = NULL, type, padj = 0.1,
     alpha = 0.7, 
     aes(color = tmp.col, shape = tmp.shp, size = tmp.size)
   )
-  comp2 <- .vo.comp2(comp1[[4]], comp1[[6]], comp1[[5]], comp1[[1]], comp1[[2]], 
-                    comp1[[3]])
+  comp2 <- .vo.comp2(
+    comp1[[4]], comp1[[6]], comp1[[5]], comp1[[1]], comp1[[2]], comp1[[3]]
+  )
   
   tmp.plot <- ggplot(dat, aes(x = pmax(x.lim[1], pmin(x.lim[2], px)), 
                               y = -log10(padj) )) +
-    point + comp2$color + comp2$shape + comp1$vline1 + comp1$vline2 + comp1$vline3 + 
-    comp1$x.lab + comp1$y.lab + comp1$hline1 + grid  + m.lab + xlim(x.lim) + 
-    comp2$size + leg
+    point + comp2$color + comp2$shape + comp1$vline1 + comp1$vline2 + 
+    comp1$vline3 + comp1$x.lab + comp1$y.lab + comp1$hline1 + grid  + 
+    m.lab + xlim(x.lim) + comp2$size + leg
   
   if (isTRUE(data.return)) {
     plot.l <- list(data = dat, plot = tmp.plot)

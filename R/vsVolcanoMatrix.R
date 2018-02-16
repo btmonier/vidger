@@ -34,7 +34,7 @@
 #' # DESeq2 example
 #' data("df.deseq")
 #' require(DESeq2)
-#' vsVolcanoMatrix(data = df.deseq, d.factor = 'cell', type = 'deseq', 
+#' vsVolcanoMatrix(data = df.deseq, d.factor = 'condition', type = 'deseq', 
 #'                 padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE, 
 #'                 grid = TRUE, counts = TRUE, data.return = FALSE)
 #' 
@@ -106,8 +106,10 @@ vsVolcanoMatrix <- function(data, d.factor = NULL, type, padj = 0.1,
     b.count <- annotate('text', x = -Inf, y = Inf, vjust = 1.5, hjust = -1, 
                         label = tmp.l$blue$Freq, color = 'royalblue1', 
                         fontface = 2)
-    g.count <- annotate('text', x = Inf, y = Inf, vjust = 1.5, hjust = 1.5, 
-                        label = tmp.l$green$Freq, color = 'green', fontface = 2)
+    g.count <- annotate(
+      'text', x = Inf, y = Inf, vjust = 1.5, hjust = 1.5, 
+      label = tmp.l$green$Freq, color = 'green', fontface = 2
+    )
   } else {
     b.count <- NULL
     g.count <- NULL

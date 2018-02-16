@@ -26,8 +26,8 @@
 #' # DESeq2 example
 #' data("df.deseq")
 #' require(DESeq2)
-#' vsBoxPlot(data = df.deseq, d.factor = 'cell', type = 'deseq', title = TRUE,
-#'           legend = TRUE, grid = TRUE)
+#' vsBoxPlot(data = df.deseq, d.factor = 'condition', type = 'deseq', 
+#'           title = TRUE, legend = TRUE, grid = TRUE)
 #' 
 #' # edgeR example
 #' data("df.deseq")

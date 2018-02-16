@@ -62,14 +62,6 @@ vsFourWay(x = 'hESC', y = 'iPS', control = 'Fibroblasts', data = df.cuff,
           y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
           data.return = FALSE)
 
-# DESeq2 example
-data("df.deseq")
-require(DESeq2)
-vsFourWay(x = 'N61311', y = 'N052611', control = 'N061011', data = df.deseq, 
-          d.factor = 'cell', type = 'deseq', padj = 0.05, x.lim = NULL, 
-          y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
-          data.return = FALSE)
-
 # edgeR example
 data("df.edger")
 require(edgeR)
@@ -81,8 +73,9 @@ vsFourWay(x = 'WM', y = 'WW', control = 'MM', data = df.edger,
 # Extract data frame from visualization
 data("df.cuff")
 tmp <- vsFourWay(x = 'WM', y = 'WW', control = 'MM', data = df.edger, 
-                 d.factor = NULL, type = 'edger', padj = 0.05, x.lim = NULL, 
-                 y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
+                 d.factor = NULL, type = 'edger', padj = 0.05, 
+                 x.lim = NULL, y.lim = NULL, lfc = 2, title = TRUE, 
+grid = TRUE, 
                  data.return = FALSE)
 df.four <- tmp[[1]]
 head(df.four)
