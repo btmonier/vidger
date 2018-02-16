@@ -1,22 +1,11 @@
-#'--------------------------------------------------------#
-#' Title:  ggviseq - House Keeping - scatterplot matrix   #
-#' Author: Brandon Monier (brandon.monier@sdstate.edu)    #
-#' Date:   04.10.17                                       #
-#'--------------------------------------------------------#
+#--------------------------------------------------------#
+# Title:  ggviseq - House Keeping - scatterplot matrix   #
+# Author: Brandon Monier (brandon.monier@sdstate.edu)    #
+# Date:   04.10.17                                       #
+#--------------------------------------------------------#
 
-#'---------
-#' Preamble
-#'---------
-
-#'...
-
-#'------------------------------
-#' Scatterplot matrix extraction
-#'------------------------------
-
-#' cuffdiff
-#' @export
-getCuffScatterMatrix <- function(data) {
+.getCuffScatterMatrix <- function(data) {
+  key <- value <- NULL
   dat1 <- data[, c('test_id', 'sample_1', 'value_1')]
   dat2 <- data[, c('test_id', 'sample_2', 'value_2')]
   names(dat1) <- c('id', 'key', 'value')
@@ -31,9 +20,8 @@ getCuffScatterMatrix <- function(data) {
 }
 
 
-#' DESeq2
-#' @export
-getDeseqScatterMatrix <- function(data, d.factor = NULL) {
+
+.getDeseqScatterMatrix <- function(data, d.factor = NULL) {
   if(is.null(d.factor)) {
     stop('This appears to be a DESeq object. Please state d.factor variable.')
   }
@@ -54,9 +42,8 @@ getDeseqScatterMatrix <- function(data, d.factor = NULL) {
 }
 
 
-#' edgeR
-#' @export
-getEdgeScatterMatrix <- function(data) {
+
+.getEdgeScatterMatrix <- function(data) {
   dat.cpm <- cpm(data$counts)
   tmp <- as.vector(unique(data$sample$group))
   ls1 <- list()
@@ -71,7 +58,3 @@ getEdgeScatterMatrix <- function(data) {
   dat <- as.data.frame(ls2)
   return(dat)
 }
-
-
-
-

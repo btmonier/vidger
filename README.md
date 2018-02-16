@@ -1,4 +1,4 @@
-ViDGER <img src="vidger-logo.png" align="right" />
+ViDGER <img src="vignettes/vidger-logo.png" align="right" />
 ==================================================
 **Vi**sualization of **D**ifferential **G**ene **E**xpression using **R**
 

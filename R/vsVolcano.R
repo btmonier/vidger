@@ -27,25 +27,27 @@
 #' 
 #' @examples
 #' # Cuffdiff example
-#' load('df.cuff.RData')
+#' data("df.cuff")
 #' vsVolcano(x = 'hESC', y = 'iPS', data = df.cuff, d.factor = NULL, 
 #'           type = 'cuffdiff', padj = 0.05, x.lim = NULL, lfc = 2, 
 #'           title = TRUE, grid = TRUE, data.return = FALSE)
 #' 
 #' # DESeq2 example
-#' load('df.deseq.RData')
+#' data("df.deseq")
+#' require(DESeq2)
 #' vsVolcano(x = 'trt', y = 'untrt', data = df.deseq, d.factor = 'dex', 
 #'           type = 'deseq', padj = 0.05, x.lim = NULL, lfc = NULL, 
 #'           title = TRUE, grid = TRUE, data.return = FALSE)
 #' 
 #' # edgeR example
-#' load('df.edger.RData')
+#' data("df.edger")
+#' require(edgeR)
 #' vsVolcano(x = 'WM', y = 'MM', data = df.edger, d.factor = NULL, 
 #'           type = 'edger', padj = 0.1, x.lim = NULL, lfc = 2, 
 #'           title = FALSE, grid = TRUE, data.return = FALSE)
 #'                 
 #' # Extract data frame from visualization
-#' load('df.cuff.RData')
+#' data("df.cuff")
 #' tmp <- vsVolcano(x = 'hESC', y = 'iPS', data = df.cuff, 
 #'                  d.factor = NULL, type = 'cuffdiff', padj = 0.05, 
 #'                  x.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
@@ -60,11 +62,11 @@ vsVolcano <- function(x, y, data, d.factor = NULL, type, padj = 0.1,
     stop('Please specify analysis type ("cuffdiff", "deseq", or "edger")')
   }
   if(type == 'cuffdiff'){
-    dat <- getCuffVolcano(x, y, data)
+    dat <- .getCuffVolcano(x, y, data)
   } else if (type == 'deseq') {
-    dat <- getDeseqVolcano(x, y, data, d.factor)
+    dat <- .getDeseqVolcano(x, y, data, d.factor)
   } else if (type == 'edger') {
-    dat <- getEdgeVolcano(x, y, data)
+    dat <- .getEdgeVolcano(x, y, data)
   } else {
     stop('Please enter correct analysis type.')
   }
@@ -86,12 +88,10 @@ vsVolcano <- function(x, y, data, d.factor = NULL, type, padj = 0.1,
   }
   
   
-  #' Configure data
   dat$isDE <- ifelse(dat$padj < padj, TRUE, FALSE)
   px <- dat$logFC
   p <- padj
   
-  #' Conditional plot components
   if (is.null(x.lim)) {
     x.lim = c(-1, 1) * quantile(abs(px[is.finite(px)]), probs = 0.99)
   }
@@ -99,28 +99,24 @@ vsVolcano <- function(x, y, data, d.factor = NULL, type, padj = 0.1,
     lfc = 1
   }
   
-  dat <- vo.ranker(dat, padj, lfc, x.lim)
+  dat <- .vo.ranker(dat, padj, lfc, x.lim)
   
-  #' See ranker functions
-  tmp.size <- vo.out.ranker(px, x.lim[2])
-  tmp.col <- vo.col.ranker(dat$isDE, px, lfc)
-  tmp.shp <- vo.shp.ranker(px, x.lim)
+  tmp.size <- .vo.out.ranker(px, x.lim[2])
+  tmp.col <- .vo.col.ranker(dat$isDE, px, lfc)
+  tmp.shp <- .vo.shp.ranker(px, x.lim)
   
-  #' See counting function
-  tmp.cnt <- vo.col.counter(dat, lfc)
+  tmp.cnt <- .vo.col.counter(dat, lfc)
   b <- tmp.cnt[[1]]
   g <- tmp.cnt[[2]]
   
-  #' See component functions
-  comp1 <- vo.comp1(x.lim, padj, lfc, b, g)
+  comp1 <- .vo.comp1(x.lim, padj, lfc, b, g)
   point <- geom_point(
     alpha = 0.7, 
     aes(color = tmp.col, shape = tmp.shp, size = tmp.size)
   )
-  comp2 <- vo.comp2(comp1[[4]], comp1[[6]], comp1[[5]], comp1[[1]], comp1[[2]], 
+  comp2 <- .vo.comp2(comp1[[4]], comp1[[6]], comp1[[5]], comp1[[1]], comp1[[2]], 
                     comp1[[3]])
   
-  #' Plot layers
   tmp.plot <- ggplot(dat, aes(x = pmax(x.lim[1], pmin(x.lim[2], px)), 
                               y = -log10(padj) )) +
     point + comp2$color + comp2$shape + comp1$vline1 + comp1$vline2 + comp1$vline3 + 

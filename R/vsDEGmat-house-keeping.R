@@ -1,23 +1,10 @@
-#'-----------------------------------------------------#
-#' Title:  ggviseq - House Keeping - DEG Matrix        #
-#' Author: Brandon Monier (brandon.monier@sdstate.edu) #
-#' Date:   04.04.17                                    #
-#'-----------------------------------------------------#
+#-----------------------------------------------------#
+# Title:  ggviseq - House Keeping - DEG Matrix        #
+# Author: Brandon Monier (brandon.monier@sdstate.edu) #
+# Date:   04.04.17                                    #
+#-----------------------------------------------------#
 
-#'---------
-#' Preamble
-#'---------
-
-#'...
-
-
-#'---------------------------
-#' DEG Matrix plot extraction
-#'---------------------------
-
-#' edgeR
-#' @export
-getEdgeDEGMat <- function(data, padj) {
+.getEdgeDEGMat <- function(data, padj) {
   dat1 <- as.vector(unique(data$sample$group))
   dat2 <- t(combn(dat1, 2))
   l.dat <- split(dat2, row(dat2))
@@ -44,9 +31,8 @@ getEdgeDEGMat <- function(data, padj) {
 }
 
 
-#' cuffdiff
-#' @export
-getCuffDEGMat <- function(data, padj) {
+
+.getCuffDEGMat <- function(data, padj) {
   dat1 <- data
   dat1 <- dat1[, c('sample_1', 'sample_2', 'p_value', 'q_value')]
   names(dat1) <- c('x', 'y', 'pval', 'padj')
@@ -57,9 +43,8 @@ getCuffDEGMat <- function(data, padj) {
 }
 
 
-#' DESeq
-#' @export
-getDeseqDEGMat <- function(data, d.factor, padj) {
+
+.getDeseqDEGMat <- function(data, d.factor, padj) {
   if(is.null(d.factor)) {
     stop('This appears to be a DESeq object. Please enter d.factor variable.')
   }

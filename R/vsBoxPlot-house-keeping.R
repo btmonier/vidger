@@ -1,23 +1,10 @@
-#'-----------------------------------------------------#
-#' Title:  ggviseq - Data Extractors - Box plots       #
-#' Author: Brandon Monier (brandon.monier@sdstate.edu) #
-#' Date:   04.04.17                                    #
-#'-----------------------------------------------------#
+#-----------------------------------------------------#
+# Title:  ggviseq - Data Extractors - Box plots       #
+# Author: Brandon Monier (brandon.monier@sdstate.edu) #
+# Date:   04.04.17                                    #
+#-----------------------------------------------------#
 
-#'---------
-#' Preamble
-#'---------
-
-#'...
-
-
-#'--------------------
-#' Box plot extraction
-#'--------------------
-
-#' edgeR
-#' @export
-getEdgeBox <- function(data) {
+.getEdgeBox <- function(data) {
   dat.cpm <- cpm(data$counts)
   tmp <- as.vector(unique(data$sample$group))
   ls1 <- list()
@@ -36,9 +23,8 @@ getEdgeBox <- function(data) {
 }
 
 
-#' cuffdiff
-#' @export
-getCuffBox <- function(data) {
+
+.getCuffBox <- function(data) {
   dat1 <- data[, c('test_id', 'sample_1', 'value_1')]
   dat2 <- data[, c('test_id', 'sample_2', 'value_2')]
   names(dat1) <- c('id', 'key', 'value')
@@ -50,9 +36,8 @@ getCuffBox <- function(data) {
 }
 
 
-#' DESeq2
-#' @export
-getDeseqBox <- function(data, d.factor) {
+
+.getDeseqBox <- function(data, d.factor) {
   if(is.null(d.factor)) {
     stop('This appears to be a DESeq object. Please state d.factor variable.')
   }
@@ -73,6 +58,3 @@ getDeseqBox <- function(data, d.factor) {
   dat3$key <- as.factor(dat3$key)
   return(dat3)
 }
-
-
-

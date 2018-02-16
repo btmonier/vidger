@@ -4,11 +4,6 @@
 #' @author 
 #' Brandon Monier, \email{brandon.monier@sdstate.edu}
 #'
-#' @import ggplot2
-#' @import GGally
-#' @import tidyr
-#' @import dplyr
-#'
 #' @description
 #' This function will generate a matrix of scatterplots for all possible treatment combinations  
 #' with additional distribution info.
@@ -25,18 +20,20 @@
 #' 
 #' @examples
 #' # Cuffdiff example
-#' load('df.cuff.RData')
+#' data("df.cuff")
 #' vsScatterMatrix(data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
 #'                 comp = NULL, title = TRUE, grid = TRUE, 
 #'                 man.title = 'Example title')
 #' 
 #' # DESeq2 example
-#' load('df.deseq.RData')
+#' data("df.deseq")
+#' require(DESeq2)
 #' vsScatterMatrix(data = df.deseq, d.factor = 'cell', type = 'deseq',
 #'                 comp = NULL, title = TRUE, grid = FALSE, man.title = NULL)
 #' 
 #' # edgeR example
-#' load('df.edger.RData')
+#' data("df.edger")
+#' require(edgeR)
 #' vsScatterMatrix(data = df.edger, d.factor = NULL, type = 'edger', 
 #'                 comp = c('WM', 'MM'), title = TRUE, grid = TRUE, 
 #'                 man.title = NULL)
@@ -48,11 +45,11 @@ vsScatterMatrix <- function(data, d.factor = NULL, type, comp = NULL,
   }
   
   if(type == 'cuffdiff'){
-    dat <- getCuffScatterMatrix(data)
+    dat <- .getCuffScatterMatrix(data)
   } else if (type == 'deseq') {
-    dat <- getDeseqScatterMatrix(data, d.factor)
+    dat <- .getDeseqScatterMatrix(data, d.factor)
   } else if (type == 'edger') {
-    dat <- getEdgeScatterMatrix(data)
+    dat <- .getEdgeScatterMatrix(data)
   } else {
     stop('Please enter correct analysis type.')
   }

@@ -41,37 +41,33 @@ implementing ggplot2 aesthetics.
 }
 \examples{
 # Cuffdiff example
-load('df.cuff.RData')
+data("df.cuff")
 vsVolcano(x = 'hESC', y = 'iPS', data = df.cuff, d.factor = NULL, 
           type = 'cuffdiff', padj = 0.05, x.lim = NULL, lfc = 2, 
           title = TRUE, grid = TRUE, data.return = FALSE)
 
 # DESeq2 example
-load('df.deseq.RData')
+data("df.deseq")
+require(DESeq2)
 vsVolcano(x = 'trt', y = 'untrt', data = df.deseq, d.factor = 'dex', 
           type = 'deseq', padj = 0.05, x.lim = NULL, lfc = NULL, 
           title = TRUE, grid = TRUE, data.return = FALSE)
 
 # edgeR example
-load('df.edger.RData')
+data("df.edger")
+require(edgeR)
 vsVolcano(x = 'WM', y = 'MM', data = df.edger, d.factor = NULL, 
           type = 'edger', padj = 0.1, x.lim = NULL, lfc = 2, 
           title = FALSE, grid = TRUE, data.return = FALSE)
                 
 # Extract data frame from visualization
-load('df.cuff.RData')
+data("df.cuff")
 tmp <- vsVolcano(x = 'hESC', y = 'iPS', data = df.cuff, 
                  d.factor = NULL, type = 'cuffdiff', padj = 0.05, 
                  x.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
                  data.return = TRUE)
 df.volcano <- tmp[[1]]
 head(df.volcano)
-Configure data
-Conditional plot components
-See ranker functions
-See counting function
-See component functions
-Plot layers
 }
 \author{
 Brandon Monier, \email{brandon.monier@sdstate.edu}

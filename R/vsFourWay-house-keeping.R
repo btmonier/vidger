@@ -1,30 +1,17 @@
-#'-----------------------------------------------------#
-#' Title:  ggviseq - House Keeping - four way plot     #
-#' Author: Brandon Monier (brandon.monier@sdstate.edu) #
-#' Date:   03.28.17                                    #
-#'-----------------------------------------------------#
-
-#'---------
-#' Preamble
-#'---------
-
-#'...
+#-----------------------------------------------------#
+# Title:  ggviseq - House Keeping - four way plot     #
+# Author: Brandon Monier (brandon.monier@sdstate.edu) #
+# Date:   03.28.17                                    #
+#-----------------------------------------------------#
 
 
-
-#'-------------------------
-#' Four Way plot extraction
-#'-------------------------
-
-#' edgeR - REQUIRES `getEdgeScatter()`
-#' @export
-getEdgeFourWay <- function(x, y, control, data) {
-  dat_x <- getEdgeScatter(control, x, data)
+.getEdgeFourWay <- function(x, y, control, data) {
+  dat_x <- .getEdgeScatter(control, x, data)
   deg_x <- exactTest(data, pair = c(control, x))
   deg_x <- topTags(deg_x, n = nrow(deg_x$table))
   deg_x <- deg_x$table[order(as.numeric(rownames(deg_x$table))),]
   
-  dat_y <- getEdgeScatter(control, y, data)
+  dat_y <- .getEdgeScatter(control, y, data)
   deg_y <- exactTest(data, pair = c(control, y))
   deg_y <- topTags(deg_y, n = nrow(deg_y$table))
   deg_y <- deg_y$table[order(as.numeric(rownames(deg_y$table))),]
@@ -39,9 +26,9 @@ getEdgeFourWay <- function(x, y, control, data) {
 }
 
 
-#' cuffdiff - NO PREREQUISITES
-#' @export
-getCuffFourWay <- function(x, y, control, data) {
+
+.getCuffFourWay <- function(x, y, control, data) {
+  sample_1 <- sample_2 <- NULL
   deg <- data
   deg_x <- subset(deg, (sample_1 == x & sample_2 == control) | 
                     (sample_1 == control & sample_2 == x))
@@ -78,9 +65,8 @@ getCuffFourWay <- function(x, y, control, data) {
 }
 
 
-#' DESeq - NO PREREQUISITES
-#' @export
-getDeseqFourWay <- function(x, y, control, data, d.factor) {
+
+.getDeseqFourWay <- function(x, y, control, data, d.factor) {
   if(is.null(d.factor)) {
     stop('This appears to be a DESeq object. Please state d.factor variable.')
   }
@@ -109,12 +95,7 @@ getDeseqFourWay <- function(x, y, control, data, d.factor) {
 
 
 
-#'----------------------------------
-#' Four Way plot component functions
-#'----------------------------------
-
-#' @export
-four.comp1 <- function(x.lim, y.lim, padj, all.lab, lfc, b, g, r) {
+.four.comp1 <- function(x.lim, y.lim, padj, all.lab, lfc, b, g, r) {
   list(sh1 = paste('|lfc(x)| > ', round(x.lim[2], 1), 'OR  |lfc(y)| > ', 
                    round(y.lim[2], 1)),
        sh2 = paste(round(x.lim[1], 1), '< lfc(x) <', round(x.lim[2], 1), 
@@ -146,8 +127,9 @@ four.comp1 <- function(x.lim, y.lim, padj, all.lab, lfc, b, g, r) {
   )
 }
 
-#' @export
-four.comp2 <- function(a, b, c, d, e, f){
+
+
+.four.comp2 <- function(a, b, c, d, e, f){
   list(color = scale_color_manual(name = '', 
                                   values = c('gry' = 'grey73', 'grn' ='green', 
                                              'blu' ='royalblue1', 'red' = 'red'), 
@@ -172,12 +154,7 @@ four.comp2 <- function(a, b, c, d, e, f){
 
 
 
-#'------------------
-#' Ranking functions
-#'------------------
-
-#' @export
-four.out.ranker <- function(px, py, x.lim, y.lim) {
+.four.out.ranker <- function(px, py, x.lim, y.lim) {
   vec2_x <- px[which(abs(px) >= x.lim)]
   vec2_y <- py[which(abs(py) >= y.lim)]
   vec3 <- c(vec2_x, vec2_y)
@@ -189,8 +166,9 @@ four.out.ranker <- function(px, py, x.lim, y.lim) {
                               't1')))) 
 }
 
-#' @export
-four.col.ranker <- function(dat, lfc) {
+
+
+.four.col.ranker <- function(dat, lfc) {
   de_x <- dat$isDE_x
   de_y <- dat$isDE_y
   de_a <- dat$isDE_all
@@ -204,16 +182,18 @@ four.col.ranker <- function(dat, lfc) {
                          de_x == FALSE & de_y == TRUE, 'red', 'gry')))
 }
 
-#' @export
-four.shp.ranker <- function(px, py, x.lim, y.lim){
+
+
+.four.shp.ranker <- function(px, py, x.lim, y.lim){
   ifelse(
     (px < x.lim[1]) | (px > x.lim[2]) | (py < y.lim[1]) | (py > y.lim[2]), 
     'tri1', 'circ'
   )
 }
 
-#' @export
-four.ranker <- function(data, padj, lfc, x.lim, y.lim) {
+
+
+.four.ranker <- function(data, padj, lfc, x.lim, y.lim) {
   dat <- data
   dat$color <- 'grey'
   dat$color[dat$padj_x <= padj & dat$padj_y <= padj & abs(dat$logFC_x) > lfc & 
@@ -222,7 +202,7 @@ four.ranker <- function(data, padj, lfc, x.lim, y.lim) {
               abs(dat$logFC_y) <= lfc] <- 'green'
   dat$color[dat$padj_y <= padj & dat$padj_x > padj & abs(dat$logFC_x) <= lfc & 
               abs(dat$logFC_y) > lfc] <- 'red'
-  dat$size <- four.out.ranker(dat$logFC_x, dat$logFC_y, x.lim[2], y.lim[2])
+  dat$size <- .four.out.ranker(dat$logFC_x, dat$logFC_y, x.lim[2], y.lim[2])
   dat$shape <- 'circle'
   dat$shape[dat$logFC_x < x.lim[1] | dat$logFC_x > x.lim[2] | 
               dat$logFC_y < y.lim[1] | dat$logFC_y > y.lim[2]] <- 'triangle'
@@ -230,12 +210,8 @@ four.ranker <- function(data, padj, lfc, x.lim, y.lim) {
 }
 
 
-#'-------------------
-#' Counting functions
-#'-------------------
 
-#' @export
-four.col.counter <- function(dat, lfc) {
+.four.col.counter <- function(dat, lfc) {
   de_x <- dat$isDE_x
   de_y <- dat$isDE_y
   de_a <- dat$isDE_all

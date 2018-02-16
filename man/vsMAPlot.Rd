@@ -41,37 +41,33 @@ aesthetics.
 }
 \examples{
 # Cuffdiff example
-load('df.cuff.RData')
+data("df.cuff")
 vsMAPlot(x = 'hESC', y = 'iPS', data = df.cuff, d.factor = NULL, 
          type = 'cuffdiff', padj = 0.05, y.lim = NULL, lfc = 2, 
          title = TRUE, legend = TRUE, grid = TRUE, data.return = FALSE)
 
 # DESeq2 example
-load('df.deseq.RData')
+data("df.deseq")
+require(DESeq2)
 vsMAPlot(x = 'trt', y = 'untrt', data = df.deseq, d.factor = 'dex', 
          type = 'deseq', padj = 0.05, y.lim = NULL, lfc = NULL, 
          title = TRUE, legend = TRUE, grid = TRUE, data.return = FALSE)
 
 # edgeR example
-load('df.edger.RData')
+data("df.edger")
+require(edgeR)
 vsMAPlot(x = 'WM', y = 'MM', data = df.edger, d.factor = NULL, 
          type = 'edger', padj = 0.1, y.lim = NULL, lfc = 2, 
          title = FALSE, legend = TRUE, grid = TRUE, data.return = FALSE)
                 
 # Extract data frame from visualization
-load('df.cuff.RData')
+data("df.cuff")
 tmp <- vsMAPlot(x = 'hESC', y = 'iPS', data = df.cuff, 
                 d.factor = NULL, type = 'cuffdiff', padj = 0.05, 
                 y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
                 data.return = TRUE)
 df.ma <- tmp[[1]]
 head(df.ma)
-Configure data
-Conditional plot components
-See ranker functions
-See counting function
-See component functions
-Plot layers
 }
 \author{
 Brandon Monier, \email{brandon.monier@sdstate.edu}

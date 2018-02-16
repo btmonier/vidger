@@ -8,32 +8,32 @@
 #' This function allows you to extract necessary results-based data from analytical objects
 #' to create a box plot comparing log10(FPKM or CPM) distributions for experimental treatments.
 #' 
-#' 
 #' @param data a cuffdiff, DESeq2, or edgeR object.
 #' @param d.factor a specified factor; for use with DESeq2 objects only. Defaults to `NULL`
 #' @param type an analysis classifier to tell the function how to process the data. Must be either `cuffdiff`, `deseq`, or `edgeR`.
 #' @param title show title of plot. Defaults to `TRUE`.
 #' @param legend shows legend of plot. Defaults to `TRUE`.
 #' @param grid show major and minor axis lines. Defaults to `TRUE`.
-#' @param man.title a manually specified title at the authors discretion. Defaults to `NULL`.
 #' 
 #' @export
 #' 
 #' @examples
 #' # Cuffdiff example
-#' load('df.cuff.RData')
-#' vsScatterMatrix(data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
-#'                 title = TRUE, grid = TRUE)
+#' data("df.cuff")
+#' vsBoxPlot(data = df.cuff, d.factor = NULL, type = 'cuffdiff', title = TRUE,
+#'           legend = TRUE, grid = TRUE)
 #' 
 #' # DESeq2 example
-#' load('df.deseq.RData')
-#' vsScatterMatrix(data = df.deseq, d.factor = 'cell', type = 'deseq',
-#'                 title = TRUE, grid = FALSE)
+#' data("df.deseq")
+#' require(DESeq2)
+#' vsBoxPlot(data = df.deseq, d.factor = 'cell', type = 'deseq', title = TRUE,
+#'           legend = TRUE, grid = TRUE)
 #' 
 #' # edgeR example
-#' load('df.edger.RData')
-#' vsScatterMatrix(data = df.edger, d.factor = NULL, type = 'edger', 
-#'                 title = TRUE, grid = TRUE)
+#' data("df.deseq")
+#' require(edgeR)
+#' vsBoxPlot(data = df.edger, d.factor = NULL, type = 'edger', title = TRUE,
+#'           legend = TRUE, grid = TRUE)
 
 vsBoxPlot <- function(data, d.factor = NULL, type, title = TRUE, legend = TRUE,
                       grid = TRUE){
@@ -41,11 +41,11 @@ vsBoxPlot <- function(data, d.factor = NULL, type, title = TRUE, legend = TRUE,
     stop('Please specify analysis type ("cuffdiff", "deseq", or "edger")')
   }
   if(type == 'cuffdiff'){
-    dat <- getCuffBox(data)
+    dat <- .getCuffBox(data)
   } else if (type == 'deseq') {
-    dat <- getDeseqBox(data, d.factor)
+    dat <- .getDeseqBox(data, d.factor)
   } else if (type == 'edger') {
-    dat <- getEdgeBox(data)
+    dat <- .getEdgeBox(data)
   } else {
     stop('Please enter correct analysis type.')
   }
@@ -71,6 +71,7 @@ vsBoxPlot <- function(data, d.factor = NULL, type, title = TRUE, legend = TRUE,
   } else {
     y.lab <- expression(paste('log'['10'], ' (FPM)'))
   }
+  key <- value <- NULL
   tmp.plot <- ggplot(dat, aes(x = key, y = log10(value + 1), fill = key)) +
     geom_boxplot() +
     xlab('Condition') +

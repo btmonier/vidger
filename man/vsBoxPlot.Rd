@@ -19,8 +19,6 @@ vsBoxPlot(data, d.factor = NULL, type, title = TRUE, legend = TRUE,
 \item{legend}{shows legend of plot. Defaults to `TRUE`.}
 
 \item{grid}{show major and minor axis lines. Defaults to `TRUE`.}
-
-\item{man.title}{a manually specified title at the authors discretion. Defaults to `NULL`.}
 }
 \description{
 This function allows you to extract necessary results-based data from analytical objects
@@ -28,19 +26,21 @@ to create a box plot comparing log10(FPKM or CPM) distributions for experimental
 }
 \examples{
 # Cuffdiff example
-load('df.cuff.RData')
-vsScatterMatrix(data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
-                title = TRUE, grid = TRUE)
+data("df.cuff")
+vsBoxPlot(data = df.cuff, d.factor = NULL, type = 'cuffdiff', title = TRUE,
+          legend = TRUE, grid = TRUE)
 
 # DESeq2 example
-load('df.deseq.RData')
-vsScatterMatrix(data = df.deseq, d.factor = 'cell', type = 'deseq',
-                title = TRUE, grid = FALSE)
+data("df.deseq")
+require(DESeq2)
+vsBoxPlot(data = df.deseq, d.factor = 'cell', type = 'deseq', title = TRUE,
+          legend = TRUE, grid = TRUE)
 
 # edgeR example
-load('df.edger.RData')
-vsScatterMatrix(data = df.edger, d.factor = NULL, type = 'edger', 
-                title = TRUE, grid = TRUE)
+data("df.deseq")
+require(edgeR)
+vsBoxPlot(data = df.edger, d.factor = NULL, type = 'edger', title = TRUE,
+          legend = TRUE, grid = TRUE)
 }
 \author{
 Brandon Monier, \email{brandon.monier@sdstate.edu}

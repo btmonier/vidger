@@ -1,25 +1,11 @@
-#'-----------------------------------------------------#
-#' Title:  ggviseq - House Keeping - MA plots          #
-#' Author: Brandon Monier (brandon.monier@sdstate.edu) #
-#' Date:   04.04.17                                    #
-#'-----------------------------------------------------#
+#-----------------------------------------------------#
+# Title:  ggviseq - House Keeping - MA plots          #
+# Author: Brandon Monier (brandon.monier@sdstate.edu) #
+# Date:   04.04.17                                    #
+#-----------------------------------------------------#
 
-#'---------
-#' Preamble
-#'---------
-
-#'...
-
-
-
-#'-------------------
-#' MA plot extraction
-#'-------------------
-
-#' edgeR - REQUIRES `getEdgeScatter()`
-#' @export
-getEdgeMA <- function(x, y, data) {
-  dat <- getEdgeScatter(x, y, data)
+.getEdgeMA <- function(x, y, data) {
+  dat <- .getEdgeScatter(x, y, data)
   deg <- exactTest(data, pair = c(x, y))
   deg <- topTags(deg, n = nrow(deg$table))
   deg <- deg$table[order(as.numeric(rownames(deg$table))),]
@@ -36,9 +22,9 @@ getEdgeMA <- function(x, y, data) {
 }
 
 
-#' cuffdiff - NO PREREQUISITES
-#' @export
-getCuffMA <- function(x, y, data) {
+
+.getCuffMA <- function(x, y, data) {
+  sample_1 <- sample_2 <- NULL
   deg <- data
   deg <- subset(deg, (sample_1 == x & sample_2 == y) | 
                   (sample_1 == y & sample_2 == x))
@@ -62,9 +48,8 @@ getCuffMA <- function(x, y, data) {
 }
 
 
-#' DESeq2 - NO PREREQUISITES
-#' @export
-getDeseqMA <- function(x, y, data, d.factor) {
+
+.getDeseqMA <- function(x, y, data, d.factor) {
   if(missing(d.factor)) {
     stop('This appears to be a DESeq object. Please state d.factor variable.')
   }
@@ -87,12 +72,7 @@ getDeseqMA <- function(x, y, data, d.factor) {
 
 
 
-#'----------------------------
-#' MA plot component functions
-#'----------------------------
-
-#' @export
-ma.comp1 <- function(y.lim, padj, lfc, b, g) {
+.ma.comp1 <- function(y.lim, padj, lfc, b, g) {
   list(sh1 = paste('lfc < ', round(y.lim[1], 2)),
        sh2 = paste('lfc > ', round(y.lim[2], 2)),
        sh3 = paste(round(y.lim[1], 2), '< lfc <', round(y.lim[2], 2)),
@@ -111,8 +91,9 @@ ma.comp1 <- function(y.lim, padj, lfc, b, g) {
   )
 }
 
-#' @export
-ma.comp2 <- function(a, b, c, d, e, f){
+
+
+.ma.comp2 <- function(a, b, c, d, e, f){
   list(color = scale_color_manual(name = '', 
                                   values = c('gry' = 'grey73', 'grn' ='green', 
                                              'blu' ='royalblue1'), 
@@ -140,12 +121,7 @@ ma.comp2 <- function(a, b, c, d, e, f){
 
 
 
-#'------------------
-#' Ranking functions
-#'------------------
-
-#' @export
-ma.out.ranker <- function(log2fc, lim) {
+.ma.out.ranker <- function(log2fc, lim) {
   vec2 <- log2fc[which(abs(log2fc) >= lim)]
   tmp <- quantile(abs(vec2))
   ifelse(abs(log2fc) < lim, 'sub',
@@ -155,36 +131,35 @@ ma.out.ranker <- function(log2fc, lim) {
                               't1')))) 
 }
 
-#' @export
-ma.col.ranker <- function(isDE, log2fc, lfc) {
+
+
+.ma.col.ranker <- function(isDE, log2fc, lfc) {
   ifelse(isDE == TRUE & abs(log2fc) < lfc, 'grn', 
          ifelse(isDE == TRUE & abs(log2fc) > lfc, 'blu', 'gry'))
 }
 
-#' @export
-ma.shp.ranker <- function(log2fc, lim){
+
+
+.ma.shp.ranker <- function(log2fc, lim){
   ifelse(log2fc < lim[1], 'tri1', ifelse(log2fc > lim[2], 'tri2', 'circ'))
 }
 
-#' For data return only (optimize at later date)
-#' @export
-ma.ranker <- function(data, padj, lfc, y.lim) {
+
+
+.ma.ranker <- function(data, padj, lfc, y.lim) {
   dat <- data
   dat$color <- 'grey'
   dat$color[dat$padj <= padj & abs(dat$A) > lfc] <- 'blue'
-  dat$size <- ma.out.ranker(dat$A, y.lim[2])
+  dat$size <- .ma.out.ranker(dat$A, y.lim[2])
   dat$shape <- 'circle'
   dat$shape[dat$logFC < y.lim[1]] <- 'down.triangle'
   dat$shape[dat$logFC > y.lim[2]] <- 'up.triangle'
   return(dat)
 }
 
-#'-------------------
-#' Counting functions
-#'-------------------
 
-#' @export
-ma.col.counter <- function(dat, lfc) {
+
+.ma.col.counter <- function(dat, lfc) {
   de <- dat$isDE
   py <- abs(dat$M)
   
@@ -194,4 +169,3 @@ ma.col.counter <- function(dat, lfc) {
   l.count <- list(blu.c, grn.c)
   return(l.count)
 }
-

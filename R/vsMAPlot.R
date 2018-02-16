@@ -27,25 +27,27 @@
 #' 
 #' @examples
 #' # Cuffdiff example
-#' load('df.cuff.RData')
+#' data("df.cuff")
 #' vsMAPlot(x = 'hESC', y = 'iPS', data = df.cuff, d.factor = NULL, 
 #'          type = 'cuffdiff', padj = 0.05, y.lim = NULL, lfc = 2, 
 #'          title = TRUE, legend = TRUE, grid = TRUE, data.return = FALSE)
 #' 
 #' # DESeq2 example
-#' load('df.deseq.RData')
+#' data("df.deseq")
+#' require(DESeq2)
 #' vsMAPlot(x = 'trt', y = 'untrt', data = df.deseq, d.factor = 'dex', 
 #'          type = 'deseq', padj = 0.05, y.lim = NULL, lfc = NULL, 
 #'          title = TRUE, legend = TRUE, grid = TRUE, data.return = FALSE)
 #' 
 #' # edgeR example
-#' load('df.edger.RData')
+#' data("df.edger")
+#' require(edgeR)
 #' vsMAPlot(x = 'WM', y = 'MM', data = df.edger, d.factor = NULL, 
 #'          type = 'edger', padj = 0.1, y.lim = NULL, lfc = 2, 
 #'          title = FALSE, legend = TRUE, grid = TRUE, data.return = FALSE)
 #'                 
 #' # Extract data frame from visualization
-#' load('df.cuff.RData')
+#' data("df.cuff")
 #' tmp <- vsMAPlot(x = 'hESC', y = 'iPS', data = df.cuff, 
 #'                 d.factor = NULL, type = 'cuffdiff', padj = 0.05, 
 #'                 y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
@@ -60,11 +62,11 @@ vsMAPlot <- function(x, y, data, d.factor = NULL, type, padj = 0.1, y.lim = NULL
     stop('Please specify analysis type ("cuffdiff", "deseq", or "edger")')
   }
   if(type == 'cuffdiff'){
-    dat <- getCuffMA(x, y, data)
+    dat <- .getCuffMA(x, y, data)
   } else if (type == 'deseq') {
-    dat <- getDeseqMA(x, y, data, d.factor)
+    dat <- .getDeseqMA(x, y, data, d.factor)
   } else if (type == 'edger') {
-    dat <- getEdgeMA(x, y, data)
+    dat <- .getEdgeMA(x, y, data)
   } else {
     stop('Please enter correct analysis type.')
   }
@@ -85,11 +87,9 @@ vsMAPlot <- function(x, y, data, d.factor = NULL, type, padj = 0.1, y.lim = NULL
     grid <- theme_bw()
   }
   
-  #' Configure data
   dat$isDE <- ifelse(dat$padj <= padj, TRUE, FALSE)
   py <- dat$M
   
-  #' Conditional plot components
   if (is.null(y.lim)) {
     y.lim = c(-1.5, 1.5) * quantile(abs(py[is.finite(py)]), probs = 0.99)
   }
@@ -97,28 +97,25 @@ vsMAPlot <- function(x, y, data, d.factor = NULL, type, padj = 0.1, y.lim = NULL
     lfc = 1
   }
   
-  dat <- ma.ranker(dat, padj, lfc, y.lim)
+  dat <- .ma.ranker(dat, padj, lfc, y.lim)
   
-  #' See ranker functions
-  tmp.size <- ma.out.ranker(py, y.lim[2])
-  tmp.col <- ma.col.ranker(dat$isDE, py, lfc)
-  tmp.shp <- ma.shp.ranker(py, y.lim)
+  tmp.size <- .ma.out.ranker(py, y.lim[2])
+  tmp.col <- .ma.col.ranker(dat$isDE, py, lfc)
+  tmp.shp <- .ma.shp.ranker(py, y.lim)
   
-  #' See counting function
-  tmp.cnt <- ma.col.counter(dat, lfc)
+  tmp.cnt <- .ma.col.counter(dat, lfc)
   b <- tmp.cnt[[1]]
   g <- tmp.cnt[[2]]
   
-  #' See component functions
-  comp1 <- ma.comp1(y.lim, padj, lfc, b, g)
+  comp1 <- .ma.comp1(y.lim, padj, lfc, b, g)
   point <- geom_point(
     alpha = 0.7, 
     aes(color = tmp.col, shape = tmp.shp, size = tmp.size)
   )
-  comp2 <- ma.comp2(comp1[[4]], comp1[[6]], comp1[[5]], comp1[[1]], comp1[[2]], 
+  comp2 <- .ma.comp2(comp1[[4]], comp1[[6]], comp1[[5]], comp1[[1]], comp1[[2]], 
                     comp1[[3]])
   
-  #' Plot layers
+  A <- NULL
   tmp.plot <- ggplot(dat, aes(x = A, y = pmax(y.lim[1], pmin(y.lim[2], py)))) +
     point + comp2$color + comp2$shape + comp1$hline1 + comp1$hline2 + 
     comp1$hline3 + comp1$x.lab + comp1$y.lab + m.lab + ylim(y.lim) + 

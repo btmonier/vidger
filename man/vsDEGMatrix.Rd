@@ -28,17 +28,19 @@ This function allows you to visualize the number of differentially expressed gen
 }
 \examples{
 # cuffdiff example
-load('df.cuff.RData')
-vsDEGMatrix(df.edger, padj = 0.05, d.factor = NULL, type = 'cuffdiff', 
+data("df.cuff")
+vsDEGMatrix(df.cuff, padj = 0.05, d.factor = NULL, type = 'cuffdiff', 
             title = TRUE, legend = TRUE, grid = TRUE)
 
 # DESeq2 example
-load('df.deseq.RData')
-vsDEGMatrix(df.edger, padj = 0.05, d.factor = 'cell', type = 'deseq', 
+data("df.deseq")
+require(DESeq2)
+vsDEGMatrix(df.deseq, padj = 0.05, d.factor = 'cell', type = 'deseq', 
             title = TRUE, legend = TRUE, grid = TRUE)
 
 # edgeR example
-load('df.edger.RData')
+data("df.edger")
+require(edgeR)
 vsDEGMatrix(df.edger, padj = 0.05, d.factor = NULL, type = 'edger', 
             title = TRUE, legend = TRUE, grid = TRUE)
 }

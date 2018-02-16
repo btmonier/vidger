@@ -28,18 +28,20 @@ with additional distribution info.
 }
 \examples{
 # Cuffdiff example
-load('df.cuff.RData')
+data("df.cuff")
 vsScatterMatrix(data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
                 comp = NULL, title = TRUE, grid = TRUE, 
                 man.title = 'Example title')
 
 # DESeq2 example
-load('df.deseq.RData')
+data("df.deseq")
+require(DESeq2)
 vsScatterMatrix(data = df.deseq, d.factor = 'cell', type = 'deseq',
                 comp = NULL, title = TRUE, grid = FALSE, man.title = NULL)
 
 # edgeR example
-load('df.edger.RData')
+data("df.edger")
+require(edgeR)
 vsScatterMatrix(data = df.edger, d.factor = NULL, type = 'edger', 
                 comp = c('WM', 'MM'), title = TRUE, grid = TRUE, 
                 man.title = NULL)

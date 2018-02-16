@@ -1,17 +1,26 @@
 Package: vidger
 Title: Create rapid visualizations of RNAseq data in R
-Version: 0.0.0.9300
+Version: 0.1.4
 Authors@R: person("Brandon", "Monier", email = "brandon.monier@sdstate.edu", role = c("aut", "cre"))
 Description: The aim of vidger is to produce rapid visualizations from three of the most common RNAseq analytical tool packages.
-Depends: R (>= 3.3.2)
+Depends: R (>= 3.4)
 Imports:
 	ggplot2, 
 	dplyr, 
 	tidyr, 
 	GGally,
 	scales,
+	stats,
+	utils,
 	DESeq2,
-	edgeR
+	edgeR,
+	SummarizedExperiment,
+	knitr,
+	rmarkdown
 Encoding: UTF-8
 LazyData: true
+VignetteBuilder:
+	knitr,
+	rmarkdown
 RoxygenNote: 6.0.1
+License: GPL-2 | file LICENSE

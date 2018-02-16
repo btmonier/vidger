@@ -1,23 +1,10 @@
-#'-----------------------------------------------------#
-#' Title:  ggviseq - Data Extractors - Volcano Plots   #
-#' Author: Brandon Monier (brandon.monier@sdstate.edu) #
-#' Date:   04.04.17                                    #
-#'-----------------------------------------------------#
+#-----------------------------------------------------#
+# Title:  ggviseq - Data Extractors - Volcano Plots   #
+# Author: Brandon Monier (brandon.monier@sdstate.edu) #
+# Date:   04.04.17                                    #
+#-----------------------------------------------------#
 
-#'---------
-#' Preamble
-#'---------
-
-#'...
-
-
-
-#'---------------------------------
-#' Volcano plot component functions
-#'---------------------------------
-
-#' @export
-vo.comp1 <- function(x.lim, padj, lfc, b, g) {
+.vo.comp1 <- function(x.lim, padj, lfc, b, g) {
   list(sh1 = paste('lfc < ', round(x.lim[1], 2)),
        sh2 = paste('lfc > ', round(x.lim[2], 2)),
        sh3 = paste(round(x.lim[1], 2), '< lfc <', round(x.lim[2], 2)),
@@ -38,8 +25,9 @@ vo.comp1 <- function(x.lim, padj, lfc, b, g) {
   )
 }
 
-#' @export
-vo.comp2 <- function(a, b, c, d, e, f){
+
+
+.vo.comp2 <- function(a, b, c, d, e, f){
   list(color = scale_color_manual(name = '', 
                                   values = c('gry' = 'grey73', 'grn' ='green', 
                                              'blu' ='royalblue1'), 
@@ -67,12 +55,7 @@ vo.comp2 <- function(a, b, c, d, e, f){
 
 
 
-#'------------------
-#' Ranking functions
-#'------------------
-
-#' @export
-vo.out.ranker <- function(log2fc, lim) {
+.vo.out.ranker <- function(log2fc, lim) {
   vec2 <- log2fc[which(abs(log2fc) >= lim)]
   tmp <- quantile(abs(vec2))
   ifelse(abs(log2fc) < lim, 'sub',
@@ -82,25 +65,27 @@ vo.out.ranker <- function(log2fc, lim) {
                               't1')))) 
 }
 
-#' @export
-vo.col.ranker <- function(isDE, log2fc, lfc) {
+
+
+.vo.col.ranker <- function(isDE, log2fc, lfc) {
   ifelse(isDE == TRUE & abs(log2fc) < lfc, 'grn', 
          ifelse(isDE == TRUE & abs(log2fc) > lfc, 'blu', 'gry'))
 }
 
-#' @export
-vo.shp.ranker <- function(log2fc, lim){
+
+
+.vo.shp.ranker <- function(log2fc, lim){
   ifelse(log2fc < lim[1], 'tri1', ifelse(log2fc > lim[2], 'tri2', 'circ'))
 }
 
-#' For data return only (optimize at later date)
-#' @export
-vo.ranker <- function(data, padj, lfc, x.lim) {
+
+
+.vo.ranker <- function(data, padj, lfc, x.lim) {
   dat <- data
   dat$color <- 'grey'
   dat$color[dat$padj <= padj & abs(dat$logFC) > lfc] <- 'blue'
   dat$color[dat$padj <= padj & abs(dat$logFC) < lfc] <- 'green'
-  dat$size <- vo.out.ranker(dat$logFC, x.lim[2])
+  dat$size <- .vo.out.ranker(dat$logFC, x.lim[2])
   dat$shape <- 'circle'
   dat$shape[dat$logFC < x.lim[1]] <- 'l.triangle'
   dat$shape[dat$logFC > x.lim[2]] <- 'r.triangle'
@@ -109,12 +94,7 @@ vo.ranker <- function(data, padj, lfc, x.lim) {
 
 
 
-#'-------------------
-#' Counting functions
-#'-------------------
-
-#' @export
-vo.col.counter <- function(dat, lfc) {
+.vo.col.counter <- function(dat, lfc) {
   de <- dat$isDE
   px <- abs(dat$logFC)
   
@@ -127,14 +107,8 @@ vo.col.counter <- function(dat, lfc) {
 
 
 
-#'------------------------
-#' Volcano plot extraction
-#'------------------------
-
-#' edgeR - REQUIRES `getEdgeScatter()`
-#' @export
-getEdgeVolcano <- function(x, y, data) {
-  dat <- getEdgeScatter(x, y, data)
+.getEdgeVolcano <- function(x, y, data) {
+  dat <- .getEdgeScatter(x, y, data)
   deg <- exactTest(data, pair = c(x, y))
   deg <- topTags(deg, n = nrow(deg$table))
   deg <- deg$table[order(as.numeric(rownames(deg$table))),]
@@ -145,9 +119,9 @@ getEdgeVolcano <- function(x, y, data) {
 }
 
 
-#' cuffdiff - NO PREREQUISITES
-#' @export
-getCuffVolcano <- function(x, y, data) {
+
+.getCuffVolcano <- function(x, y, data) {
+  sample_1 <- sample_2 <- NULL
   deg <- data
   deg <- subset(deg, (sample_1 == x & sample_2 == y) | 
                   (sample_1 == y & sample_2 == x))
@@ -167,9 +141,8 @@ getCuffVolcano <- function(x, y, data) {
 }
 
 
-#' DESeq2 - NO PREREQUISITES
-#' @export
-getDeseqVolcano <- function(x, y, data, d.factor) {
+
+.getDeseqVolcano <- function(x, y, data, d.factor) {
   if(missing(d.factor)) {
     stop('This appears to be a DESeq object. Please state d.factor variable.')
   }

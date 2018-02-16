@@ -39,37 +39,33 @@ implementing ggplot2 aesthetics for all possible combinations of treatments.
 }
 \examples{
 # Cuffdiff example
-load('df.cuff.RData')
+data("df.cuff")
 vsVolcanoMatrix(data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
                 padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE, 
                 grid = TRUE, counts = TRUE, data.return = FALSE)
 
 # DESeq2 example
-load('df.deseq.RData')
+data("df.deseq")
+require(DESeq2)
 vsVolcanoMatrix(data = df.deseq, d.factor = 'cell', type = 'deseq', 
                 padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE, 
                 grid = TRUE, counts = TRUE, data.return = FALSE)
 
 # edgeR example
-load('df.edger.RData')
+data("df.edger")
+require(edgeR)
 vsVolcanoMatrix(data = df.edger, d.factor = NULL, type = 'edger', 
                 padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE, 
                 grid = TRUE, counts = TRUE, data.return = FALSE)
                 
 # Extract data frame from visualization
-load('df.cuff.RData')
-tmp <- vsVolcanoMatrix(x = 'hESC', y = 'iPS', data = df.cuff, 
-                       d.factor = NULL, type = 'cuffdiff', padj = 0.05, 
-                       x.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
-                       data.return = TRUE)
+data("df.cuff")
+tmp <- vsVolcanoMatrix(data = df.cuff, d.factor = NULL, 
+                       type = 'cuffdiff', padj = 0.05, x.lim = NULL,
+                       lfc = 2, title = TRUE, grid = TRUE, 
+                       counts = TRUE, data.return = TRUE)
 df.vmat <- tmp[[1]]
 head(df.vmat)
-Configure data
-Conditional plot components
-Configure data - aesthetic conditionals
-Plot components
-Conditonals - color counts
-Plot
 }
 \author{
 Brandon Monier, \email{brandon.monier@sdstate.edu}

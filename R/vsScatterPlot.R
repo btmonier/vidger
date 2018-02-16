@@ -20,17 +20,19 @@
 #' 
 #' @examples
 #' # Cuffdiff example
-#' load('df.cuff.RData')
-#' vsScatterPlot(x = 'WW', y = 'WM', data = df.edger, d.factor = NULL, 
-#'               type = 'edger', title = TRUE, grid = TRUE)
+#' data("df.cuff")
+#' vsScatterPlot(x = 'hESC', y = 'iPS', data = df.cuff, d.factor = NULL, 
+#'               type = 'cuffdiff', title = TRUE, grid = TRUE)
 #' 
 #' # DESeq2 example
-#' load('df.deseq.RData')               
-#' vsScatterPlot(x = 'trt', y = 'untrt', data = df.edger, d.factor = 'dex', 
-#'               type = 'edger', title = TRUE, grid = TRUE)
+#' data("df.deseq")
+#' require(DESeq2)               
+#' vsScatterPlot(x = 'trt', y = 'untrt', data = df.deseq, d.factor = 'dex', 
+#'               type = 'deseq', title = TRUE, grid = TRUE)
 #' 
 #' # edgeR example
-#' load('df.edger.RData')
+#' data("df.edger")
+#' require(edgeR)
 #' vsScatterPlot(x = 'WW', y = 'WM', data = df.edger, d.factor = NULL, 
 #'               type = 'edger', title = TRUE, grid = TRUE)
 
@@ -40,11 +42,11 @@ vsScatterPlot <- function(x, y, data, d.factor = NULL, type, title = TRUE,
     stop('Please specify analysis type ("cuffdiff", "deseq", or "edger")')
   }
   if(type == 'cuffdiff'){
-    dat <- getCuffScatter(x, y, data)
+    dat <- .getCuffScatter(x, y, data)
   } else if (type == 'deseq') {
-    dat <- getDeseqScatter(x, y, data, d.factor)
+    dat <- .getDeseqScatter(x, y, data, d.factor)
   } else if (type == 'edger') {
-    dat <- getEdgeScatter(x, y, data)
+    dat <- .getEdgeScatter(x, y, data)
   } else {
     stop('Please enter correct analysis type.')
   }

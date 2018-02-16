@@ -40,8 +40,8 @@ vsFourWay(x, y, control, data, d.factor = NULL, type, padj = 0.1,
 }
 \description{
 This function allows you to extract necessary results-based data from a 
-DESeq object class to create a four-way plot to compare log fold changes in 
-various treatments using ggplot2 aesthetics.
+DESeq object class to create a .four-way plot to compare log fold changes 
+in various treatments using ggplot2 aesthetics.
 }
 \details{
 This function allows the user to extract various elements from a different 
@@ -56,41 +56,36 @@ interest a substantially large log fold change).
 }
 \examples{
 # Cuffdiff example
-load('df.cuff.RData')
+data("df.cuff")
 vsFourWay(x = 'hESC', y = 'iPS', control = 'Fibroblasts', data = df.cuff, 
           d.factor = NULL, type = 'cuffdiff', padj = 0.05, x.lim = NULL, 
           y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
           data.return = FALSE)
 
 # DESeq2 example
-load('df.deseq.RData')
+data("df.deseq")
+require(DESeq2)
 vsFourWay(x = 'N61311', y = 'N052611', control = 'N061011', data = df.deseq, 
           d.factor = 'cell', type = 'deseq', padj = 0.05, x.lim = NULL, 
           y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
           data.return = FALSE)
 
 # edgeR example
-load('df.edger.RData')
+data("df.edger")
+require(edgeR)
 vsFourWay(x = 'WM', y = 'WW', control = 'MM', data = df.edger, 
           d.factor = NULL, type = 'edger', padj = 0.05, x.lim = NULL, 
           y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
           data.return = FALSE)
                 
 # Extract data frame from visualization
-load('df.cuff.RData')
+data("df.cuff")
 tmp <- vsFourWay(x = 'WM', y = 'WW', control = 'MM', data = df.edger, 
                  d.factor = NULL, type = 'edger', padj = 0.05, x.lim = NULL, 
                  y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
                  data.return = FALSE)
 df.four <- tmp[[1]]
 head(df.four)
-Configure data
-Conditional plot components
-ggplot x and y limits to objects
-See ranker functions
-See counting function
-See component functions
-Plot layers
 }
 \author{
 Brandon Monier, \email{brandon.monier@sdstate.edu}

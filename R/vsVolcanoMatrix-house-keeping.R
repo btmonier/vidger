@@ -1,23 +1,10 @@
-#'-----------------------------------------------------#
-#' Title:  ggviseq - House Keeping - volcano matrix    #
-#' Author: Brandon Monier (brandon.monier@sdstate.edu) #
-#' Date:   04.27.17                                    #
-#'-----------------------------------------------------#
+#-----------------------------------------------------#
+# Title:  ggviseq - House Keeping - volcano matrix    #
+# Author: Brandon Monier (brandon.monier@sdstate.edu) #
+# Date:   04.27.17                                    #
+#-----------------------------------------------------#
 
-#'---------
-#' Preamble
-#'---------
-
-#'...
-
-
-
-#'--------------------------
-#' Volcano matrix components
-#'--------------------------
-
-#' @export
-vomat.comp <- function(padj, lfc) {
+.vomat.comp <- function(padj, lfc) {
   # Color
   gry <- paste0('padj > ', padj)
   blu <- paste0('padj < ', padj, ' & |lfc| > ', lfc)
@@ -39,15 +26,16 @@ vomat.comp <- function(padj, lfc) {
                  hline1 = hline1, x.lab = x.lab, y.lab = y.lab)
 }
 
-#' @export
-vomat.ranker <- function(data, padj, lfc, x.lim) {
+
+
+.vomat.ranker <- function(data, padj, lfc, x.lim) {
   dat <- data
   # Color
   dat$color <- 'grey'
   dat$color[dat$padj <= padj & abs(dat$logFC) > lfc] <- 'blue'
   dat$color[dat$padj <= padj & abs(dat$logFC) < lfc] <- 'green'
   # Size
-  dat$size <- vo.out.ranker(dat$logFC, x.lim[2])
+  dat$size <- .vo.out.ranker(dat$logFC, x.lim[2])
   # Shape
   dat$shape <- 'circle'
   dat$shape[dat$logFC < x.lim[1]] <- 'l.triangle'
@@ -55,8 +43,9 @@ vomat.ranker <- function(data, padj, lfc, x.lim) {
   return(dat)
 }
 
-#' @export
-vomat.col.count <- function(data) {
+
+
+.vomat.col.count <- function(data) {
   tab <- as.data.frame(t(table(data$color, paste(data$id_x, data$id_y))))
   b.l <- tab[which(tab$Var2 == 'blue'), ]
   g.l <- tab[which(tab$Var2 == 'green'), ]
@@ -66,13 +55,7 @@ vomat.col.count <- function(data) {
 
 
 
-#'-------------------------------
-#' Volcano matrix plot extraction
-#'-------------------------------
-
-#' edgeR - REQUIRES `getEdgeScatter()`
-#' @export
-getEdgeVolcanoMatrix <- function(data) {
+.getEdgeVolcanoMatrix <- function(data) {
   v_1 <- as.vector(unique(data$sample$group))
   m_a <- expand.grid(v_1, v_1)
   m_a <- as.matrix(m_a[which(m_a$Var1 != m_a$Var2), ])
@@ -80,7 +63,7 @@ getEdgeVolcanoMatrix <- function(data) {
   
   l1 <- list()
   for(i in 1:length(l_a)){
-    l1[[i]] <- getEdgeVolcano(l_a[[i]][1], l_a[[i]][2], data)
+    l1[[i]] <- .getEdgeVolcano(l_a[[i]][1], l_a[[i]][2], data)
     l1[[i]]$id_x <- l_a[[i]][1]
     l1[[i]]$id_y <- l_a[[i]][2]
   }
@@ -92,9 +75,8 @@ getEdgeVolcanoMatrix <- function(data) {
 }
 
 
-#' cuffdiff - NO PREREQUISITES
-#' @export
-getCuffVolcanoMatrix <- function(data) {
+
+.getCuffVolcanoMatrix <- function(data) {
   dat <- data
   v_1 <- union(dat$sample_1, dat$sample_2)
   m_a <- expand.grid(v_1, v_1)
@@ -103,7 +85,7 @@ getCuffVolcanoMatrix <- function(data) {
   
   l1 <- list()
   for(i in 1:length(l_a)){
-    l1[[i]] <- getCuffVolcano(l_a[[i]][1], l_a[[i]][2], data)
+    l1[[i]] <- .getCuffVolcano(l_a[[i]][1], l_a[[i]][2], data)
     l1[[i]]$id_x <- l_a[[i]][1]
     l1[[i]]$id_y <- l_a[[i]][2]
   }
@@ -115,9 +97,8 @@ getCuffVolcanoMatrix <- function(data) {
 }
 
 
-#' DESeq2 - NO PREREQUISITES
-#' @export
-getDeseqVolcanoMatrix <- function(data, d.factor) {
+
+.getDeseqVolcanoMatrix <- function(data, d.factor) {
   if(is.null(d.factor)) {
     stop('This appears to be a DESeq object. Please state d.factor variable.')
   }
@@ -129,7 +110,7 @@ getDeseqVolcanoMatrix <- function(data, d.factor) {
   
   l1 <- list()
   for(i in 1:length(l_a)){
-    l1[[i]] <- getDeseqVolcano(l_a[[i]][1], l_a[[i]][2], data, d.factor)
+    l1[[i]] <- .getDeseqVolcano(l_a[[i]][1], l_a[[i]][2], data, d.factor)
     l1[[i]]$id_x <- l_a[[i]][1]
     l1[[i]]$id_y <- l_a[[i]][2]
   }

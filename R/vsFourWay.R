@@ -7,8 +7,8 @@
 #'
 #' @description
 #' This function allows you to extract necessary results-based data from a 
-#' DESeq object class to create a four-way plot to compare log fold changes in 
-#' various treatments using ggplot2 aesthetics. 
+#' DESeq object class to create a .four-way plot to compare log fold changes 
+#' in various treatments using ggplot2 aesthetics. 
 #' 
 #' @details  
 #' This function allows the user to extract various elements from a different 
@@ -40,28 +40,30 @@
 #' 
 #' @examples
 #' # Cuffdiff example
-#' load('df.cuff.RData')
+#' data("df.cuff")
 #' vsFourWay(x = 'hESC', y = 'iPS', control = 'Fibroblasts', data = df.cuff, 
 #'           d.factor = NULL, type = 'cuffdiff', padj = 0.05, x.lim = NULL, 
 #'           y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
 #'           data.return = FALSE)
 #' 
 #' # DESeq2 example
-#' load('df.deseq.RData')
+#' data("df.deseq")
+#' require(DESeq2)
 #' vsFourWay(x = 'N61311', y = 'N052611', control = 'N061011', data = df.deseq, 
 #'           d.factor = 'cell', type = 'deseq', padj = 0.05, x.lim = NULL, 
 #'           y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
 #'           data.return = FALSE)
 #' 
 #' # edgeR example
-#' load('df.edger.RData')
+#' data("df.edger")
+#' require(edgeR)
 #' vsFourWay(x = 'WM', y = 'WW', control = 'MM', data = df.edger, 
 #'           d.factor = NULL, type = 'edger', padj = 0.05, x.lim = NULL, 
 #'           y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
 #'           data.return = FALSE)
 #'                 
 #' # Extract data frame from visualization
-#' load('df.cuff.RData')
+#' data("df.cuff")
 #' tmp <- vsFourWay(x = 'WM', y = 'WW', control = 'MM', data = df.edger, 
 #'                  d.factor = NULL, type = 'edger', padj = 0.05, x.lim = NULL, 
 #'                  y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
@@ -77,11 +79,11 @@ vsFourWay <- function(x, y, control, data, d.factor = NULL, type, padj = 0.1,
     stop('Please specify analysis type ("cuffdiff", "deseq", or "edger")')
   }
   if(type == 'cuffdiff'){
-    dat <- getCuffFourWay(x, y, control, data)
+    dat <- .getCuffFourWay(x, y, control, data)
   } else if (type == 'deseq') {
-    dat <- getDeseqFourWay(x, y, control, data, d.factor)
+    dat <- .getDeseqFourWay(x, y, control, data, d.factor)
   } else if (type == 'edger') {
-    dat <- getEdgeFourWay(x, y, control, data)
+    dat <- .getEdgeFourWay(x, y, control, data)
   } else {
     stop('Please enter correct analysis type.')
   }
@@ -102,7 +104,7 @@ vsFourWay <- function(x, y, control, data, d.factor = NULL, type, padj = 0.1,
     grid <- theme_bw()
   }
   
-  #' Configure data
+  
   dat$isDE_x   <- ifelse(dat$padj_x <= padj, TRUE, FALSE)
   dat$isDE_y   <- ifelse(dat$padj_y <= padj, TRUE, FALSE)
   dat$isDE_all <- ifelse((dat$isDE_x == TRUE) & (dat$isDE_y == TRUE), TRUE, FALSE)
@@ -111,7 +113,7 @@ vsFourWay <- function(x, y, control, data, d.factor = NULL, type, padj = 0.1,
   pall <- dat$isDE_all == TRUE
   all.lab  <- c(x, y, control)
   
-  #' Conditional plot components
+  
   if (is.null(x.lim))
     x.lim = c(-1, 1) * quantile(abs(px[is.finite(px)]), probs = 0.99) * 2
   if (is.null(y.lim))
@@ -119,33 +121,33 @@ vsFourWay <- function(x, y, control, data, d.factor = NULL, type, padj = 0.1,
   if (is.null(lfc))
     lfc = 1 
   
-  dat <- four.ranker(dat, padj, lfc, x.lim, y.lim)
+  dat <- .four.ranker(dat, padj, lfc, x.lim, y.lim)
   
-  #' ggplot x and y limits to objects
+  
   aes.x <- pmax(x.lim[1], pmin(x.lim[2], px))
   aes.y <- pmax(y.lim[1], pmin(y.lim[2], py))
   
-  #' See ranker functions
-  tmp.size <- four.out.ranker(px, py, x.lim[2], y.lim[2])
-  tmp.col <- four.col.ranker(dat, lfc)
-  tmp.shp <- four.shp.ranker(px, py, x.lim, y.lim)
   
-  #' See counting function
-  tmp.cnt <- four.col.counter(dat, lfc)
+  tmp.size <- .four.out.ranker(px, py, x.lim[2], y.lim[2])
+  tmp.col <- .four.col.ranker(dat, lfc)
+  tmp.shp <- .four.shp.ranker(px, py, x.lim, y.lim)
+  
+  
+  tmp.cnt <- .four.col.counter(dat, lfc)
   b <- tmp.cnt[[1]]
   g <- tmp.cnt[[2]]
   r <- tmp.cnt[[3]]
   
-  #' See component functions
-  comp1 <- four.comp1(x.lim, y.lim, padj, all.lab, lfc, b, g, r)
+  
+  comp1 <- .four.comp1(x.lim, y.lim, padj, all.lab, lfc, b, g, r)
   point <- geom_point(
     alpha = 0.7, 
     aes(color = tmp.col, shape = tmp.shp, size = tmp.size)
   )
-  comp2 <- four.comp2(comp1[[3]], comp1[[4]], comp1[[6]], comp1[[5]], comp1[[1]], 
+  comp2 <- .four.comp2(comp1[[3]], comp1[[4]], comp1[[6]], comp1[[5]], comp1[[1]], 
                       comp1[[2]])
   
-  #' Plot layers
+  
   tmp.plot <- ggplot(dat, aes(x = aes.x, y = aes.y)) +
     point + comp1$vline1 + comp1$vline2 + comp1$vline3 + comp1$hline1 + 
     comp1$hline2 + comp1$hline3 + comp2$color + comp2$shape + comp2$size + 

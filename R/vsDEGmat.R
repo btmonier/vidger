@@ -20,17 +20,19 @@
 #' 
 #' @examples
 #' # cuffdiff example
-#' load('df.cuff.RData')
-#' vsDEGMatrix(df.edger, padj = 0.05, d.factor = NULL, type = 'cuffdiff', 
+#' data("df.cuff")
+#' vsDEGMatrix(df.cuff, padj = 0.05, d.factor = NULL, type = 'cuffdiff', 
 #'             title = TRUE, legend = TRUE, grid = TRUE)
 #' 
 #' # DESeq2 example
-#' load('df.deseq.RData')
-#' vsDEGMatrix(df.edger, padj = 0.05, d.factor = 'cell', type = 'deseq', 
+#' data("df.deseq")
+#' require(DESeq2)
+#' vsDEGMatrix(df.deseq, padj = 0.05, d.factor = 'cell', type = 'deseq', 
 #'             title = TRUE, legend = TRUE, grid = TRUE)
 #' 
 #' # edgeR example
-#' load('df.edger.RData')
+#' data("df.edger")
+#' require(edgeR)
 #' vsDEGMatrix(df.edger, padj = 0.05, d.factor = NULL, type = 'edger', 
 #'             title = TRUE, legend = TRUE, grid = TRUE)
 
@@ -40,11 +42,11 @@ vsDEGMatrix <- function(data, padj = 0.05, d.factor = NULL, type, title = TRUE,
     stop('Please specify analysis type ("cuffdiff", "deseq", or "edger")')
   }
   if(type == 'cuffdiff'){
-    dat <- getCuffDEGMat(data, padj)
+    dat <- .getCuffDEGMat(data, padj)
   } else if (type == 'deseq') {
-    dat <- getDeseqDEGMat(data, d.factor, padj)
+    dat <- .getDeseqDEGMat(data, d.factor, padj)
   } else if (type == 'edger') {
-    dat <- getEdgeDEGMat(data, padj)
+    dat <- .getEdgeDEGMat(data, padj)
   } else {
     stop('Please enter correct analysis type.')
   }
@@ -63,6 +65,7 @@ vsDEGMatrix <- function(data, padj = 0.05, d.factor = NULL, type, title = TRUE,
   } else {
     grid <- theme_bw()
   }
+  x <- y <- ..n.. <- NULL
   tmp.plot <- ggplot(dat, aes(x = x, y = y)) +
     stat_sum(aes(fill = ..n..), 
              color = "black", size = 0.3, geom = "tile") + 

@@ -1,23 +1,10 @@
-#'-----------------------------------------------------#
-#' Title:  ggviseq - House Keeping - scatter plots     #
-#' Author: Brandon Monier (brandon.monier@sdstate.edu) #
-#' Date:   04.04.17                                    #
-#'-----------------------------------------------------#
+#-----------------------------------------------------#
+# Title:  ggviseq - House Keeping - scatter plots     #
+# Author: Brandon Monier (brandon.monier@sdstate.edu) #
+# Date:   04.04.17                                    #
+#-----------------------------------------------------#
 
-#'---------
-#' Preamble
-#'---------
-
-#'...
-
-
-#'------------------------
-#' Scatter plot extraction
-#'------------------------
-
-#' edgeR
-#' @export
-getEdgeScatter <- function(x, y, data) {
+.getEdgeScatter <- function(x, y, data) {
   dat.cpm <- cpm(data$counts)
   tmp.x <- row.names(data$samples[which(data$samples$group == x), ])
   tmp.y <- row.names(data$samples[which(data$samples$group == y), ])
@@ -28,9 +15,9 @@ getEdgeScatter <- function(x, y, data) {
 }
 
 
-#' cuffdiff
-#' @export
-getCuffScatter <- function(x, y, data) {
+
+.getCuffScatter <- function(x, y, data) {
+  sample_1 <- sample_2 <- NULL
   deg <- data
   deg <- subset(deg, (sample_1 == x & sample_2 == y) | 
                   (sample_1 == y & sample_2 == x))
@@ -47,9 +34,8 @@ getCuffScatter <- function(x, y, data) {
 }
 
 
-#' DESeq2
-#' @export
-getDeseqScatter <- function(x, y, data, d.factor) {
+
+.getDeseqScatter <- function(x, y, data, d.factor) {
   if(is.null(factor)) {
     stop('This appears to be a DESeq object. Please state factor variable.')
   }

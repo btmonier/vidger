@@ -26,29 +26,31 @@
 #' 
 #' @examples
 #' # Cuffdiff example
-#' load('df.cuff.RData')
+#' data("df.cuff")
 #' vsVolcanoMatrix(data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
 #'                 padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE, 
 #'                 grid = TRUE, counts = TRUE, data.return = FALSE)
 #' 
 #' # DESeq2 example
-#' load('df.deseq.RData')
+#' data("df.deseq")
+#' require(DESeq2)
 #' vsVolcanoMatrix(data = df.deseq, d.factor = 'cell', type = 'deseq', 
 #'                 padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE, 
 #'                 grid = TRUE, counts = TRUE, data.return = FALSE)
 #' 
 #' # edgeR example
-#' load('df.edger.RData')
+#' data("df.edger")
+#' require(edgeR)
 #' vsVolcanoMatrix(data = df.edger, d.factor = NULL, type = 'edger', 
 #'                 padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE, 
 #'                 grid = TRUE, counts = TRUE, data.return = FALSE)
 #'                 
 #' # Extract data frame from visualization
-#' load('df.cuff.RData')
-#' tmp <- vsVolcanoMatrix(x = 'hESC', y = 'iPS', data = df.cuff, 
-#'                        d.factor = NULL, type = 'cuffdiff', padj = 0.05, 
-#'                        x.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
-#'                        data.return = TRUE)
+#' data("df.cuff")
+#' tmp <- vsVolcanoMatrix(data = df.cuff, d.factor = NULL, 
+#'                        type = 'cuffdiff', padj = 0.05, x.lim = NULL,
+#'                        lfc = 2, title = TRUE, grid = TRUE, 
+#'                        counts = TRUE, data.return = TRUE)
 #' df.vmat <- tmp[[1]]
 #' head(df.vmat)
 
@@ -60,11 +62,11 @@ vsVolcanoMatrix <- function(data, d.factor = NULL, type, padj = 0.1,
     stop('Please specify analysis type ("cuffdiff", "deseq", or "edger")')
   }
   if(type == 'cuffdiff'){
-    dat <- getCuffVolcanoMatrix(data)
+    dat <- .getCuffVolcanoMatrix(data)
   } else if (type == 'deseq') {
-    dat <- getDeseqVolcanoMatrix(data, d.factor)
+    dat <- .getDeseqVolcanoMatrix(data, d.factor)
   } else if (type == 'edger') {
-    dat <- getEdgeVolcanoMatrix(data)
+    dat <- .getEdgeVolcanoMatrix(data)
   } else {
     stop('Please enter correct analysis type.')
   }
@@ -84,11 +86,9 @@ vsVolcanoMatrix <- function(data, d.factor = NULL, type, padj = 0.1,
     grid <- theme_bw()
   }
   
-  #' Configure data
   px <- dat$logFC
   p <- padj
   
-  #' Conditional plot components
   if (is.null(x.lim)) {
     x.lim = c(-1, 1) * quantile(abs(px[is.finite(px)]), probs = 0.99) * 0.8
   }
@@ -96,14 +96,11 @@ vsVolcanoMatrix <- function(data, d.factor = NULL, type, padj = 0.1,
     lfc = 1
   }
   
-  #' Configure data - aesthetic conditionals
-  dat <- vomat.ranker(dat, padj, lfc, x.lim)
+  dat <- .vomat.ranker(dat, padj, lfc, x.lim)
   
-  #' Plot components
-  pc <- vomat.comp(padj, lfc)
+  pc <- .vomat.comp(padj, lfc)
   
-  #' Conditonals - color counts
-  tmp.l <- vomat.col.count(dat)
+  tmp.l <- .vomat.col.count(dat)
   
   if (isTRUE(counts)) {
     b.count <- annotate('text', x = -Inf, y = Inf, vjust = 1.5, hjust = -1, 
@@ -116,7 +113,7 @@ vsVolcanoMatrix <- function(data, d.factor = NULL, type, padj = 0.1,
     g.count <- NULL
   }
   
-  #' Plot
+  logFC <- pval <- color <- size <- shape <- NULL
   tmp.plot <- ggplot(dat, aes(x = logFC, y = -log10(pval))) +
     geom_point(aes(color = color, size = size, shape = shape), 
                na.rm = TRUE) +
