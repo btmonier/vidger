@@ -10,21 +10,29 @@ vsScatterMatrix(data, d.factor = NULL, type, comp = NULL, title = TRUE,
 \arguments{
 \item{data}{a cuffdiff, DESeq2, or edgeR object.}
 
-\item{d.factor}{a specified factor; for use with DESeq2 objects only. Defaults to `NULL`}
+\item{d.factor}{a specified factor; for use with DESeq2 objects only. 
+Defaults to `NULL`}
 
-\item{type}{an analysis classifier to tell the function how to process the data. Must be either `cuffdiff`, `deseq`, or `edgeR`.}
+\item{type}{an analysis classifier to tell the function how to process the 
+data. Must be either `cuffdiff`, `deseq`, or `edgeR`.}
 
-\item{comp}{treatments you would like to compare in the form of a vector. If no parameter is specified, all possible treatment comparisons will be made. Defaults to `NULL`.}
+\item{comp}{treatments you would like to compare in the form of a vector. 
+If no parameter is specified, all possible treatment comparisons will be 
+made. Defaults to `NULL`.}
 
 \item{title}{show title of plot. Defaults to `TRUE`.}
 
 \item{grid}{show major and minor axis lines. Defaults to `TRUE`.}
 
-\item{man.title}{a manually specified title at the authors discretion. Defaults to `NULL`.}
+\item{man.title}{a manually specified title at the authors discretion. 
+Defaults to `NULL`.}
+}
+\value{
+An object created by \code{ggplot}
 }
 \description{
-This function will generate a matrix of scatterplots for all possible treatment combinations  
-with additional distribution info.
+This function will generate a matrix of scatterplots for all possible
+treatment combinations with additional distribution info.
 }
 \examples{
 # Cuffdiff example

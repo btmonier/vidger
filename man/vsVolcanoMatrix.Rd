@@ -11,15 +11,18 @@ vsVolcanoMatrix(data, d.factor = NULL, type, padj = 0.1, x.lim = NULL,
 \arguments{
 \item{data}{a cuffdiff, DESeq2, or edgeR object.}
 
-\item{d.factor}{a specified factor; for use with DESeq2 objects only. Defaults to `NULL`}
+\item{d.factor}{a specified factor; for use with DESeq2 objects only. 
+Defaults to `NULL`}
 
-\item{type}{an analysis classifier to tell the function how to process the data. Must be either `cuffdiff`, `deseq`, or `edgeR`.}
+\item{type}{an analysis classifier to tell the function how to process the 
+data. Must be either `cuffdiff`, `deseq`, or `edgeR`.}
 
 \item{padj}{a user defined adjusted p-value cutoff point. Defaults to `0.1`.}
 
 \item{x.lim}{set manual limits to the x axis. Defaults to `NULL`.}
 
-\item{lfc}{log fold change level for setting conditonals. If no user input is added (`NULL`), value defaults to `1`.}
+\item{lfc}{log fold change level for setting conditonals. If no user input 
+is added (`NULL`), value defaults to `1`.}
 
 \item{title}{show title of plot. Defaults to `TRUE`.}
 
@@ -27,15 +30,21 @@ vsVolcanoMatrix(data, d.factor = NULL, type, padj = 0.1, x.lim = NULL,
 
 \item{grid}{show major and minor axis lines. Defaults to `TRUE`.}
 
-\item{counts}{displays the number of differentially expressed genes for each treatment comparison. Defaults to `TRUE`.}
+\item{counts}{displays the number of differentially expressed genes for 
+each treatment comparison. Defaults to `TRUE`.}
 
-\item{data.return}{returns data output of plot if set to `TRUE`. Defaults to `FASLSE`.}
+\item{data.return}{returns data output of plot if set to `TRUE`. Defaults 
+to `FASLSE`.}
+}
+\value{
+An object created by \code{ggplot}
 }
 \description{
 This function allows you to extract necessary results-based data from a 
 DESEq object class to create a volcano plot (i.e. a scatter plot) of the
 negative log of the p-value versus the log of the fold change while
-implementing ggplot2 aesthetics for all possible combinations of treatments.
+implementing ggplot2 aesthetics for all possible combinations of
+treatments.
 }
 \examples{
 # Cuffdiff example

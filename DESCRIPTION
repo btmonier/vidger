@@ -5,22 +5,24 @@ Authors@R: person("Brandon", "Monier", email = "brandon.monier@sdstate.edu", rol
 Description: The aim of vidger is to produce rapid visualizations from three of the most common RNAseq analytical tool packages.
 Depends: R (>= 3.4)
 Imports:
-	ggplot2, 
-	dplyr, 
-	tidyr, 
-	GGally,
-	scales,
-	stats,
-	utils,
-	DESeq2,
-	edgeR,
-	SummarizedExperiment,
-	knitr,
-	rmarkdown
+    ggplot2, 
+    dplyr, 
+    tidyr, 
+    GGally,
+    scales,
+    stats,
+    utils,
+    DESeq2,
+    edgeR,
+    SummarizedExperiment,
+    knitr,
+    rmarkdown
 Encoding: UTF-8
 LazyData: true
 VignetteBuilder:
-	knitr,
-	rmarkdown
+    knitr,
+    rmarkdown
 RoxygenNote: 6.0.1
 License: GPL-2 | file LICENSE
+biocViews: Visualization, RNASeq, DifferentialExpression
+Suggests: testthat

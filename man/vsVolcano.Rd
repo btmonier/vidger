@@ -37,6 +37,9 @@ is added (`NULL`), value defaults to `1`.}
 \item{data.return}{returns data output of plot if set to `TRUE`. 
 Defaults to `FASLSE`.}
 }
+\value{
+An object created by \code{ggplot}
+}
 \description{
 This function allows you to extract necessary results-based data from a 
 DESEq object class to create a volcano plot (i.e. a scatter plot) of the

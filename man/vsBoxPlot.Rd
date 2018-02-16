@@ -10,9 +10,11 @@ vsBoxPlot(data, d.factor = NULL, type, title = TRUE, legend = TRUE,
 \arguments{
 \item{data}{a cuffdiff, DESeq2, or edgeR object.}
 
-\item{d.factor}{a specified factor; for use with DESeq2 objects only. Defaults to `NULL`}
+\item{d.factor}{a specified factor; for use with DESeq2 objects only. 
+Defaults to `NULL`}
 
-\item{type}{an analysis classifier to tell the function how to process the data. Must be either `cuffdiff`, `deseq`, or `edgeR`.}
+\item{type}{an analysis classifier to tell the function how to process the 
+data. Must be either `cuffdiff`, `deseq`, or `edgeR`.}
 
 \item{title}{show title of plot. Defaults to `TRUE`.}
 
@@ -20,9 +22,14 @@ vsBoxPlot(data, d.factor = NULL, type, title = TRUE, legend = TRUE,
 
 \item{grid}{show major and minor axis lines. Defaults to `TRUE`.}
 }
+\value{
+An object created by \code{ggplot}
+}
 \description{
-This function allows you to extract necessary results-based data from analytical objects
-to create a box plot comparing log10(FPKM or CPM) distributions for experimental treatments.
+This function allows you to extract necessary results-based data from
+ analytical objects
+to create a box plot comparing log10(FPKM or CPM) distributions for 
+ experimental treatments.
 }
 \examples{
 # Cuffdiff example

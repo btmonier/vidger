@@ -10,11 +10,14 @@ vsDEGMatrix(data, padj = 0.05, d.factor = NULL, type, title = TRUE,
 \arguments{
 \item{data}{a cuffdiff, DESeq2, or edgeR object.}
 
-\item{padj}{a user defined adjusted p-value cutoff point. Defaults to `0.05`.}
+\item{padj}{a user defined adjusted p-value cutoff point. Defaults to 
+`0.05`.}
 
-\item{d.factor}{a specified factor; for use with DESeq2 objects only. Defaults to `NULL`}
+\item{d.factor}{a specified factor; for use with DESeq2 objects only. 
+Defaults to `NULL`}
 
-\item{type}{an analysis classifier to tell the function how to process the data. Must be either `cuffdiff`, `deseq`, or `edgeR`.}
+\item{type}{an analysis classifier to tell the function how to process the
+data. Must be either `cuffdiff`, `deseq`, or `edgeR`.}
 
 \item{title}{show title of plot. Defaults to `TRUE`.}
 
@@ -22,9 +25,14 @@ vsDEGMatrix(data, padj = 0.05, d.factor = NULL, type, title = TRUE,
 
 \item{grid}{show major and minor axis lines. Defaults to `TRUE`.}
 }
+\value{
+An object created by \code{ggplot}
+}
 \description{
-This function allows you to visualize the number of differentially expressed genes 
-(DEG) at a given #' adjusted P-value for each experimental treatment level. Higher color intensity correlates to a higher number of DEGs.
+This function allows you to visualize the number of differentially 
+ expressed genes 
+(DEG) at a given #' adjusted P-value for each experimental treatment level.
+ Higher color intensity correlates to a higher number of DEGs.
 }
 \examples{
 # cuffdiff example

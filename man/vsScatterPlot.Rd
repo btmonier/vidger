@@ -14,13 +14,18 @@ vsScatterPlot(x, y, data, d.factor = NULL, type, title = TRUE,
 
 \item{data}{a cuffdiff, DESeq2, or edgeR object.}
 
-\item{d.factor}{a specified factor; for use with DESeq2 objects only. Defaults to `NULL`}
+\item{d.factor}{a specified factor; for use with DESeq2 objects only.
+Defaults to `NULL`}
 
-\item{type}{an analysis classifier to tell the function how to process the data. Must be either `cuffdiff`, `deseq`, or `edgeR`.}
+\item{type}{an analysis classifier to tell the function how to process the 
+data. Must be either `cuffdiff`, `deseq`, or `edgeR`.}
 
 \item{title}{show title of plot. Defaults to `TRUE`.}
 
 \item{grid}{show major and minor axis lines. Defaults to `TRUE`.}
+}
+\value{
+An object created by \code{ggplot}
 }
 \description{
 This function allows you to visualize comparisons of log10 values of either 
