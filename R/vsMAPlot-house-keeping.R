@@ -39,10 +39,16 @@
     }
     dat$x <- log10(dat$x + 1)
     dat$y <- log10(dat$y + 1)
-    dat$A <- 0.5 * log2(dat$x * dat$y)
-    dat$M <- log2(dat$y / dat$x)
+    # dat$A <- 0.5 * log2(dat$x * dat$y)
+    dat$A <- 0.5 * (dat$x + dat$y)
+    # dat$M <- deg[, "log2.fold_change."]
+    dat$M <- log2(dat$x / dat$y)
     dat$pval <- deg$p_value
     dat$padj <- deg$q_value
+    dat <- do.call(
+        data.frame, lapply(dat, function(x) replace(x, is.infinite(x),NA))
+    )
+
     dat <- dat[complete.cases(dat), ]
     return(dat)
 }

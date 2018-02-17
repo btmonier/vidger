@@ -84,7 +84,7 @@ vsVolcanoMatrix <- function(
     if (!isTRUE(title)) {
         m.lab <- NULL
     } else {
-        m.lab  <- ggtitle('Volcano Matrix')
+        m.lab <- ggtitle('Volcano Matrix')
     }
     if (!isTRUE(legend)) {
         leg <- theme(legend.position = 'none')
