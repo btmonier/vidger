@@ -20,6 +20,7 @@ New Functions
 * `vsVolcano()`
 * `vsVolcanoMatrix()`
 * `vsMAPlot()`
+* `vsMAMatrix()`
 * `vsFourWay()`
 
 Package Dependencies
