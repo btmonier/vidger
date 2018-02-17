@@ -3,6 +3,7 @@
 export(vsBoxPlot)
 export(vsDEGMatrix)
 export(vsFourWay)
+export(vsMAMatrix)
 export(vsMAPlot)
 export(vsScatterMatrix)
 export(vsScatterPlot)
