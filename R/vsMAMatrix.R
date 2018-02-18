@@ -55,7 +55,7 @@
 #' data("df.cuff")
 #' tmp <- vsMAMatrix(data = df.cuff, d.factor = NULL, 
 #'                        type = 'cuffdiff', padj = 0.05, y.lim = NULL,
-#'                        lfc = 2, title = TRUE, grid = TRUE, 
+#'                        lfc = 1, title = TRUE, grid = TRUE, 
 #'                        counts = TRUE, data.return = TRUE)
 #' df.vmat <- tmp[[1]]
 #' head(df.vmat)
