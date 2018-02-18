@@ -44,6 +44,7 @@ Once installed, you will have access to the following functions:
 * `vsScatterMatrix()`
 * `vsDEGMatrix()`
 * `vsMAPlot()`
+* `vsMAMatrix()`
 * `vsVolcano()`
 * `vsVolcanoMatrix()`
 * `vsFourWay()`
@@ -225,7 +226,7 @@ vsMAPlot(x = 'WW', y = 'MM', data = df.edger, d.factor = NULL,
 
 \newpage
 
-# Example S8: Creating MA plot matrices
+# Example S7: Creating MA plot matrices
 Similar to a scatter plot matrix, `vsMAMatrix()` will produce visualizations for all comparisons within your data set. For more information on how the aesthetics are plotted in these visualizations, please refer to the figure caption and Method S1.
 
 ## With Cuffdiff
@@ -256,7 +257,7 @@ vsMAMatrix(data = df.edger, d.factor = NULL, type = 'edger',
 
 \newpage
 
-# Example S7: Creating volcano plots
+# Example S8: Creating volcano plots
 The next few visualizations will focus on ways to display differential gene expression between two or more treatments. Volcano plots visualize the variance between two samples in terms of gene expression values where the $-log_{10}$ of calculated *p*-values (y-axis) are a plotted against the $log_2$ changes (x-axis). These plots can be visualized with the `vsVolcano()` function. For more information on how each of the aesthetics are plotted, please refer to the figure captions and Method S1.
 
 ## With Cuffdiff
@@ -288,7 +289,7 @@ vsVolcano(x = 'WW', y = 'MM', data = df.edger, d.factor = NULL,
 
 \newpage
 
-# Example S8: Creating volcano plot matrices
+# Example S9: Creating volcano plot matrices
 Similar to the prior matrix functions, `vsVolcanoMatrix()` will produce visualizations for all comparisons within your data set. For more information on how the aesthetics are plotted in these visualizations, please refer to the figure caption and Method S1.
 
 ## With Cuffdiff
@@ -319,7 +320,7 @@ vsVolcanoMatrix(data = df.edger, d.factor = NULL, type = 'edger', padj = 0.05,
 
 \newpage
 
-# Example S9: Creating four way plots
+# Example S10: Creating four way plots
 To create four-way plots, the function, `vsFourWay()` is used. This plot compares the $log_2$ fold changes between two samples and a 'control'. For more information on how each of the aesthetics are plotted, please refer to the figure captions and Method S1.
 
 ## With Cuffdiff
