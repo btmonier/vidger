@@ -136,7 +136,8 @@ vsMAPlot <- function(
         comp2$size + grid + leg
     
     if (isTRUE(data.return)) {
-        plot.l <- list(data = dat, plot = tmp.plot)
+        dat2 <- dat[, -ncol(dat)]
+        plot.l <- list(data = dat2, plot = tmp.plot)
     } else {
         print(tmp.plot)
     }
