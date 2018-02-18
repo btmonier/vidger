@@ -43,10 +43,10 @@
 #' # DESeq2 example
 #' data("df.deseq")
 #' require(DESeq2)
-#' vsMAPlot(x = 'treated', y = 'untreated', data = df.deseq, 
-#'          d.factor = 'condition', type = 'deseq', padj = 0.05, 
-#'          y.lim = NULL, lfc = NULL, title = TRUE, legend = TRUE, 
-#'          grid = TRUE, data.return = FALSE)
+#' vsMAPlot(x = 'treated_paired.end', y = 'untreated_paired.end', 
+#'          data = df.deseq, d.factor = 'condition', type = 'deseq', 
+#'          padj = 0.05, y.lim = NULL, lfc = NULL, title = TRUE, 
+#'          legend = TRUE, grid = TRUE, data.return = FALSE)
 #' 
 #' # edgeR example
 #' data("df.edger")

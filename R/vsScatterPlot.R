@@ -31,9 +31,9 @@
 #' # DESeq2 example
 #' data("df.deseq")
 #' require(DESeq2)               
-#' vsScatterPlot(x = 'treated', y = 'untreated', data = df.deseq, 
-#'               d.factor = 'condition', type = 'deseq', title = TRUE, 
-#'               grid = TRUE)
+#' vsScatterPlot(x = 'treated_paired.end', y = 'untreated_paired.end', 
+#'               data = df.deseq, d.factor = 'condition', type = 'deseq', 
+#'               title = TRUE, grid = TRUE)
 #' 
 #' # edgeR example
 #' data("df.edger")
