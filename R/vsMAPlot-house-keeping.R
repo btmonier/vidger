@@ -184,7 +184,8 @@
 .ma.ranker <- function(data, padj, lfc, y.lim) {
     dat <- data
     dat$color <- 'grey'
-    dat$color[dat$padj <= padj & abs(dat$A) > lfc] <- 'blue'
+    dat$color[dat$isDE == TRUE & abs(dat$M) >= lfc] <- 'blue'
+    dat$color[dat$isDE == TRUE & abs(dat$M) < lfc] <- 'green'
     dat$size <- .ma.out.ranker(dat$A, y.lim[2])
     dat$shape <- 'circle'
     dat$shape[dat$logFC < y.lim[1]] <- 'down.triangle'

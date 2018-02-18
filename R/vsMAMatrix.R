@@ -34,21 +34,21 @@
 #' # Cuffdiff example
 #' data("df.cuff")
 #' vsMAMatrix(data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
-#'                 padj = 0.05, y.lim = NULL, lfc = 2, title = TRUE, 
+#'                 padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
 #'                 grid = TRUE, counts = TRUE, data.return = FALSE)
 #' 
 #' # DESeq2 example
 #' data("df.deseq")
 #' require(DESeq2)
 #' vsMAMatrix(data = df.deseq, d.factor = 'condition', type = 'deseq', 
-#'                 padj = 0.05, y.lim = NULL, lfc = 2, title = TRUE, 
+#'                 padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
 #'                 grid = TRUE, counts = TRUE, data.return = FALSE)
 #' 
 #' # edgeR example
 #' data("df.edger")
 #' require(edgeR)
 #' vsMAMatrix(data = df.edger, d.factor = NULL, type = 'edger', 
-#'                 padj = 0.05, y.lim = NULL, lfc = 2, title = TRUE, 
+#'                 padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
 #'                 grid = TRUE, counts = TRUE, data.return = FALSE)
 #'                 
 #' # Extract data frame from visualization
@@ -61,7 +61,7 @@
 #' head(df.vmat)
 
 vsMAMatrix <- function(
-    data, d.factor = NULL, type, padj = 0.1, y.lim = NULL, lfc = NULL, 
+    data, d.factor = NULL, type, padj = 0.05, y.lim = NULL, lfc = NULL, 
     title = TRUE, legend = TRUE, grid = TRUE, counts = TRUE,
     data.return = FALSE
 ) {
@@ -94,9 +94,9 @@ vsMAMatrix <- function(
     } else {
         grid <- theme_bw()
     }
-    
+
+    dat$isDE <- ifelse(dat$padj <= padj, TRUE, FALSE)
     py <- dat$M
-    p <- padj
     
     if (is.null(y.lim)) {
         y.lim = c(-1, 1) * quantile(abs(py[is.finite(py)]), probs = 0.99) * 0.8
@@ -104,12 +104,28 @@ vsMAMatrix <- function(
     if (is.null(lfc)) {
         lfc = 1
     }
+
+    dat <- .ma.ranker(dat, padj, lfc, y.lim)
     
-    pc <- .mamat.comp(padj, lfc)
-    dat <- .mamat.ranker(dat, padj, lfc, y.lim)
-        
+    tmp.size <- .ma.out.ranker(py, y.lim[2])
+    tmp.col <- .ma.col.ranker(dat$isDE, py, lfc)
+    tmp.shp <- .ma.shp.ranker(py, y.lim)
+    
+    tmp.cnt <- .ma.col.counter(dat, lfc)
+    b <- tmp.cnt[[1]]
+    g <- tmp.cnt[[2]]
+    
+    comp1 <- .ma.comp1(y.lim, padj, lfc, b, g)
+    point <- geom_point(
+        alpha = 0.7, 
+        aes(color = tmp.col, shape = tmp.shp, size = tmp.size)
+    )
+    comp2 <- .ma.comp2(
+        comp1[[4]], comp1[[6]], comp1[[5]], comp1[[1]], comp1[[2]], comp1[[3]]
+    )
+
     tmp.l <- .mamat.col.count(dat)
-    
+
     if (isTRUE(counts)) {
         b.count <- annotate(
             'text', 
@@ -135,76 +151,27 @@ vsMAMatrix <- function(
         b.count <- NULL
         g.count <- NULL
     }
-   
-
 
     M <- A <- pval <- color <- size <- shape <- NULL
     tmp.plot <- ggplot(
-    	dat,
-    	if (type != "cuffdiff") {
-    		aes(
-    			x = A, y = pmax(y.lim[1], pmin(y.lim[2], py))
-    		)
-    	} else if (type == "cuffdiff") {
-	    	aes(
-	    		x = A, y = M
-	    	)
-    	}
-
+        dat, aes(x = A, y = pmax(y.lim[1], pmin(y.lim[2], py)))
     ) +
-        geom_point(
-        	aes(
-            	color = color, shape = shape, size = size
-            ), 
-            na.rm = TRUE
-        ) +
-        scale_color_manual(
-            name = '',
-            values = c(
-                'grey' = 'grey73', 
-                'blue' = 'royalblue1', 
-                'green' = 'green'
-            ),
-            labels = c(
-                'grey' = pc$gry, 
-                'blue' = pc$blu,
-                'green' = pc$grn
-            )
-        ) +
-        scale_shape_manual(
-            name = '',
-            values = c('circle' = 16, 'l.triangle' = 2, 'r.triangle' = 6),
-            labels = c(
-            	"circle" = paste(
-            		round(y.lim[1], 2), "< lfc <", round(y.lim[2]), 2
-            	),
-            	"l.triangle" = paste("lfc >", round(y.lim[2]), 2),
-            	"r.triangle" = paste("lfc <", round(y.lim[1]), 2)
-            )
-            # guide = 'none'
-        ) +
-        scale_size_manual(
-            name = '',
-            values = c(
-                'sub' = 1, 
-                't1' = 1.5,
-                't2' = 2,
-                't3' = 3,
-                't4' = 5
-            ),
-            labels = c(
-            	"sub" = "SUB",
-            	"t1" = "T-1",
-            	"t2" = "T-2",
-            	"t3" = "T-3",
-            	"t4" = "T-4"
-            )
-            # guide = 'none'
-        ) +
-        theme_bw() +
-        facet_wrap(id_x ~ id_y) +
-        pc$vline1 + pc$vline2 + pc$vline3 + pc$y.lab + pc$x.lab +
-        b.count + g.count + ylim(y.lim) + m.lab + leg
+        point + 
+        comp2$shape + 
+        comp2$color + 
+        comp2$size + 
+        comp1$hline1 +
+        comp1$hline2 +
+        comp1$hline3 +
+        comp1$x.lab +
+        comp1$y.lab +
+        m.lab +
+        grid +
+        leg +
+        b.count +
+        g.count +
+        ylim(y.lim) +
+        facet_wrap(id_x ~ id_y)
     
     if (isTRUE(data.return)) {
         plot.l <- list(data = dat, plot = tmp.plot)
