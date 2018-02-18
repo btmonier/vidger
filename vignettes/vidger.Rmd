@@ -225,6 +225,37 @@ vsMAPlot(x = 'WW', y = 'MM', data = df.edger, d.factor = NULL,
 
 \newpage
 
+# Example S8: Creating MA plot matrices
+Similar to a scatter plot matrix, `vsMAMatrix()` will produce visualizations for all comparisons within your data set. For more information on how the aesthetics are plotted in these visualizations, please refer to the figure caption and Method S1.
+
+## With Cuffdiff
+```{r,  message=FALSE, fig.align='center', fig.cap='A MA plot matrix using the `vsMAMatrix()` function with `Cuffdiff` data. Similar to the `vsMAPlot()` function, `vsMAMatrix()` will generate a matrix of MA plots for all comparisons within an experiment. LFCs are plotted mean counts to determine the variance between two treatments in terms of gene expression. Blue nodes on the graph represent statistically significant LFCs which are greater than a given value than a user-defined LFC parameter. Green nodes indicate statistically significant LFCs which are less than the user-defined LFC parameter. Gray nodes are data points that are not statistically significant. Numerical values in parantheses for each legend color indicate the number of transcripts that meet the prior conditions. Triangular shapes represent values that exceed the viewing area of the graph. Node size changes represent the magnitude of the LFC values (i.e. larger shapes reflect larger LFC values). Dashed lines indicate user-defined LFC values.'}
+ vsMAMatrix(data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
+            padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
+            grid = TRUE, counts = TRUE, data.return = FALSE)
+```
+
+\newpage
+
+## With DESeq2
+```{r,  message=FALSE, fig.align='center', fig.cap='A MA plot matrix using the `vsMAMatrix()` function with `DESeq2` data. Similar to the `vsMAPlot()` function, `vsMAMatrix()` will generate a matrix of MA plots for all comparisons within an experiment. LFCs are plotted mean counts to determine the variance between two treatments in terms of gene expression. Blue nodes on the graph represent statistically significant LFCs which are greater than a given value than a user-defined LFC parameter. Green nodes indicate statistically significant LFCs which are less than the user-defined LFC parameter. Gray nodes are data points that are not statistically significant. Numerical values in parantheses for each legend color indicate the number of transcripts that meet the prior conditions. Triangular shapes represent values that exceed the viewing area of the graph. Node size changes represent the magnitude of the LFC values (i.e. larger shapes reflect larger LFC values). Dashed lines indicate user-defined LFC values.'}
+vsMAMatrix(data = df.deseq, d.factor = 'condition', type = 'deseq', 
+           padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
+           grid = TRUE, counts = TRUE, data.return = FALSE)
+```
+
+\newpage
+
+## With edgeR
+```{r,  message=FALSE, fig.align='center', fig.cap='A MA plot matrix using the `vsMAMatrix()` function with `edgeR` data. Similar to the `vsMAPlot()` function, `vsMAMatrix()` will generate a matrix of MA plots for all comparisons within an experiment. LFCs are plotted mean counts to determine the variance between two treatments in terms of gene expression. Blue nodes on the graph represent statistically significant LFCs which are greater than a given value than a user-defined LFC parameter. Green nodes indicate statistically significant LFCs which are less than the user-defined LFC parameter. Gray nodes are data points that are not statistically significant. Numerical values in parantheses for each legend color indicate the number of transcripts that meet the prior conditions. Triangular shapes represent values that exceed the viewing area of the graph. Node size changes represent the magnitude of the LFC values (i.e. larger shapes reflect larger LFC values). Dashed lines indicate user-defined LFC values.'}
+vsMAMatrix(data = df.edger, d.factor = NULL, type = 'edger', 
+           padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
+           grid = TRUE, counts = TRUE, data.return = FALSE)
+```
+
+
+\newpage
+
 # Example S7: Creating volcano plots
 The next few visualizations will focus on ways to display differential gene expression between two or more treatments. Volcano plots visualize the variance between two samples in terms of gene expression values where the $-log_{10}$ of calculated *p*-values (y-axis) are a plotted against the $log_2$ changes (x-axis). These plots can be visualized with the `vsVolcano()` function. For more information on how each of the aesthetics are plotted, please refer to the figure captions and Method S1.
 
@@ -258,7 +289,7 @@ vsVolcano(x = 'WW', y = 'MM', data = df.edger, d.factor = NULL,
 \newpage
 
 # Example S8: Creating volcano plot matrices
-Similar to a scatter plot matrix, `vsVolcanoMatrix()` will produce visualizations for all comparisons within your data set. For more information on how the aesthetics are plotted in these visualizations, please refer to the figure caption and Method S1.
+Similar to the prior matrix functions, `vsVolcanoMatrix()` will produce visualizations for all comparisons within your data set. For more information on how the aesthetics are plotted in these visualizations, please refer to the figure caption and Method S1.
 
 ## With Cuffdiff
 ```{r,  message=FALSE, fig.width=8, fig.height=5, fig.align='center', fig.cap='A volcano plot matrix using the `vsVolcanoMatrix()` function with `Cuffdiff` data. Similar to the `vsVolcano()` function, `vsVolcanoMatrix()` will generate a matrix of volcano plots for all comparisons within an experiment. Comparisons are made between the $-log_{10}$ *p*-value versus the $log_2$ fold change (LFC) between two treatments. Blue nodes on the graph represent statistically significant LFCs which are greater than a given value than a user-defined LFC parameter. Green nodes indicate statistically significant LFCs which are less than the user-defined LFC parameter. Gray nodes are data points that are not statistically significant. The blue and green numbers in each facet represent the number of transcripts that meet the criteria for blue and green nodes in each comparison. Left and right brackets (< and >) represent values that exceed the viewing area of the graph. Node size changes represent the magnitude of the LFC values (i.e. larger shapes reflect larger LFC values). Vertical and horizontal lines indicate user-defined LFC and adjusted *p*-values, respectively.'}
