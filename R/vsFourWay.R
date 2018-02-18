@@ -30,7 +30,8 @@
 #'  Defaults to `NULL`
 #' @param type an analysis classifier to tell the function how to process the 
 #'  data. Must be either `cuffdiff`, `deseq`, or `edgeR`.
-#' @param padj a user defined adjusted p-value cutoff point. Defaults to `0.1`.
+#' @param padj a user defined adjusted p-value cutoff point. 
+#'  Defaults to `0.05`.
 #' @param x.lim set manual limits to the x axis. Defaults to `NULL`.
 #' @param y.lim set manual limits to the y axis. Defaults to `NULL`.
 #' @param lfc log fold change level for setting conditonals. If no user input 
