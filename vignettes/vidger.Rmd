@@ -66,7 +66,7 @@ Table 1: An overview of the toy data sets included in this package. In this tabl
 | Data       | Analytical Tool | Organism                  | Replicates | Treatments | Transcript IDs | Size of Data (MB) |
 |------------|-----------------|---------------------------|------------|------------|----------------|-------------------|
 | `df.cuff`  | CuffDiff        | *Homo sapiens*            | 2          | 3          | 1200           | 0.2               |
-| `df.deseq` | DESeq2          | *Drosophila melanogaster* | 3          | 2, 2       | 29391          | 54                |
+| `df.deseq` | DESeq2          | *Drosophila melanogaster* | 2          | 3          | 29391          | 54                |
 | `df.edger` | edgeR           | *Arabidopsis thaliana*    | 2          | 3          | 724            | 0.1               |
 
 
@@ -121,8 +121,9 @@ vsScatterPlot(x = 'hESC', y = 'iPS', data = df.cuff, type = 'cuffdiff',
 
 ## With DESeq2
 ```{r, message=FALSE, fig.align='center', fig.cap='A scatterplot example using the `vsScatterPlot()` function with `DESeq2` data. In this visualization, $log_{10}$ comparisons are made of fragments per kilobase of transcript per million mapped reads (FPKM) measurments. The dashed line represents regression line for the comparison.'}
-vsScatterPlot(x = 'treated', y = 'untreated', data = df.deseq, type = 'deseq',
-			  d.factor = 'condition', title = TRUE, grid = TRUE)
+vsScatterPlot(x = 'treated_paired.end', y = 'untreated_paired.end', 
+	          data = df.deseq, type = 'deseq', d.factor = 'condition', 
+	          title = TRUE, grid = TRUE)
 ```
 
 \newpage
@@ -206,9 +207,10 @@ vsMAPlot(x = 'iPS', y = 'hESC', data = df.cuff, d.factor = NULL,
 
 ## With DESeq2
 ```{r,  message=FALSE, fig.align='center', fig.cap='MA plot visualization using the `vsMAPLot()` function with `DESeq2` data. LFCs are plotted mean counts to determine the variance between two treatments in terms of gene expression. Blue nodes on the graph represent statistically significant LFCs which are greater than a given value than a user-defined LFC parameter. Green nodes indicate statistically significant LFCs which are less than the user-defined LFC parameter. Gray nodes are data points that are not statistically significant. Numerical values in parantheses for each legend color indicate the number of transcripts that meet the prior conditions. Triangular shapes represent values that exceed the viewing area of the graph. Node size changes represent the magnitude of the LFC values (i.e. larger shapes reflect larger LFC values). Dashed lines indicate user-defined LFC values.'}
-vsMAPlot(x = 'treated', y = 'untreated', data = df.deseq, 
-		 d.factor = 'condition', type = 'deseq', padj = 0.05, y.lim = NULL, 
-		 lfc = NULL, title = TRUE, legend = TRUE, grid = TRUE)
+vsMAPlot(x = 'treated_paired.end', y = 'untreated_paired.end', 
+	     data = df.deseq, d.factor = 'condition', type = 'deseq', 
+	     padj = 0.05, y.lim = NULL, lfc = NULL, title = TRUE, 
+	     legend = TRUE, grid = TRUE)
 ```
 
 \newpage
@@ -237,10 +239,10 @@ vsVolcano(x = 'iPS', y = 'hESC', data = df.cuff, d.factor = NULL,
 
 ## With DESeq2
 ```{r,  message=FALSE, fig.align='center', fig.cap='A volcano plot example using the `vsVolcano()` function with `DESeq2` data. In this visualization, comparisons are made between the $-log_{10}$ *p*-value versus the $log_2$ fold change (LFC) between two treatments. Blue nodes on the graph represent statistically significant LFCs which are greater than a given value than a user-defined LFC parameter. Green nodes indicate statistically significant LFCs which are less than the user-defined LFC parameter. Gray nodes are data points that are not statistically significant. Numerical values in parantheses for each legend color indicate the number of transcripts that meet the prior conditions. Left and right brackets (< and >) represent values that exceed the viewing area of the graph. Node size changes represent the magnitude of the LFC values (i.e. larger shapes reflect larger LFC values). Vertical and horizontal lines indicate user-defined LFC and adjusted *p*-values, respectively.'}
-vsVolcano(x = 'treated', y = 'untreated', data = df.deseq, 
-		  d.factor = 'condition', type = 'deseq', padj = 0.05, 
-		  x.lim = NULL, lfc = NULL, title = TRUE, legend = TRUE, 
-		  grid = TRUE, data.return = FALSE)
+vsVolcano(x = 'treated_paired.end', y = 'untreated_paired.end', 
+	      data = df.deseq, d.factor = 'condition', type = 'deseq', 
+	      padj = 0.05, x.lim = NULL, lfc = NULL, title = TRUE, 
+	      legend = TRUE, grid = TRUE, data.return = FALSE)
 ```
 
 \newpage
@@ -296,6 +298,16 @@ vsFourWay(x = 'iPS', y = 'hESC', control = 'Fibroblasts', data = df.cuff,
 		  y.lim = NULL, lfc = NULL, legend = TRUE, title = TRUE, grid = TRUE)
 ```
 
+
+\newpage
+
+## With DESeq2
+```{r,  message=FALSE, fig.width=8, fig.height=5, fig.align='center', fig.cap='A four way plot visualization using the `vsFourWay()` function with `DESeq2` data. In this example, LFCs comparisons between two treatments and a control are made. Blue nodes indicate statistically significant LFCs which are greater than a given user-defined value for both x and y-axes. Green nodes reflect statistically significant LFCs which are less than a user-defined value for treatment y and greater than said value for treatment x. Similar to green nodes, red nodes reflect statistically significant LFCs which are greater than a user-defined vlaue treatment y and less than said value for treatment x. Gray nodes are data points that are not statistically significant for both x and y-axes. Triangular shapes indicate values which exceed the viewing are for the graph. Size change reflects the magnitude of LFC values (i.e. larger shapes reflect larger LFC values). Vertical and horizontal dashed lines indicate user-defined LFC values.'}
+vsFourWay(x = 'treated_paired.end', y = 'untreated_single.read', 
+	      control = 'untreated_paired.end', data = df.cuff, d.factor = NULL, 
+	      type = 'cuffdiff', padj = 0.05, x.lim = NULL, y.lim = NULL, 
+	      lfc = NULL, legend = TRUE, title = TRUE, grid = TRUE)
+```
 
 
 \newpage
