@@ -73,7 +73,7 @@
 
 
 vsFourWay <- function(
-    x, y, control, data, d.factor = NULL, type, padj = 0.1, 
+    x, y, control, data, d.factor = NULL, type, padj = 0.05, 
     x.lim = NULL, y.lim = NULL, lfc = NULL, legend = TRUE, 
     title = TRUE, grid = TRUE, data.return = FALSE
 ){
