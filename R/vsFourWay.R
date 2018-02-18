@@ -54,6 +54,14 @@
 #'           y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
 #'           data.return = FALSE)
 #' 
+#' # DESeq2 example
+#' data("df.deseq")
+#' vsFourWay(x = 'treated_paired.end', y = 'untreated_paired.end', 
+#'           control = 'untreated_single.read', data = df.deseq, 
+#'           d.factor = 'condition', type = 'deseq', padj = 0.05, 
+#'           x.lim = NULL, y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
+#'           data.return = FALSE)
+#' 
 #' # edgeR example
 #' data("df.edger")
 #' require(edgeR)
