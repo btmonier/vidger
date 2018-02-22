@@ -34,30 +34,38 @@
 #' @examples
 #' # Cuffdiff example
 #' data("df.cuff")
-#' vsMAMatrix(data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
-#'                 padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
-#'                 grid = TRUE, counts = TRUE, data.return = FALSE)
+#' vsMAMatrix(
+#'  data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
+#'  padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
+#'  grid = TRUE, counts = TRUE, data.return = FALSE
+#' )
 #' 
 #' # DESeq2 example
 #' data("df.deseq")
 #' require(DESeq2)
-#' vsMAMatrix(data = df.deseq, d.factor = 'condition', type = 'deseq', 
-#'                 padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
-#'                 grid = TRUE, counts = TRUE, data.return = FALSE)
+#' vsMAMatrix(
+#'  data = df.deseq, d.factor = 'condition', type = 'deseq', 
+#'  padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
+#'  grid = TRUE, counts = TRUE, data.return = FALSE
+#' )
 #' 
 #' # edgeR example
 #' data("df.edger")
 #' require(edgeR)
-#' vsMAMatrix(data = df.edger, d.factor = NULL, type = 'edger', 
-#'                 padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
-#'                 grid = TRUE, counts = TRUE, data.return = FALSE)
+#' vsMAMatrix(
+#'  data = df.edger, d.factor = NULL, type = 'edger', 
+#'  padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
+#'  grid = TRUE, counts = TRUE, data.return = FALSE
+#' )
 #'                 
 #' # Extract data frame from visualization
 #' data("df.cuff")
-#' tmp <- vsMAMatrix(data = df.cuff, d.factor = NULL, 
-#'                        type = 'cuffdiff', padj = 0.05, y.lim = NULL,
-#'                        lfc = 1, title = TRUE, grid = TRUE, 
-#'                        counts = TRUE, data.return = TRUE)
+#' tmp <- vsMAMatrix(
+#'  data = df.cuff, d.factor = NULL, 
+#'  type = 'cuffdiff', padj = 0.05, y.lim = NULL,
+#'  lfc = 1, title = TRUE, grid = TRUE, 
+#'  counts = TRUE, data.return = TRUE
+#' )
 #' df.vmat <- tmp[[1]]
 #' head(df.vmat)
 

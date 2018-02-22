@@ -6,7 +6,7 @@
  seq
 experiment from different analytical objects}
 \usage{
-vsFourWay(x, y, control, data, d.factor = NULL, type, padj = 0.1,
+vsFourWay(x, y, control, data, d.factor = NULL, type, padj = 0.05,
   x.lim = NULL, y.lim = NULL, lfc = NULL, legend = TRUE, title = TRUE,
   grid = TRUE, data.return = FALSE)
 }
@@ -25,7 +25,8 @@ Defaults to `NULL`}
 \item{type}{an analysis classifier to tell the function how to process the 
 data. Must be either `cuffdiff`, `deseq`, or `edgeR`.}
 
-\item{padj}{a user defined adjusted p-value cutoff point. Defaults to `0.1`.}
+\item{padj}{a user defined adjusted p-value cutoff point. 
+Defaults to `0.05`.}
 
 \item{x.lim}{set manual limits to the x axis. Defaults to `NULL`.}
 
@@ -65,26 +66,41 @@ exceed the default viewing frame of the plot will change character classes
 \examples{
 # Cuffdiff example
 data("df.cuff")
-vsFourWay(x = 'hESC', y = 'iPS', control = 'Fibroblasts', data = df.cuff, 
-          d.factor = NULL, type = 'cuffdiff', padj = 0.05, x.lim = NULL, 
-          y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
-          data.return = FALSE)
+vsFourWay(
+ x = 'hESC', y = 'iPS', control = 'Fibroblasts', data = df.cuff, 
+ d.factor = NULL, type = 'cuffdiff', padj = 0.05, x.lim = NULL, 
+ y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
+ data.return = FALSE
+)
+
+# DESeq2 example
+data("df.deseq")
+vsFourWay(
+ x = 'treated_paired.end', y = 'untreated_paired.end', 
+ control = 'untreated_single.read', data = df.deseq, 
+ d.factor = 'condition', type = 'deseq', padj = 0.05, 
+ x.lim = NULL, y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
+ data.return = FALSE
+)
 
 # edgeR example
 data("df.edger")
 require(edgeR)
-vsFourWay(x = 'WM', y = 'WW', control = 'MM', data = df.edger, 
-          d.factor = NULL, type = 'edger', padj = 0.05, x.lim = NULL, 
-          y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
-          data.return = FALSE)
+vsFourWay(
+ x = 'WM', y = 'WW', control = 'MM', data = df.edger, 
+ d.factor = NULL, type = 'edger', padj = 0.05, x.lim = NULL, 
+ y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
+ data.return = FALSE
+)
                 
 # Extract data frame from visualization
 data("df.cuff")
-tmp <- vsFourWay(x = 'WM', y = 'WW', control = 'MM', data = df.edger, 
-                 d.factor = NULL, type = 'edger', padj = 0.05, 
-                 x.lim = NULL, y.lim = NULL, lfc = 2, title = TRUE, 
-grid = TRUE, 
-                 data.return = FALSE)
+tmp <- vsFourWay(
+ x = 'WM', y = 'WW', control = 'MM', data = df.edger, 
+ d.factor = NULL, type = 'edger', padj = 0.05, 
+ x.lim = NULL, y.lim = NULL, lfc = 2, title = TRUE, 
+ grid = TRUE, data.return = FALSE
+)
 df.four <- tmp[[1]]
 head(df.four)
 }
