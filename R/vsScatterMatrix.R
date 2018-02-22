@@ -28,22 +28,28 @@
 #' @examples
 #' # Cuffdiff example
 #' data("df.cuff")
-#' vsScatterMatrix(data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
-#'                 comp = NULL, title = TRUE, grid = TRUE, 
-#'                 man.title = 'Example title')
+#' vsScatterMatrix(
+#'  data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
+#'  comp = NULL, title = TRUE, grid = TRUE, 
+#'  man.title = 'Example title'
+#' )
 #' 
 #' # DESeq2 example
 #' data("df.deseq")
 #' require(DESeq2)
-#' vsScatterMatrix(data = df.deseq, d.factor = 'condition', type = 'deseq',
-#'                 comp = NULL, title = TRUE, grid = FALSE, man.title = NULL)
+#' vsScatterMatrix(
+#'  data = df.deseq, d.factor = 'condition', type = 'deseq',
+#'  comp = NULL, title = TRUE, grid = FALSE, man.title = NULL
+#' )
 #' 
 #' # edgeR example
 #' data("df.edger")
 #' require(edgeR)
-#' vsScatterMatrix(data = df.edger, d.factor = NULL, type = 'edger', 
-#'                 comp = c('WM', 'MM'), title = TRUE, grid = TRUE, 
-#'                 man.title = NULL)
+#' vsScatterMatrix(
+#'  data = df.edger, d.factor = NULL, type = 'edger', 
+#'  comp = c('WM', 'MM'), title = TRUE, grid = TRUE, 
+#'  man.title = NULL
+#' )
 
 vsScatterMatrix <- function(
     data, d.factor = NULL, type, comp = NULL, title = TRUE, 
