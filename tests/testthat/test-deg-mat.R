@@ -2,7 +2,7 @@ context("DEG matrices")
 
 test_that("DEG matrices work", {
     # Load data
-    data(df.cuffdiff)
+    data(df.cuff)
     data(df.deseq)
     data(df.edger)
 

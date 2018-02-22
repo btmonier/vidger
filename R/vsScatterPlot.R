@@ -25,21 +25,27 @@
 #' @examples
 #' # Cuffdiff example
 #' data("df.cuff")
-#' vsScatterPlot(x = 'hESC', y = 'iPS', data = df.cuff, d.factor = NULL, 
-#'               type = 'cuffdiff', title = TRUE, grid = TRUE)
+#' vsScatterPlot(
+#'  x = 'hESC', y = 'iPS', data = df.cuff, d.factor = NULL, 
+#'  type = 'cuffdiff', title = TRUE, grid = TRUE
+#' )
 #' 
 #' # DESeq2 example
 #' data("df.deseq")
 #' require(DESeq2)               
-#' vsScatterPlot(x = 'treated_paired.end', y = 'untreated_paired.end', 
-#'               data = df.deseq, d.factor = 'condition', type = 'deseq', 
-#'               title = TRUE, grid = TRUE)
+#' vsScatterPlot(
+#'  x = 'treated_paired.end', y = 'untreated_paired.end', 
+#'  data = df.deseq, d.factor = 'condition', type = 'deseq', 
+#'  title = TRUE, grid = TRUE
+#' )
 #' 
 #' # edgeR example
 #' data("df.edger")
 #' require(edgeR)
-#' vsScatterPlot(x = 'WW', y = 'WM', data = df.edger, d.factor = NULL, 
-#'               type = 'edger', title = TRUE, grid = TRUE)
+#' vsScatterPlot(
+#'  x = 'WW', y = 'WM', data = df.edger, d.factor = NULL, 
+#'  type = 'edger', title = TRUE, grid = TRUE
+#' )
 
 vsScatterPlot <- function(x, y, data, d.factor = NULL, type, title = TRUE,
                                                     grid = TRUE) {

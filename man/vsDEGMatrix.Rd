@@ -37,20 +37,26 @@ This function allows you to visualize the number of differentially
 \examples{
 # cuffdiff example
 data("df.cuff")
-vsDEGMatrix(df.cuff, padj = 0.05, d.factor = NULL, type = 'cuffdiff', 
-            title = TRUE, legend = TRUE, grid = TRUE)
+vsDEGMatrix(
+ df.cuff, padj = 0.05, d.factor = NULL, type = 'cuffdiff', 
+ title = TRUE, legend = TRUE, grid = TRUE
+)
 
 # DESeq2 example
 data("df.deseq")
 require(DESeq2)
-vsDEGMatrix(df.deseq, padj = 0.05, d.factor = 'condition', type = 'deseq', 
-            title = TRUE, legend = TRUE, grid = TRUE)
+vsDEGMatrix(
+ df.deseq, padj = 0.05, d.factor = 'condition', type = 'deseq', 
+ title = TRUE, legend = TRUE, grid = TRUE
+)
 
 # edgeR example
 data("df.edger")
 require(edgeR)
-vsDEGMatrix(df.edger, padj = 0.05, d.factor = NULL, type = 'edger', 
-            title = TRUE, legend = TRUE, grid = TRUE)
+vsDEGMatrix(
+ df.edger, padj = 0.05, d.factor = NULL, type = 'edger', 
+ title = TRUE, legend = TRUE, grid = TRUE
+)
 }
 \author{
 Brandon Monier, \email{brandon.monier@sdstate.edu}
