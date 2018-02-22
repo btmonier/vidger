@@ -36,30 +36,38 @@
 #' @examples
 #' # Cuffdiff example
 #' data("df.cuff")
-#' vsVolcanoMatrix(data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
-#'                 padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE, 
-#'                 grid = TRUE, counts = TRUE, data.return = FALSE)
+#' vsVolcanoMatrix(
+#'  data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
+#'  padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE, 
+#'  grid = TRUE, counts = TRUE, data.return = FALSE
+#' )
 #' 
 #' # DESeq2 example
 #' data("df.deseq")
 #' require(DESeq2)
-#' vsVolcanoMatrix(data = df.deseq, d.factor = 'condition', type = 'deseq', 
-#'                 padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE, 
-#'                 grid = TRUE, counts = TRUE, data.return = FALSE)
+#' vsVolcanoMatrix(
+#'  data = df.deseq, d.factor = 'condition', type = 'deseq', 
+#'  padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE, 
+#'  grid = TRUE, counts = TRUE, data.return = FALSE
+#' )
 #' 
 #' # edgeR example
 #' data("df.edger")
 #' require(edgeR)
-#' vsVolcanoMatrix(data = df.edger, d.factor = NULL, type = 'edger', 
-#'                 padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE, 
-#'                 grid = TRUE, counts = TRUE, data.return = FALSE)
+#' vsVolcanoMatrix(
+#'  data = df.edger, d.factor = NULL, type = 'edger', 
+#'  padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE, 
+#'  grid = TRUE, counts = TRUE, data.return = FALSE
+#' )
 #'                 
 #' # Extract data frame from visualization
 #' data("df.cuff")
-#' tmp <- vsVolcanoMatrix(data = df.cuff, d.factor = NULL, 
-#'                        type = 'cuffdiff', padj = 0.05, x.lim = NULL,
-#'                        lfc = 2, title = TRUE, grid = TRUE, 
-#'                        counts = TRUE, data.return = TRUE)
+#' tmp <- vsVolcanoMatrix(
+#'  data = df.cuff, d.factor = NULL, 
+#'  type = 'cuffdiff', padj = 0.05, x.lim = NULL,
+#'  lfc = 2, title = TRUE, grid = TRUE, 
+#'  counts = TRUE, data.return = TRUE
+#' )
 #' df.vmat <- tmp[[1]]
 #' head(df.vmat)
 
