@@ -2,7 +2,7 @@ context("scatter plots")
 
 test_that("scatter plots work", {
     # Load data
-    data(df.cuffdiff)
+    data(df.cuff)
     data(df.deseq)
     data(df.edger)
 
@@ -11,9 +11,9 @@ test_that("scatter plots work", {
                   d.factor = NULL, title = TRUE, grid = TRUE)
 
     # DESeq2
-    vsScatterPlot(x = 'treated', y = 'untreated', data = df.deseq, 
-                  type = 'deseq', d.factor = 'condition', title = TRUE, 
-                  grid = TRUE)
+    vsScatterPlot(x = 'treated_paired.end', y = 'untreated_paired.end', 
+                  data = df.deseq, type = 'deseq', d.factor = 'condition', 
+                  title = TRUE, grid = TRUE)
 
     # edgeR
     vsScatterPlot(x = 'WM', y = 'MM', data = df.edger, type = 'edger',

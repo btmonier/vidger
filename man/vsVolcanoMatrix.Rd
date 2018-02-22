@@ -4,7 +4,7 @@
 \alias{vsVolcanoMatrix}
 \title{Volcano plot matrix from log2 fold changes and -log10(p-values)}
 \usage{
-vsVolcanoMatrix(data, d.factor = NULL, type, padj = 0.1, x.lim = NULL,
+vsVolcanoMatrix(data, d.factor = NULL, type, padj = 0.05, x.lim = NULL,
   lfc = NULL, title = TRUE, legend = TRUE, grid = TRUE, counts = TRUE,
   data.return = FALSE)
 }
@@ -17,7 +17,8 @@ Defaults to `NULL`}
 \item{type}{an analysis classifier to tell the function how to process the 
 data. Must be either `cuffdiff`, `deseq`, or `edgeR`.}
 
-\item{padj}{a user defined adjusted p-value cutoff point. Defaults to `0.1`.}
+\item{padj}{a user defined adjusted p-value cutoff point. 
+Defaults to `0.05`.}
 
 \item{x.lim}{set manual limits to the x axis. Defaults to `NULL`.}
 
@@ -49,30 +50,38 @@ treatments.
 \examples{
 # Cuffdiff example
 data("df.cuff")
-vsVolcanoMatrix(data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
-                padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE, 
-                grid = TRUE, counts = TRUE, data.return = FALSE)
+vsVolcanoMatrix(
+ data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
+ padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE, 
+ grid = TRUE, counts = TRUE, data.return = FALSE
+)
 
 # DESeq2 example
 data("df.deseq")
 require(DESeq2)
-vsVolcanoMatrix(data = df.deseq, d.factor = 'condition', type = 'deseq', 
-                padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE, 
-                grid = TRUE, counts = TRUE, data.return = FALSE)
+vsVolcanoMatrix(
+ data = df.deseq, d.factor = 'condition', type = 'deseq', 
+ padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE, 
+ grid = TRUE, counts = TRUE, data.return = FALSE
+)
 
 # edgeR example
 data("df.edger")
 require(edgeR)
-vsVolcanoMatrix(data = df.edger, d.factor = NULL, type = 'edger', 
-                padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE, 
-                grid = TRUE, counts = TRUE, data.return = FALSE)
+vsVolcanoMatrix(
+ data = df.edger, d.factor = NULL, type = 'edger', 
+ padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE, 
+ grid = TRUE, counts = TRUE, data.return = FALSE
+)
                 
 # Extract data frame from visualization
 data("df.cuff")
-tmp <- vsVolcanoMatrix(data = df.cuff, d.factor = NULL, 
-                       type = 'cuffdiff', padj = 0.05, x.lim = NULL,
-                       lfc = 2, title = TRUE, grid = TRUE, 
-                       counts = TRUE, data.return = TRUE)
+tmp <- vsVolcanoMatrix(
+ data = df.cuff, d.factor = NULL, 
+ type = 'cuffdiff', padj = 0.05, x.lim = NULL,
+ lfc = 2, title = TRUE, grid = TRUE, 
+ counts = TRUE, data.return = TRUE
+)
 df.vmat <- tmp[[1]]
 head(df.vmat)
 }
