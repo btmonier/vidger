@@ -68,8 +68,10 @@
 
 .getDeseqFourWay <- function(x, y, control, data, d.factor) {
     if(is.null(d.factor)) {
-        stop('This appears to be a DESeq object. 
-             Please state d.factor variable.')
+        stop(
+            'This appears to be a DESeq object. 
+            Please state d.factor variable.'
+        )
     }
     dat1 <- as.data.frame(colData(data))
     dat2 <- fpm(data)
@@ -98,8 +100,10 @@
 
 .four.comp1 <- function(x.lim, y.lim, padj, all.lab, lfc, b, g, r) {
     list(
-        sh1 = paste('|lfc(x)| > ', round(x.lim[2], 1), 'OR  |lfc(y)| > ', 
-                                     round(y.lim[2], 1)),
+        sh1 = paste(
+            '|lfc(x)| > ', round(x.lim[2], 1), 'OR  |lfc(y)| > ',
+            round(y.lim[2], 1)
+        ),
         sh2 = paste(
             round(x.lim[1], 1), '< lfc(x) <', round(x.lim[2], 1), 
             ' AND ', round(y.lim[1], 1), '< lfc(y) <', round(y.lim[2]), 1

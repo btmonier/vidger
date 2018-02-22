@@ -47,8 +47,10 @@
 
 .getDeseqDEGMat <- function(data, d.factor, padj) {
     if(is.null(d.factor)) {
-        stop('This appears to be a DESeq object. 
-             Please enter d.factor variable.')
+        stop(
+            'This appears to be a DESeq object.
+            Please enter d.factor variable.'
+        )
     }
     dat1 <- as.data.frame(colData(data))
     tmp1 <- as.vector(unique(dat1[[d.factor]]))
