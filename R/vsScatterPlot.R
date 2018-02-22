@@ -47,8 +47,10 @@
 #'  type = 'edger', title = TRUE, grid = TRUE
 #' )
 
-vsScatterPlot <- function(x, y, data, d.factor = NULL, type, title = TRUE,
-                                                    grid = TRUE) {
+vsScatterPlot <- function(
+    x, y, data, d.factor = NULL, type, title = TRUE,
+    grid = TRUE
+) {
     if (missing(type)) {
         stop('Please specify analysis type ("cuffdiff", "deseq", or "edger")')
     }
