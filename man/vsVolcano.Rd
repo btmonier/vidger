@@ -4,7 +4,7 @@
 \alias{vsVolcano}
 \title{Volcano plot from log2 fold changes and -log10(p-values)}
 \usage{
-vsVolcano(x, y, data, d.factor = NULL, type, padj = 0.1, x.lim = NULL,
+vsVolcano(x, y, data, d.factor = NULL, type, padj = 0.05, x.lim = NULL,
   lfc = NULL, title = TRUE, legend = TRUE, grid = TRUE,
   data.return = FALSE)
 }
@@ -21,7 +21,8 @@ Defaults to `NULL`}
 \item{type}{an analysis classifier to tell the function how to process the
 data. Must be either `cuffdiff`, `deseq`, or `edgeR`.}
 
-\item{padj}{a user defined adjusted p-value cutoff point. Defaults to `0.1`.}
+\item{padj}{a user defined adjusted p-value cutoff point. 
+Defaults to `0.05`.}
 
 \item{x.lim}{set manual limits to the x axis. Defaults to `NULL`.}
 
@@ -49,31 +50,39 @@ implementing ggplot2 aesthetics.
 \examples{
 # Cuffdiff example
 data("df.cuff")
-vsVolcano(x = 'hESC', y = 'iPS', data = df.cuff, d.factor = NULL, 
-          type = 'cuffdiff', padj = 0.05, x.lim = NULL, lfc = 2, 
-          title = TRUE, grid = TRUE, data.return = FALSE)
+vsVolcano(
+ x = 'hESC', y = 'iPS', data = df.cuff, d.factor = NULL, 
+ type = 'cuffdiff', padj = 0.05, x.lim = NULL, lfc = 2, 
+ title = TRUE, grid = TRUE, data.return = FALSE
+)
 
 # DESeq2 example
 data("df.deseq")
 require(DESeq2)
-vsVolcano(x = 'treated', y = 'untreated', data = df.deseq, 
-          d.factor = 'condition', type = 'deseq', padj = 0.05, 
-          x.lim = NULL, lfc = NULL, title = TRUE, grid = TRUE, 
-          data.return = FALSE)
+vsVolcano(
+ x = 'treated_paired.end', y = 'untreated_paired.end', 
+ data = df.deseq, d.factor = 'condition', 
+ type = 'deseq', padj = 0.05, x.lim = NULL, lfc = NULL, 
+ title = TRUE, grid = TRUE, data.return = FALSE
+)
 
 # edgeR example
 data("df.edger")
 require(edgeR)
-vsVolcano(x = 'WM', y = 'MM', data = df.edger, d.factor = NULL, 
-          type = 'edger', padj = 0.1, x.lim = NULL, lfc = 2, 
-          title = FALSE, grid = TRUE, data.return = FALSE)
+vsVolcano(
+ x = 'WM', y = 'MM', data = df.edger, d.factor = NULL, 
+ type = 'edger', padj = 0.1, x.lim = NULL, lfc = 2, 
+ title = FALSE, grid = TRUE, data.return = FALSE
+)
                 
 # Extract data frame from visualization
 data("df.cuff")
-tmp <- vsVolcano(x = 'hESC', y = 'iPS', data = df.cuff, 
-                 d.factor = NULL, type = 'cuffdiff', padj = 0.05, 
-                 x.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
-                 data.return = TRUE)
+tmp <- vsVolcano(
+ x = 'hESC', y = 'iPS', data = df.cuff, 
+ d.factor = NULL, type = 'cuffdiff', padj = 0.05, 
+ x.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
+ data.return = TRUE
+)
 df.volcano <- tmp[[1]]
 head(df.volcano)
 }

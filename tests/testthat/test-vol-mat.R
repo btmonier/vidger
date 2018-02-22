@@ -2,7 +2,7 @@ context("volcano plot matrices")
 
 test_that("volcano plot matrices work", {
     # Load data
-    data(df.cuffdiff)
+    data(df.cuff)
     data(df.deseq)
     data(df.edger)
 
