@@ -1,8 +1,11 @@
 Package: vidger
 Title: Create rapid visualizations of RNAseq data in R
 Version: 0.99.0
-Authors@R: person("Brandon", "Monier", email = "brandon.monier@sdstate.edu", role = c("aut", "cre"))
-Description: The aim of vidger is to produce rapid visualizations from three of the most common RNAseq analytical tool packages.
+Authors@R: person("Brandon", "Monier", email = "brandon.monier@sdstate.edu",
+ 	role = c("aut", "cre"))
+Description: 
+	The aim of vidger is to produce rapid visualizations from three 
+	of the most common RNAseq analytical tool packages.
 Depends: R (>= 3.4)
 Imports:
     ggplot2, 

@@ -157,8 +157,8 @@ an experiment are shown in the form of a box and whisker plot."
 ```
 ```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsBoxPlot(
-	data = df.cuff, d.factor = NULL, type = 'cuffdiff', title = TRUE,
-	legend = TRUE, grid = TRUE
+    data = df.cuff, d.factor = NULL, type = 'cuffdiff', title = TRUE, 
+    legend = TRUE, grid = TRUE
 )
 ```
 
@@ -172,8 +172,8 @@ an experiment are shown in the form of a box and whisker plot."
 ```
 ```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsBoxPlot(
-	data = df.deseq, d.factor = 'condition', type = 'deseq', 
-	title = TRUE, legend = TRUE, grid = TRUE
+    data = df.deseq, d.factor = 'condition', type = 'deseq', 
+    title = TRUE, legend = TRUE, grid = TRUE
 )
 ```
 
@@ -187,8 +187,8 @@ experiment are shown in the form of a box and whisker plot"
 ```
 ```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsBoxPlot(
-	data = df.edger, d.factor = NULL, type = 'edger', 
-	title = TRUE, legend = TRUE, grid = TRUE
+    data = df.edger, d.factor = NULL, type = 'edger', 
+    title = TRUE, legend = TRUE, grid = TRUE
 )
 ```
 
@@ -211,8 +211,8 @@ measurments. The dashed line represents regression line for the comparison."
 ```
 ```{r, message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsScatterPlot(
-	x = 'hESC', y = 'iPS', data = df.cuff, type = 'cuffdiff',
-	d.factor = NULL, title = TRUE, grid = TRUE
+    x = 'hESC', y = 'iPS', data = df.cuff, type = 'cuffdiff',
+    d.factor = NULL, title = TRUE, grid = TRUE
 )
 ```
 
@@ -227,9 +227,9 @@ measurments. The dashed line represents regression line for the comparison."
 ```
 ```{r, message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsScatterPlot(
-	x = 'treated_paired.end', y = 'untreated_paired.end', 
-	data = df.deseq, type = 'deseq', d.factor = 'condition', 
-	title = TRUE, grid = TRUE
+    x = 'treated_paired.end', y = 'untreated_paired.end', 
+    data = df.deseq, type = 'deseq', d.factor = 'condition', 
+    title = TRUE, grid = TRUE
 )
 ```
 
@@ -244,8 +244,8 @@ measurments. The dashed line represents regression line for the comparison."
 ```
 ```{r, message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsScatterPlot(
-	x = 'WM', y = 'MM', data = df.edger, type = 'edger',
-	d.factor = NULL, title = TRUE, grid = TRUE
+    x = 'WM', y = 'MM', data = df.edger, type = 'edger',
+    d.factor = NULL, title = TRUE, grid = TRUE
 )
 ```
 
@@ -268,8 +268,8 @@ correlation (Corr) values are generated."
 ```
 ```{r, message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsScatterMatrix(
-	data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
-	comp = NULL, title = TRUE, grid = TRUE, man.title = NULL
+    data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
+    comp = NULL, title = TRUE, grid = TRUE, man.title = NULL
 )
 ```
 
@@ -285,8 +285,8 @@ correlation (Corr) values are generated."
 ```
 ```{r, message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsScatterMatrix(
-	data = df.deseq, d.factor = 'condition', type = 'deseq',
-	comp = NULL, title = TRUE, grid = TRUE, man.title = NULL
+    data = df.deseq, d.factor = 'condition', type = 'deseq',
+    comp = NULL, title = TRUE, grid = TRUE, man.title = NULL
 )
 ```
 
@@ -302,8 +302,8 @@ correlation (Corr) values are generated."
 ```
 ```{r, message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsScatterMatrix(
-	data = df.edger, d.factor = NULL, type = 'edger', comp = NULL,
-	title = TRUE, grid = TRUE, man.title = NULL
+    data = df.edger, d.factor = NULL, type = 'edger', comp = NULL,
+    title = TRUE, grid = TRUE, man.title = NULL
 )
 ```
 
@@ -327,8 +327,8 @@ correlates to a higher number of DEGs."
 ```
 ```{r, message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsDEGMatrix(
-	data = df.cuff, padj = 0.05, d.factor = NULL, type = 'cuffdiff', 
-	title = TRUE, legend = TRUE, grid = TRUE
+    data = df.cuff, padj = 0.05, d.factor = NULL, type = 'cuffdiff', 
+    title = TRUE, legend = TRUE, grid = TRUE
 )
 ```
 
@@ -344,8 +344,8 @@ correlates to a higher number of DEGs."
 ```
 ```{r, message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsDEGMatrix(
-	data = df.deseq, padj = 0.05, d.factor = 'condition', 
-	type = 'deseq', title = TRUE, legend = TRUE, grid = TRUE
+    data = df.deseq, padj = 0.05, d.factor = 'condition', 
+    type = 'deseq', title = TRUE, legend = TRUE, grid = TRUE
 )
 ```
 
@@ -361,8 +361,8 @@ correlates to a higher number of DEGs."
 ```
 ```{r, message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsDEGMatrix(
-	data = df.edger, padj = 0.05, d.factor = NULL, type = 'edger', 
-	title = TRUE, legend = TRUE, grid = TRUE
+    data = df.edger, padj = 0.05, d.factor = NULL, type = 'edger', 
+    title = TRUE, legend = TRUE, grid = TRUE
 )
 ```
 
@@ -393,9 +393,9 @@ LFC values."
 ```
 ```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsMAPlot(
-	x = 'iPS', y = 'hESC', data = df.cuff, d.factor = NULL, 
-	type = 'cuffdiff', padj = 0.05, y.lim = NULL, lfc = NULL, 
-	title = TRUE, legend = TRUE, grid = TRUE
+    x = 'iPS', y = 'hESC', data = df.cuff, d.factor = NULL, 
+    type = 'cuffdiff', padj = 0.05, y.lim = NULL, lfc = NULL, 
+    title = TRUE, legend = TRUE, grid = TRUE
 )
 ```
 
@@ -418,10 +418,10 @@ LFC values."
 ```
 ```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsMAPlot(
-	x = 'treated_paired.end', y = 'untreated_paired.end', 
-	data = df.deseq, d.factor = 'condition', type = 'deseq', 
-	padj = 0.05, y.lim = NULL, lfc = NULL, title = TRUE, 
-	legend = TRUE, grid = TRUE
+    x = 'treated_paired.end', y = 'untreated_paired.end', 
+    data = df.deseq, d.factor = 'condition', type = 'deseq', 
+    padj = 0.05, y.lim = NULL, lfc = NULL, title = TRUE, 
+    legend = TRUE, grid = TRUE
 )
 ```
 
@@ -444,9 +444,9 @@ LFC values."
 ```
 ```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsMAPlot(
-	x = 'WW', y = 'MM', data = df.edger, d.factor = NULL, 
-	type = 'edger', padj = 0.05, y.lim = NULL, lfc = NULL, 
-	title = TRUE, legend = TRUE, grid = TRUE
+    x = 'WW', y = 'MM', data = df.edger, d.factor = NULL, 
+    type = 'edger', padj = 0.05, y.lim = NULL, lfc = NULL, 
+    title = TRUE, legend = TRUE, grid = TRUE
 )
 ```
 
@@ -478,7 +478,7 @@ reflect larger LFC values). Dashed lines indicate user-defined LFC values."
 ```
 ```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
  vsMAMatrix(
- 	data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
+    data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
     padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
     grid = TRUE, counts = TRUE, data.return = FALSE
 )
@@ -504,7 +504,7 @@ reflect larger LFC values). Dashed lines indicate user-defined LFC values."
 ```
 ```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsMAMatrix(
-	data = df.deseq, d.factor = 'condition', type = 'deseq', 
+    data = df.deseq, d.factor = 'condition', type = 'deseq', 
     padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
     grid = TRUE, counts = TRUE, data.return = FALSE
 )
@@ -530,7 +530,7 @@ reflect larger LFC values). Dashed lines indicate user-defined LFC values."
 ```
 ```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsMAMatrix(
-	data = df.edger, d.factor = NULL, type = 'edger', 
+    data = df.edger, d.factor = NULL, type = 'edger', 
     padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
     grid = TRUE, counts = TRUE, data.return = FALSE
 )
@@ -567,9 +567,9 @@ indicate user-defined LFC and adjusted *p*-values, respectively."
 ```
 ```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsVolcano(
-	x = 'iPS', y = 'hESC', data = df.cuff, d.factor = NULL, 
-	type = 'cuffdiff', padj = 0.05, x.lim = NULL, lfc = NULL, 
-	title = TRUE, legend = TRUE, grid = TRUE, data.return = FALSE
+    x = 'iPS', y = 'hESC', data = df.cuff, d.factor = NULL, 
+    type = 'cuffdiff', padj = 0.05, x.lim = NULL, lfc = NULL, 
+    title = TRUE, legend = TRUE, grid = TRUE, data.return = FALSE
 )
 ```
 
@@ -593,10 +593,10 @@ indicate user-defined LFC and adjusted *p*-values, respectively."
 ```
 ```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsVolcano(
-	x = 'treated_paired.end', y = 'untreated_paired.end', 
-	data = df.deseq, d.factor = 'condition', type = 'deseq', 
-	padj = 0.05, x.lim = NULL, lfc = NULL, title = TRUE, 
-	legend = TRUE, grid = TRUE, data.return = FALSE
+    x = 'treated_paired.end', y = 'untreated_paired.end', 
+    data = df.deseq, d.factor = 'condition', type = 'deseq', 
+    padj = 0.05, x.lim = NULL, lfc = NULL, title = TRUE, 
+    legend = TRUE, grid = TRUE, data.return = FALSE
 )
 ```
 
@@ -620,9 +620,9 @@ indicate user-defined LFC and adjusted *p*-values, respectively."
 ```
 ```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsVolcano(
-	x = 'WW', y = 'MM', data = df.edger, d.factor = NULL, 
-	type = 'edger', padj = 0.05, x.lim = NULL, lfc = NULL, 
-	title = TRUE, legend = TRUE, grid = TRUE, data.return = FALSE
+    x = 'WW', y = 'MM', data = df.edger, d.factor = NULL, 
+    type = 'edger', padj = 0.05, x.lim = NULL, lfc = NULL, 
+    title = TRUE, legend = TRUE, grid = TRUE, data.return = FALSE
 )
 ```
 
@@ -656,9 +656,9 @@ adjusted *p*-values, respectively."
 ```
 ```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsVolcanoMatrix(
-	data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
-	padj = 0.05, x.lim = NULL, lfc = NULL, title = TRUE, 
-	legend = TRUE, grid = TRUE, counts = TRUE
+    data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
+    padj = 0.05, x.lim = NULL, lfc = NULL, title = TRUE, 
+    legend = TRUE, grid = TRUE, counts = TRUE
 )
 ```
 
@@ -684,9 +684,9 @@ adjusted *p*-values, respectively."
 ```
 ```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsVolcanoMatrix(
-	data = df.deseq, d.factor = 'condition', type = 'deseq', 
-	padj = 0.05, x.lim = NULL, lfc = NULL, title = TRUE, 
-	legend = TRUE, grid = TRUE, counts = TRUE
+    data = df.deseq, d.factor = 'condition', type = 'deseq', 
+    padj = 0.05, x.lim = NULL, lfc = NULL, title = TRUE, 
+    legend = TRUE, grid = TRUE, counts = TRUE
 )
 ```
 
@@ -712,9 +712,9 @@ adjusted *p*-values, respectively."
 ```
 ```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsVolcanoMatrix(
-	data = df.edger, d.factor = NULL, type = 'edger', padj = 0.05, 
-	x.lim = NULL, lfc = NULL, title = TRUE, legend = TRUE, 
-	grid = TRUE, counts = TRUE
+    data = df.edger, d.factor = NULL, type = 'edger', padj = 0.05, 
+    x.lim = NULL, lfc = NULL, title = TRUE, legend = TRUE, 
+    grid = TRUE, counts = TRUE
 )
 ```
 
@@ -746,9 +746,9 @@ user-defined LFC values."
 ```
 ```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsFourWay(
-	x = 'iPS', y = 'hESC', control = 'Fibroblasts', data = df.cuff,
-	d.factor = NULL, type = 'cuffdiff', padj = 0.05, x.lim = NULL,
-	y.lim = NULL, lfc = NULL, legend = TRUE, title = TRUE, grid = TRUE
+    x = 'iPS', y = 'hESC', control = 'Fibroblasts', data = df.cuff,
+    d.factor = NULL, type = 'cuffdiff', padj = 0.05, x.lim = NULL,
+    y.lim = NULL, lfc = NULL, legend = TRUE, title = TRUE, grid = TRUE
 )
 ```
 
@@ -772,8 +772,8 @@ user-defined LFC values."
 ```
 ```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsFourWay(
-	x = 'treated_paired.end', y = 'untreated_single.read', 
-	control = 'untreated_paired.end', data = df.deseq, 
+    x = 'treated_paired.end', y = 'untreated_single.read', 
+    control = 'untreated_paired.end', data = df.deseq, 
     d.factor = 'condition', type = 'deseq', padj = 0.05, x.lim = NULL, 
     y.lim = NULL, lfc = NULL, legend = TRUE, title = TRUE, grid = TRUE
 )
@@ -799,9 +799,9 @@ user-defined LFC values."
 ```
 ```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
 vsFourWay(
-	x = 'WW', y = 'WM', control = 'MM', data = df.edger,
-	d.factor = NULL, type = 'edger', padj = 0.05, x.lim = NULL,
-	y.lim = NULL, lfc = NULL, legend = TRUE, title = TRUE, grid = TRUE
+    x = 'WW', y = 'WM', control = 'MM', data = df.edger,
+    d.factor = NULL, type = 'edger', padj = 0.05, x.lim = NULL,
+    y.lim = NULL, lfc = NULL, legend = TRUE, title = TRUE, grid = TRUE
 )
 ```
 

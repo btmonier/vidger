@@ -39,8 +39,10 @@
 
 .getDeseqBox <- function(data, d.factor) {
     if(is.null(d.factor)) {
-        stop('This appears to be a DESeq object. 
-             Please state d.factor variable.')
+        stop(
+            'This appears to be a DESeq object. 
+            Please state d.factor variable.'
+        )
     }
     dat1 <- as.data.frame(colData(data))
     dat2 <- fpm(data)
