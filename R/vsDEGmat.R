@@ -49,8 +49,10 @@
 #'  title = TRUE, legend = TRUE, grid = TRUE
 #' )
 
-vsDEGMatrix <- function(data, padj = 0.05, d.factor = NULL, type, title = TRUE,
-                                                legend = TRUE, grid = TRUE) {
+vsDEGMatrix <- function(
+    data, padj = 0.05, d.factor = NULL, type, title = TRUE,
+    legend = TRUE, grid = TRUE
+) {
     if (missing(type)) {
         stop('Please specify analysis type ("cuffdiff", "deseq", or "edger")')
     }
@@ -82,8 +84,10 @@ vsDEGMatrix <- function(data, padj = 0.05, d.factor = NULL, type, title = TRUE,
     }
     x <- y <- ..n.. <- NULL
     tmp.plot <- ggplot(dat, aes(x = x, y = y)) +
-        stat_sum(aes(fill = ..n..), 
-                         color = "black", size = 0.3, geom = "tile") + 
+        stat_sum(
+            aes(fill = ..n..),
+            color = "black", size = 0.3, geom = "tile"
+        ) + 
         scale_fill_continuous(
             low = "white", high = "royalblue3", 
             name = 'Number of \ntranscripts'
