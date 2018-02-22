@@ -92,7 +92,7 @@ vsFourWay <- function(
     x, y, control, data, d.factor = NULL, type, padj = 0.05, 
     x.lim = NULL, y.lim = NULL, lfc = NULL, legend = TRUE, 
     title = TRUE, grid = TRUE, data.return = FALSE
-){
+) {
     if (missing(type)) {
         stop('Please specify analysis type ("cuffdiff", "deseq", or "edger")')
     }
@@ -124,8 +124,7 @@ vsFourWay <- function(
     } else {
         grid <- theme_bw()
     }
-    
-    
+        
     dat$isDE_x   <- ifelse(dat$padj_x <= padj, TRUE, FALSE)
     dat$isDE_y   <- ifelse(dat$padj_y <= padj, TRUE, FALSE)
     dat$isDE_all <- ifelse(
@@ -135,8 +134,7 @@ vsFourWay <- function(
     py   <- dat$logFC_y
     pall <- dat$isDE_all == TRUE
     all.lab  <- c(x, y, control)
-    
-    
+        
     if (is.null(x.lim))
         x.lim = c(-1, 1) * quantile(abs(px[is.finite(px)]), probs = 0.99) * 2
     if (is.null(y.lim))

@@ -47,8 +47,10 @@
 #'  legend = TRUE, grid = TRUE
 #' )
 
-vsBoxPlot <- function(data, d.factor = NULL, type, title = TRUE, legend = TRUE,
-                      grid = TRUE){
+vsBoxPlot <- function(
+    data, d.factor = NULL, type, title = TRUE, legend = TRUE,
+    grid = TRUE
+) {
     if (missing(type)) {
         stop('Please specify analysis type ("cuffdiff", "deseq", or "edger")')
     }
