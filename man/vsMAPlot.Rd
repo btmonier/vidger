@@ -2,8 +2,7 @@
 % Please edit documentation in R/vsMAPlot.R
 \name{vsMAPlot}
 \alias{vsMAPlot}
-\title{MA plot from mean expression and log fold changes from different analytical 
-objects}
+\title{MA plot from different analytical objects}
 \usage{
 vsMAPlot(x, y, data, d.factor = NULL, type, padj = 0.05, y.lim = NULL,
   lfc = NULL, title = TRUE, legend = TRUE, grid = TRUE,
