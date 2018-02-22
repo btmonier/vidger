@@ -2,7 +2,7 @@ context("box plots")
 
 test_that("box plots work", {
     # Load data
-    data(df.cuffdiff)
+    data(df.cuff)
     data(df.deseq)
     data(df.edger)
 
