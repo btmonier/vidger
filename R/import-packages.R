@@ -8,6 +8,7 @@
 #' @import knitr
 #' @import rmarkdown
 #' @import SummarizedExperiment
+#' @import Biobase
 #' @importFrom stats complete.cases 
 #' @importFrom stats quantile
 #' @importFrom utils combn
