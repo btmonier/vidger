@@ -14,7 +14,7 @@ devtools::install_github("btmonier/vidger")
 If you are using a **non-developmental** version of `R` (i.e. `< 3.5`),
 install from this directory:
 
-```{r}
+``` r
 if (!require("devtools")) install.packages("devtools")
 devtools::install_github("btmonier/vidger-nd")
 ```
