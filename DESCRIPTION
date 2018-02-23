@@ -1,13 +1,11 @@
 Package: vidger
 Title: Create rapid visualizations of RNAseq data in R
-Version: 0.99.5
+Version: 0.99.6
 Author: Brandon Monier, Adam McDermaid, Qin Ma
 Maintainer: Brandon Monier <brandon.monier@sdstate.edu>
 Description: 
 	The aim of vidger is to produce rapid visualizations from three 
 	of the most common RNAseq analytical tool packages.
-Depends:
-	R (>= 3.5)
 Imports:
     Biobase,
     DESeq2,
