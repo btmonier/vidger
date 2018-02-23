@@ -1,6 +1,5 @@
 #' @import ggplot2
 #' @import tidyr
-#' @import dplyr
 #' @import GGally
 #' @import scales
 #' @import DESeq2
