@@ -1,18 +1,26 @@
 ViDGER <img src="vignettes/vidger-logo.png" align="right" />
-==================================================
+============================================================
 **Vi**sualization of **D**ifferential **G**ene **E**xpression using **R**
 
 Installation
 ------------
-The easiest way to obtain this package is to install `devtools` and pull the package contents directly from GitHub.
+The easiest way to obtain this package is to install `devtools` and pull the package contents directly from GitHub:
 
 ``` r
 if (!require("devtools")) install.packages("devtools")
 devtools::install_github("btmonier/vidger")
 ```
 
-New Functions
--------------
+If you are using a **non-developmental** version of `R` (i.e. `< 3.5`),
+install from this directory:
+
+```{r}
+if (!require("devtools")) install.packages("devtools")
+devtools::install_github("btmonier/vidger-nd")
+```
+
+Current Functions (version `0.99.8`)
+------------------------------------
 * `vsScatterPlot()`
 * `vsScatterMatrix()`
 * `vsBoxplot()`
