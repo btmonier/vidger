@@ -1,23 +1,45 @@
-context("volcano plot matrices")
+context("vsVolcanoMatrix")
 
-test_that("volcano plot matrices work", {
+test_that("vsVolcanoMatrix() gives proper errors", {
     # Load data
     data(df.cuff)
     data(df.deseq)
     data(df.edger)
 
-    # cuffdiff
-    vsVolcanoMatrix(data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
-                    padj = 0.05, x.lim = NULL, lfc = NULL, title = TRUE, 
-                    legend = TRUE, grid = TRUE, counts = TRUE)
+    # cuffdiff with wrong `type` parameter
+    expect_error(
+        vsMAMatrix(
+            data = df.cuff, d.factor = NULL, type = "deseq", 
+            padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
+            grid = TRUE, counts = TRUE, data.return = FALSE
+        )        
+    )
 
-    # DESeq2
-    vsVolcanoMatrix(data = df.deseq, d.factor = 'condition', type = 'deseq', 
-                    padj = 0.05, x.lim = NULL, lfc = NULL, title = TRUE, 
-                    legend = TRUE, grid = TRUE, counts = TRUE)
+    # DESeq2 with no `d.factor` parameter
+    expect_error(
+        vsMAMatrix(
+            data = df.deseq, d.factor = NULL, type = "deseq", 
+            padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
+            grid = TRUE, counts = TRUE, data.return = FALSE
+        )
+    )
 
-    # edgeR
-    vsVolcanoMatrix(data = df.edger, d.factor = NULL, type = 'edger', 
-                    padj = 0.05, x.lim = NULL, lfc = NULL, title = TRUE, 
-                    legend = TRUE, grid = TRUE, counts = TRUE)
+    # edgeR with missing `type` parameter
+    expect_error(
+        vsMAMatrix(
+            data = df.edger, d.factor = NULL, type = , 
+            padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
+            grid = TRUE, counts = TRUE, data.return = FALSE
+        )        
+    )
+
+    # cuffdiff with completely wrong `type` parameter
+    expect_error(
+        vsMAMatrix(
+            data = df.cuff, d.factor = NULL, type = "cufdif", 
+            padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
+            grid = TRUE, counts = TRUE, data.return = FALSE
+        )        
+    )
+
 })
