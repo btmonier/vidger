@@ -31,14 +31,12 @@
     dat1 <- as.data.frame(colData(data))
     dat2 <- fpm(data)
     nam <- as.vector(unique(dat1[[d.factor]]))
-    ls.nam <- list()
-    ls.mean <- list()
-    for (i in nam) {
-        ls.nam[[i]] <- row.names(dat1[which(dat1[d.factor] == i), ])
-        for (j in seq_along(ls.nam)){
-            ls.mean[[j]] <- rowMeans(dat2[, ls.nam[[j]]])
-        }
-    }
+    ls.nam <- lapply(seq_along(nam), function(i) {
+        row.names(dat1[which(dat1[d.factor] == i), ])
+    })
+    ls.mean <- lapply(seq_along(ls.nam), function(i) {
+        rowMeans(dat2[, ls.nam[[i]]])
+    })
     names(ls.mean) <- sapply(nam, paste)
     dat3 <- as.data.frame(ls.mean)
     return(dat3)
@@ -48,16 +46,15 @@
 
 .getEdgeScatterMatrix <- function(data) {
     dat.cpm <- cpm(data$counts)
-    tmp <- as.vector(unique(data$sample$group))
-    ls1 <- list()
-    ls2 <- list()
-    for (i in tmp) {
-        ls1[[i]] <- row.names(data$samples[which(data$samples$group == i), ])
-        for (j in seq_along(ls1)) {
-            ls2[[j]] <- rowMeans(dat.cpm[, ls1[[j]]])
-        }
-    }
-    names(ls2) <- sapply(tmp, paste)
-    dat <- as.data.frame(ls2)
+    nam <- as.vector(unique(data$sample$group))
+
+    ls.nam <- lapply(seq_along(nam), function(i) {
+        row.names(data$samples[which(data$samples$group == i), ])
+    })
+    ls.mean <- lapply(seq_along(ls.nam), function(i) {
+        rowMeans(dat.cpm[, ls.nam[[i]]])
+    })    
+    names(ls.mean) <- sapply(nam, paste)
+    dat <- as.data.frame(ls.mean)
     return(dat)
 }

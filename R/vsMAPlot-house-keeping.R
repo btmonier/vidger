@@ -30,10 +30,10 @@
                                     (sample_1 == y & sample_2 == x))
     dat <- data.frame(test_id = deg$test_id)
     
-    if (x %in% deg$sample_1 & y %in% deg$sample_2) {
+    if (x %in% deg$sample_1 && y %in% deg$sample_2) {
         dat$x <- deg$value_1
         dat$y <- deg$value_2
-    } else if (y %in% deg$sample_1 & x %in% deg$sample_2) {
+    } else if (y %in% deg$sample_1 && x %in% deg$sample_2) {
         dat$x <- deg$value_2
         dat$y <- deg$value_1
     }
@@ -157,9 +157,9 @@
         ifelse(
             abs(vec2) >= tmp[[4]], 't4',
             ifelse(
-                abs(vec2) >= tmp[[3]] & abs(vec2) < tmp[[4]], 't3',
+                abs(vec2) >= tmp[[3]] && abs(vec2) < tmp[[4]], 't3',
                 ifelse(
-                    abs(vec2) >= tmp[[2]] & abs(vec2) < tmp[[3]], 't2','t1'
+                    abs(vec2) >= tmp[[2]] && abs(vec2) < tmp[[3]], 't2','t1'
                 )
             )
         )
@@ -169,8 +169,8 @@
 
 
 .ma.col.ranker <- function(isDE, log2fc, lfc) {
-    ifelse(isDE == TRUE & abs(log2fc) < lfc, 'grn', 
-                 ifelse(isDE == TRUE & abs(log2fc) > lfc, 'blu', 'gry'))
+    ifelse(isDE == TRUE && abs(log2fc) < lfc, 'grn', 
+                 ifelse(isDE == TRUE && abs(log2fc) > lfc, 'blu', 'gry'))
 }
 
 

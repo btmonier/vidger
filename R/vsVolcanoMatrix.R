@@ -72,34 +72,35 @@
 #' head(df.vmat)
 
 vsVolcanoMatrix <- function(
-    data, d.factor = NULL, type, padj = 0.05, x.lim = NULL, lfc = NULL, 
-    title = TRUE, legend = TRUE, grid = TRUE, counts = TRUE,
-    data.return = FALSE
+    data, d.factor = NULL, type = c("cuffdiff", "deseq", "edger"), 
+    padj = 0.05, x.lim = NULL, lfc = NULL, title = TRUE, legend = TRUE, 
+    grid = TRUE, counts = TRUE, data.return = FALSE
 ) {
-    if (missing(type)) {
-        stop(
-            'Please specify analysis type ("cuffdiff", "deseq", or "edger")'
-        )
+    if (missing(type) || !type %in% c("cuffdiff", "deseq", "edger")) {
+        stop('Please specify analysis type ("cuffdiff", "deseq", or "edger")')
     }
+    
+    type <- match.arg(type)
     if(type == 'cuffdiff') {
         dat <- .getCuffVolcanoMatrix(data)
     } else if (type == 'deseq') {
         dat <- .getDeseqVolcanoMatrix(data, d.factor)
     } else if (type == 'edger') {
         dat <- .getEdgeVolcanoMatrix(data)
-    } else {
-        stop('Please enter correct analysis type.')
     }
+
     if (!isTRUE(title)) {
         m.lab <- NULL
     } else {
         m.lab <- ggtitle('Volcano Matrix')
     }
+    
     if (!isTRUE(legend)) {
         leg <- theme(legend.position = 'none')
     } else {
         leg <- guides(colour = guide_legend(override.aes = list(size = 3)))
     }
+    
     if (!isTRUE(grid)) {
         grid <- theme_classic()
     } else {
@@ -112,6 +113,7 @@ vsVolcanoMatrix <- function(
     if (is.null(x.lim)) {
         x.lim = c(-1, 1) * quantile(abs(px[is.finite(px)]), probs = 0.99) * 0.8
     }
+    
     if (is.null(lfc)) {
         lfc = 1
     }
