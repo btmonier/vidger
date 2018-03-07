@@ -4,9 +4,9 @@
 \alias{vsVolcanoMatrix}
 \title{Volcano plot matrix from log2 fold changes and -log10(p-values)}
 \usage{
-vsVolcanoMatrix(data, d.factor = NULL, type, padj = 0.05, x.lim = NULL,
-  lfc = NULL, title = TRUE, legend = TRUE, grid = TRUE, counts = TRUE,
-  data.return = FALSE)
+vsVolcanoMatrix(data, d.factor = NULL, type = c("cuffdiff", "deseq",
+  "edger"), padj = 0.05, x.lim = NULL, lfc = NULL, title = TRUE,
+  legend = TRUE, grid = TRUE, counts = TRUE, data.return = FALSE)
 }
 \arguments{
 \item{data}{a cuffdiff, DESeq2, or edgeR object.}
