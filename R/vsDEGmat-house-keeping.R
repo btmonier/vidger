@@ -11,9 +11,9 @@
     ls1 <- list()
     ls2 <- list()
     ls3 <- list()
-    for (i in 1:length(l.dat)) {
+    for (i in seq_along(l.dat)) {
         ls1[[i]] <- exactTest(data, pair = l.dat[[i]])
-        for (j in 1:length(ls1)) {
+        for (j in seq_along(ls1)) {
             ls2[[i]] <- topTags(ls1[[i]], n = nrow(ls1[[i]]$table))
             ls3[[i]] <- ls2[[i]]$table[order(
                 as.numeric(rownames(ls2[[i]]$table))),]
@@ -59,7 +59,7 @@
     l.dat <- split(dat2, row(dat2))
     ls1 <- list()
     ls2 <- list()
-    for(i in 1:length(l.dat)) {
+    for(i in seq_along(l.dat)) {
         ls1[[i]] <- as.data.frame(results(data, contrast = l.dat[[i]]))
         ls2[[i]] <- ls1[[i]][, c('pvalue', 'padj')]
         ls2[[i]]$x <- l.dat[[i]][2]

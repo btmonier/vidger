@@ -11,7 +11,7 @@
     ls2 <- list()
     for (i in tmp) {
         ls1[[i]] <- row.names(data$samples[which(data$samples$group == i), ])
-        for (j in 1:length(ls1)) {
+        for (j in seq_along(ls1)) {
             ls2[[j]] <- rowMeans(dat.cpm[, ls1[[j]]])
         }
     }
@@ -51,7 +51,7 @@
     ls.mean <- list()
     for (i in nam) {
         ls.nam[[i]] <- row.names(dat1[which(dat1[d.factor] == i), ])
-        for (j in 1:length(ls.nam)){
+        for (j in seq_along(ls.nam)) {
             ls.mean[[j]] <- rowMeans(dat2[, ls.nam[[j]]])
         }
     }
