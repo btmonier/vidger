@@ -4,25 +4,35 @@
 \alias{vsScatterMatrix}
 \title{Scatter plot matrix of log10(FPKM or CPM) values}
 \usage{
-vsScatterMatrix(data, d.factor = NULL, type, comp = NULL, title = TRUE,
-  grid = TRUE, man.title = NULL)
+vsScatterMatrix(data, d.factor = NULL, type = c("cuffdiff", "deseq",
+  "edger"), comp = NULL, title = TRUE, grid = TRUE, man.title = NULL)
 }
 \arguments{
-\item{data}{a cuffdiff, DESeq2, or edgeR object.}
+\item{data}{output generated from calling the main routines of either
+`cuffdiff`, `DESeq2`, or `edgeR` analyses. For `cuffdiff`, this will be a 
+`*_exp.diff` file. For `DESeq2`, this will be a generated object of class 
+`DESeqDataSet`. For `edgeR`, this will be a generated object of class 
+`DGEList`.}
 
-\item{d.factor}{a specified factor; for use with DESeq2 objects only. 
-Defaults to `NULL`}
+\item{d.factor}{a specified factor; for use with `DESeq2` objects only.
+This input equates to the first parameter for the contrast argument when 
+invoking the `results()` function in `DESeq2`. Defaults to `NULL`.}
 
 \item{type}{an analysis classifier to tell the function how to process the 
-data. Must be either `cuffdiff`, `deseq`, or `edgeR`.}
+data. Must be either `cuffdiff`, `deseq`, or `edger`. `cuffdiff` must be 
+used with `cuffdiff` data; `deseq` must be used for `DESeq2` output; 
+`edgeR` must be used with `edgeR` data. See the `data` parameter for 
+further details.}
 
 \item{comp}{treatments you would like to compare in the form of a vector. 
 If no parameter is specified, all possible treatment comparisons will be 
 made. Defaults to `NULL`.}
 
-\item{title}{show title of plot. Defaults to `TRUE`.}
+\item{title}{display the main title of plot. Logical; defaults to `TRUE`.
+If set to `FALSE`, no title will display in plot.}
 
-\item{grid}{show major and minor axis lines. Defaults to `TRUE`.}
+\item{grid}{display major and minor axis lines. Logical; defaults to `TRUE`.
+If set to `FALSE`, no axis lines will display in plot.}
 
 \item{man.title}{a manually specified title at the authors discretion. 
 Defaults to `NULL`.}
