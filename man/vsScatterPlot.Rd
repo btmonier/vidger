@@ -4,25 +4,37 @@
 \alias{vsScatterPlot}
 \title{Scatter plot of log10(FPKM or CPM) values}
 \usage{
-vsScatterPlot(x, y, data, d.factor = NULL, type, title = TRUE,
-  grid = TRUE)
+vsScatterPlot(x, y, data, d.factor = NULL, type = c("cuffdiff", "deseq",
+  "edger"), title = TRUE, grid = TRUE)
 }
 \arguments{
-\item{x}{treatment for the x-axis of the plot}
+\item{x}{treatment `x` for comparison (log2(x/control)). This will be a
+factor level in your data.}
 
-\item{y}{treatment for the y-axis of the plot}
+\item{y}{treatment `y` for comparison (log2(y/control)). This will be a 
+factor level in your data.}
 
-\item{data}{a cuffdiff, DESeq2, or edgeR object.}
+\item{data}{output generated from calling the main routines of either
+`cuffdiff`, `DESeq2`, or `edgeR` analyses. For `cuffdiff`, this will be a 
+`*_exp.diff` file. For `DESeq2`, this will be a generated object of class 
+`DESeqDataSet`. For `edgeR`, this will be a generated object of class 
+`DGEList`.}
 
-\item{d.factor}{a specified factor; for use with DESeq2 objects only.
-Defaults to `NULL`}
+\item{d.factor}{a specified factor; for use with `DESeq2` objects only.
+This input equates to the first parameter for the contrast argument when 
+invoking the `results()` function in `DESeq2`. Defaults to `NULL`.}
 
 \item{type}{an analysis classifier to tell the function how to process the 
-data. Must be either `cuffdiff`, `deseq`, or `edgeR`.}
+data. Must be either `cuffdiff`, `deseq`, or `edger`. `cuffdiff` must be 
+used with `cuffdiff` data; `deseq` must be used for `DESeq2` output; 
+`edgeR` must be used with `edgeR` data. See the `data` parameter for 
+further details.}
 
-\item{title}{show title of plot. Defaults to `TRUE`.}
+\item{title}{display the main title of plot. Logical; defaults to `TRUE`.
+If set to `FALSE`, no title will display in plot.}
 
-\item{grid}{show major and minor axis lines. Defaults to `TRUE`.}
+\item{grid}{display major and minor axis lines. Logical; defaults to `TRUE`.
+If set to `FALSE`, no axis lines will display in plot.}
 }
 \value{
 An object created by \code{ggplot}
