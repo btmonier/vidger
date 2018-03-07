@@ -4,23 +4,34 @@
 \alias{vsBoxPlot}
 \title{Box plot for log10(FPKM or CPM) distributions}
 \usage{
-vsBoxPlot(data, d.factor = NULL, type, title = TRUE, legend = TRUE,
-  grid = TRUE)
+vsBoxPlot(data, d.factor = NULL, type = c("cuffdiff", "deseq", "edger"),
+  title = TRUE, legend = TRUE, grid = TRUE)
 }
 \arguments{
-\item{data}{a cuffdiff, DESeq2, or edgeR object.}
+\item{data}{output generated from calling the main routines of either
+`cuffdiff`, `DESeq2`, or `edgeR` analyses. For `cuffdiff`, this will be a 
+`*_exp.diff` file. For `DESeq2`, this will be a generated object of class 
+`DESeqDataSet`. For `edgeR`, this will be a generated object of class 
+`DGEList`.}
 
-\item{d.factor}{a specified factor; for use with DESeq2 objects only. 
-Defaults to `NULL`}
+\item{d.factor}{a specified factor; for use with `DESeq2` objects only.
+This input equates to the first parameter for the contrast argument when 
+invoking the `results()` function in `DESeq2`. Defaults to `NULL`}
 
 \item{type}{an analysis classifier to tell the function how to process the 
-data. Must be either `cuffdiff`, `deseq`, or `edgeR`.}
+data. Must be either `cuffdiff`, `deseq`, or `edger`. `cuffdiff` must be 
+used with `cuffdiff` data; `deseq` must be used for `DESeq2` output; 
+`edgeR` must be used with `edgeR` data. See the `data` parameter for 
+further details.}
 
-\item{title}{show title of plot. Defaults to `TRUE`.}
+\item{title}{display the main title of plot. Logical; defaults to `TRUE`.
+If set to `FALSE`, no title will display in plot.}
 
-\item{legend}{shows legend of plot. Defaults to `TRUE`.}
+\item{legend}{display legend of plot. Logical; defaults to `TRUE`.
+If set to `FALSE`, no legend will display in plot.}
 
-\item{grid}{show major and minor axis lines. Defaults to `TRUE`.}
+\item{grid}{display major and minor axis lines. Logical; defaults to `TRUE`.
+If set to `FALSE`, no axis lines will display in plot.}
 }
 \value{
 An object created by \code{ggplot}
