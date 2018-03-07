@@ -11,23 +11,39 @@
 #' fold changes versus normalized mean counts while implementing ggplot2 
 #' aesthetics. 
 #' 
-#' @param x treatment `x` for comparison (log2(y/x)).
-#' @param y treatment `y` for comparison (log2(y/x)).
-#' @param data a cuffdiff, DESeq2, or edgeR object.
-#' @param d.factor a specified factor; for use with DESeq2 objects only.
-#'  Defaults to `NULL`
+#' @param x treatment `x` for comparison (log2(x/control)). This will be a
+#'  factor level in your data.
+#' @param y treatment `y` for comparison (log2(y/control)). This will be a 
+#'  factor level in your data.
+#' @param data output generated from calling the main routines of either
+#'  `cuffdiff`, `DESeq2`, or `edgeR` analyses. For `cuffdiff`, this will be a 
+#'  `*_exp.diff` file. For `DESeq2`, this will be a generated object of class 
+#'  `DESeqDataSet`. For `edgeR`, this will be a generated object of class 
+#'  `DGEList`.
+#' @param d.factor a specified factor; for use with `DESeq2` objects only.
+#'  This input equates to the first parameter for the contrast argument when 
+#'  invoking the `results()` function in `DESeq2`. Defaults to `NULL`.
 #' @param type an analysis classifier to tell the function how to process the 
-#'  data. Must be either `cuffdiff`, `deseq`, or `edgeR`.
+#'  data. Must be either `cuffdiff`, `deseq`, or `edger`. `cuffdiff` must be 
+#'  used with `cuffdiff` data; `deseq` must be used for `DESeq2` output; 
+#'  `edgeR` must be used with `edgeR` data. See the `data` parameter for 
+#'  further details.
 #' @param padj a user defined adjusted p-value cutoff point. 
 #'  Defaults to `0.05`.
-#' @param y.lim set manual limits to the y axis. Defaults to `NULL`.
+#' @param y.lim set manual limits (boundaries) to the y axis. Defaults to 
+#'  `NULL`.
 #' @param lfc log fold change level for setting conditonals. If no user input 
 #'  is added (`NULL`), value defaults to `1`.
-#' @param title show title of plot. Defaults to `TRUE`.
-#' @param legend shows legend of plot. Defaults to `TRUE`.
-#' @param grid show major and minor axis lines. Defaults to `TRUE`.
-#' @param data.return returns data output of plot if set to `TRUE`. Defaults 
-#'  to `FASLSE`.
+#' @param title display the main title of plot. Logical; defaults to `TRUE`.
+#'  If set to `FALSE`, no title will display in plot.
+#' @param legend display legend of plot. Logical; defaults to `TRUE`.
+#'  If set to `FALSE`, no legend will display in plot.
+#' @param grid display major and minor axis lines. Logical; defaults to `TRUE`.
+#'  If set to `FALSE`, no axis lines will display in plot.
+#' @param data.return returns data output of plot Logical; defaults to `FALSE`.
+#'  If set to `TRUE`, a data frame will also be called. Assign to object
+#'  for reproduction and saving of data frame. See final example for further
+#'  details.
 #' 
 #' @return An object created by \code{ggplot}
 #' 
@@ -73,26 +89,29 @@
 #' head(df.ma)
 
 vsMAPlot <- function(
-    x, y, data, d.factor = NULL, type, padj = 0.05, y.lim = NULL,
-    lfc = NULL, title = TRUE, legend = TRUE, grid = TRUE, data.return = FALSE
+    x, y, data, d.factor = NULL, type = c("cuffdiff", "deseq", "edger"), 
+    padj = 0.05, y.lim = NULL, lfc = NULL, title = TRUE, legend = TRUE, 
+    grid = TRUE, data.return = FALSE
 ) {
-    if (missing(type)) {
+    if (missing(type) || !type %in% c("cuffdiff", "deseq", "edger")) {
         stop('Please specify analysis type ("cuffdiff", "deseq", or "edger")')
     }
+    
+    type <- match.arg(type)
     if(type == 'cuffdiff') {
         dat <- .getCuffMA(x, y, data)
     } else if (type == 'deseq') {
         dat <- .getDeseqMA(x, y, data, d.factor)
     } else if (type == 'edger') {
         dat <- .getEdgeMA(x, y, data)
-    } else {
-        stop('Please enter correct analysis type.')
     }
+    
     if (!isTRUE(title)) {
         m.lab <- NULL
     } else {
         m.lab  <- ggtitle(paste(y, 'vs.', x))
     }
+    
     if (!isTRUE(legend)) {
         leg <- theme(legend.position = 'none')
     } else {
@@ -100,6 +119,7 @@ vsMAPlot <- function(
                                     shape = guide_legend(
                                         override.aes = list(size = 3)))
     }
+    
     if (!isTRUE(grid)) {
         grid <- theme_classic()
     } else {
@@ -139,7 +159,8 @@ vsMAPlot <- function(
     tmp.plot <- ggplot(
         dat, aes(x = A, y = pmax(y.lim[1], pmin(y.lim[2], py)))
     ) +
-        point + comp2$color + comp2$shape + comp1$hline1 + comp1$hline2 + 
+        point + 
+        comp2$color + comp2$shape + comp1$hline1 + comp1$hline2 + 
         comp1$hline3 + comp1$x.lab + comp1$y.lab + m.lab + ylim(y.lim) + 
         comp2$size + grid + leg
     

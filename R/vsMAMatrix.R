@@ -9,23 +9,37 @@
 #' combinations for a given factor in either a cuffdiff, DESeq2, or edgeR
 #' data set.
 #'  
-#' @param data a cuffdiff, DESeq2, or edgeR object.
-#' @param d.factor a specified factor; for use with DESeq2 objects only. 
-#'  Defaults to `NULL`
+#' @param data output generated from calling the main routines of either
+#'  `cuffdiff`, `DESeq2`, or `edgeR` analyses. For `cuffdiff`, this will be a 
+#'  `*_exp.diff` file. For `DESeq2`, this will be a generated object of class 
+#'  `DESeqDataSet`. For `edgeR`, this will be a generated object of class 
+#'  `DGEList`.
+#' @param d.factor a specified factor; for use with `DESeq2` objects only.
+#'  This input equates to the first parameter for the contrast argument when 
+#'  invoking the `results()` function in `DESeq2`. Defaults to `NULL`.
 #' @param type an analysis classifier to tell the function how to process the 
-#'  data. Must be either `cuffdiff`, `deseq`, or `edgeR`.
+#'  data. Must be either `cuffdiff`, `deseq`, or `edger`. `cuffdiff` must be 
+#'  used with `cuffdiff` data; `deseq` must be used for `DESeq2` output; 
+#'  `edgeR` must be used with `edgeR` data. See the `data` parameter for 
+#'  further details.
 #' @param padj a user defined adjusted p-value cutoff point. 
 #'  Defaults to `0.05`.
-#' @param y.lim set manual limits to the y axis. Defaults to `NULL`.
+#' @param y.lim set manual limits (boundaries) to the y axis. Defaults to 
+#'  `NULL`.
 #' @param lfc log fold change level for setting conditonals. If no user input 
 #'  is added (`NULL`), value defaults to `1`.
-#' @param title show title of plot. Defaults to `TRUE`.
-#' @param legend shows legend of plot. Defaults to `TRUE`.
-#' @param grid show major and minor axis lines. Defaults to `TRUE`.
+#' @param title display the main title of plot. Logical; defaults to `TRUE`.
+#'  If set to `FALSE`, no title will display in plot.
+#' @param legend display legend of plot. Logical; defaults to `TRUE`.
+#'  If set to `FALSE`, no legend will display in plot.
+#' @param grid display major and minor axis lines. Logical; defaults to `TRUE`.
+#'  If set to `FALSE`, no axis lines will display in plot.
 #' @param counts displays the number of differentially expressed genes for 
 #'  each treatment comparison. Defaults to `TRUE`.
-#' @param data.return returns data output of plot if set to `TRUE`. Defaults 
-#'  to `FASLSE`.
+#' @param data.return returns data output of plot Logical; defaults to `FALSE`.
+#'  If set to `TRUE`, a data frame will also be called. Assign to object
+#'  for reproduction and saving of data frame. See final example for further
+#'  details.
 #' 
 #' @return An object created by \code{ggplot}
 #' 
@@ -70,34 +84,35 @@
 #' head(df.vmat)
 
 vsMAMatrix <- function(
-    data, d.factor = NULL, type, padj = 0.05, y.lim = NULL, lfc = NULL, 
-    title = TRUE, legend = TRUE, grid = TRUE, counts = TRUE,
-    data.return = FALSE
+    data, d.factor = NULL, type = c("cuffdiff", "deseq", "edger"), 
+    padj = 0.05, y.lim = NULL, lfc = NULL, title = TRUE, legend = TRUE, 
+    grid = TRUE, counts = TRUE, data.return = FALSE
 ) {
-    if (missing(type)) {
-        stop(
-            'Please specify analysis type ("cuffdiff", "deseq", or "edger")'
-        )
+    if (missing(type) || !type %in% c("cuffdiff", "deseq", "edger")) {
+        stop('Please specify analysis type ("cuffdiff", "deseq", or "edger")')
     }
-    if(type == 'cuffdiff') {
+    
+    type <- match.arg(type)
+    if(type == 'cuffdiff'){
         dat <- .getCuffMAMatrix(data)
     } else if (type == 'deseq') {
         dat <- .getDeseqMAMatrix(data, d.factor)
     } else if (type == 'edger') {
         dat <- .getEdgeMAMatrix(data)
-    } else {
-        stop('Please enter correct analysis type.')
     }
+
     if (!isTRUE(title)) {
         m.lab <- NULL
     } else {
         m.lab <- ggtitle('MA Matrix')
     }
+
     if (!isTRUE(legend)) {
         leg <- theme(legend.position = 'none')
     } else {
         leg <- guides(colour = guide_legend(override.aes = list(size = 3)))
     }
+    
     if (!isTRUE(grid)) {
         grid <- theme_classic()
     } else {
