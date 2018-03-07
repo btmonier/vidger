@@ -89,12 +89,12 @@
     m_a <- as.matrix(m_a[which(m_a$Var1 != m_a$Var2), ])
     l_a <- split(m_a, row(m_a))
     
-    l1 <- list()
-    for(i in seq_along(l_a)){
-        l1[[i]] <- .getEdgeVolcano(l_a[[i]][1], l_a[[i]][2], data)
-        l1[[i]]$id_x <- l_a[[i]][1]
-        l1[[i]]$id_y <- l_a[[i]][2]
-    }
+    l1 <- lapply(seq_along(l_a), function(i) {
+        tab <- .getEdgeVolcano(l_a[[i]][1], l_a[[i]][2], data)
+        tab$id_x <- l_a[[i]][1]
+        tab$id_y <- l_a[[i]][2]
+        tab
+    })
     dat1 <- do.call('rbind', l1)
     dat1 <- dat1[, c(6:7, 1:2, 3:5)]
     dat1$id_x <- as.factor(dat1$id_x)
@@ -111,12 +111,12 @@
     m_a <- as.matrix(m_a[which(m_a$Var1 != m_a$Var2), ])
     l_a <- split(m_a, row(m_a))
     
-    l1 <- list()
-    for(i in seq_along(l_a)){
-        l1[[i]] <- .getCuffVolcano(l_a[[i]][1], l_a[[i]][2], data)
-        l1[[i]]$id_x <- l_a[[i]][1]
-        l1[[i]]$id_y <- l_a[[i]][2]
-    }
+    l1 <- lapply(seq_along(l_a), function(i) {
+        tab <- .getCuffVolcano(l_a[[i]][1], l_a[[i]][2], data)
+        tab$id_x <- l_a[[i]][1]
+        tab$id_y <- l_a[[i]][2]
+        tab
+    })
     dat1 <- do.call('rbind', l1)
     dat1 <- dat1[, c(1, 7:8, 2:6)]
     dat1$id_x <- as.factor(dat1$id_x)
@@ -140,12 +140,12 @@
     m_a <- as.matrix(m_a[which(m_a$Var1 != m_a$Var2), ])
     l_a <- split(m_a, row(m_a))
     
-    l1 <- list()
-    for(i in seq_along(l_a)){
-        l1[[i]] <- .getDeseqVolcano(l_a[[i]][1], l_a[[i]][2], data, d.factor)
-        l1[[i]]$id_x <- l_a[[i]][1]
-        l1[[i]]$id_y <- l_a[[i]][2]
-    }
+    l1 <- lapply(seq_along(l_a), function(i) {
+        tab <- .getDeseqVolcano(l_a[[i]][1], l_a[[i]][2], data, d.factor)
+        tab$id_x <- l_a[[i]][1]
+        tab$id_y <- l_a[[i]][2]
+        tab
+    })
     dat1 <- do.call('rbind', l1)
     dat1 <- dat1[, c(1:2, 6:7, 3:5)]
     dat1$id_x <- as.factor(dat1$id_x)
