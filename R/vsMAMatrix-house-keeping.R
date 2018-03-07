@@ -82,7 +82,7 @@
     l_a <- split(m_a, row(m_a))
     
     l1 <- list()
-    for(i in 1:length(l_a)){
+    for(i in seq_along(l_a)) {
         l1[[i]] <- .getEdgeMA(l_a[[i]][1], l_a[[i]][2], data)
         l1[[i]]$id_x <- l_a[[i]][1]
         l1[[i]]$id_y <- l_a[[i]][2]
@@ -104,7 +104,7 @@
     l_a <- split(m_a, row(m_a))
     
     l1 <- list()
-    for(i in 1:length(l_a)){
+    for(i in seq_along(l_a)){
         l1[[i]] <- .getCuffMA(l_a[[i]][1], l_a[[i]][2], data)
         l1[[i]]$id_x <- l_a[[i]][1]
         l1[[i]]$id_y <- l_a[[i]][2]
@@ -136,7 +136,7 @@
     l_a <- split(m_a, row(m_a))
     
     l1 <- list()
-    for(i in 1:length(l_a)) {
+    for(i in seq_along(l_a)) {
         l1[[i]] <- .getDeseqMA(l_a[[i]][1], l_a[[i]][2], data, d.factor)
         l1[[i]]$id_x <- l_a[[i]][1]
         l1[[i]]$id_y <- l_a[[i]][2]
