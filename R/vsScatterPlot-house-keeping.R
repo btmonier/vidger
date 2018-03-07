@@ -23,10 +23,10 @@
                                     (sample_1 == y & sample_2 == x))
     dat <- data.frame(test_id = deg$test_id)
     
-    if (x %in% deg$sample_1 & y %in% deg$sample_2) {
+    if (x %in% deg$sample_1 && y %in% deg$sample_2) {
         dat$x <- deg$value_1
         dat$y <- deg$value_2
-    } else if (y %in% deg$sample_1 & x %in% deg$sample_2) {
+    } else if (y %in% deg$sample_1 && x %in% deg$sample_2) {
         dat$x <- deg$value_2
         dat$y <- deg$value_1
     }

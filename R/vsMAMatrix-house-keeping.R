@@ -80,17 +80,13 @@
     m_a <- expand.grid(v_1, v_1)
     m_a <- as.matrix(m_a[which(m_a$Var1 != m_a$Var2), ])
     l_a <- split(m_a, row(m_a))
-    
-    l1 <- list()
-    for(i in seq_along(l_a)) {
-        l1[[i]] <- .getEdgeMA(l_a[[i]][1], l_a[[i]][2], data)
-        l1[[i]]$id_x <- l_a[[i]][1]
-        l1[[i]]$id_y <- l_a[[i]][2]
-    }
+    l1 <- lapply(seq_along(l_a), function(i) {
+        tab <- .getEdgeMA(l_a[[i]][1], l_a[[i]][2], data)
+        tab$id_x <- l_a[[i]][1]
+        tab$id_y <- l_a[[i]][2]
+        tab
+    })
     dat1 <- do.call('rbind', l1)
-    # dat1 <- dat1[, c(6:7, 1:2, 3:5)]
-    # dat1$id_x <- as.factor(dat1$id_x)
-    # dat1$id_y <- as.factor(dat1$id_y)
     return(dat1)
 }
 
@@ -102,18 +98,13 @@
     m_a <- expand.grid(v_1, v_1)
     m_a <- as.matrix(m_a[which(m_a$Var1 != m_a$Var2), ])
     l_a <- split(m_a, row(m_a))
-    
-    l1 <- list()
-    for(i in seq_along(l_a)){
-        l1[[i]] <- .getCuffMA(l_a[[i]][1], l_a[[i]][2], data)
-        l1[[i]]$id_x <- l_a[[i]][1]
-        l1[[i]]$id_y <- l_a[[i]][2]
-    }
+    l1 <- lapply(seq_along(l_a), function(i) {
+        tab <- .getCuffMA(l_a[[i]][1], l_a[[i]][2], data)
+        tab$id_x <- l_a[[i]][1]
+        tab$id_y <- l_a[[i]][2]
+        tab
+    })
     dat1 <- do.call('rbind', l1)
-
-
-
-    # dat1 <- dat1[, c(1, 7:8, 2:6)]
     dat1$id_x <- as.factor(dat1$id_x)
     dat1$id_y <- as.factor(dat1$id_y)
     return(dat1)
@@ -128,22 +119,17 @@
             Please state d.factor variable.'
         )
     }
-    
     dat <- as.data.frame(colData(data))
     v_1 <- as.vector(unique(dat[[d.factor]]))
     m_a <- expand.grid(v_1, v_1)
     m_a <- as.matrix(m_a[which(m_a$Var1 != m_a$Var2), ])
     l_a <- split(m_a, row(m_a))
-    
-    l1 <- list()
-    for(i in seq_along(l_a)) {
-        l1[[i]] <- .getDeseqMA(l_a[[i]][1], l_a[[i]][2], data, d.factor)
-        l1[[i]]$id_x <- l_a[[i]][1]
-        l1[[i]]$id_y <- l_a[[i]][2]
-    }
+    l1 <- lapply(seq_along(l_a), function(i) {
+        tab <- .getDeseqMA(l_a[[i]][1], l_a[[i]][2], data, d.factor)
+        tab$id_x <- l_a[[i]][1]
+        tab$id_y <- l_a[[i]][2]
+        tab
+    })
     dat1 <- do.call('rbind', l1)
-    # dat1 <- dat1[, c(1:2, 7:8, 3:6)]
-    # dat1$id_x <- as.factor(dat1$id_x)
-    # dat1$id_y <- as.factor(dat1$id_y)
     return(dat1)
 }
