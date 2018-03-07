@@ -33,10 +33,10 @@
     deg_x <- subset(deg, (sample_1 == x & sample_2 == control) | 
                                         (sample_1 == control & sample_2 == x))
     dat_x <- data.frame(test_id = deg_x$test_id)
-    if (x %in% deg_x$sample_1 & control %in% deg_x$sample_2) {
+    if (x %in% deg_x$sample_1 && control %in% deg_x$sample_2) {
         dat_x$x <- deg_x$value_1
         dat_x$control <- deg_x$value_2
-    } else if (control %in% deg_x$sample_1 & x %in% deg_x$sample_2) {
+    } else if (control %in% deg_x$sample_1 && x %in% deg_x$sample_2) {
         dat_x$x <- deg_x$value_2
         dat_x$control <- deg_x$value_1
     }
@@ -47,10 +47,10 @@
     deg_y <- subset(deg, (sample_1 == y & sample_2 == control) | 
                                         (sample_1 == control & sample_2 == y))
     dat_y <- data.frame(test_id = deg_y$test_id)
-    if (y %in% deg_y$sample_1 & control %in% deg_y$sample_2) {
+    if (y %in% deg_y$sample_1 && control %in% deg_y$sample_2) {
         dat_y$y <- deg_y$value_1
         dat_y$control <- deg_y$value_2
-    } else if (control %in% deg_y$sample_1 & y %in% deg_y$sample_2) {
+    } else if (control %in% deg_y$sample_1 && y %in% deg_y$sample_2) {
         dat_y$y <- deg_y$value_2
         dat_y$control <- deg_y$value_1
     }
@@ -234,13 +234,13 @@
     vec3 <- c(vec2_x, vec2_y)
     tmp <- quantile(abs(vec3))
     ifelse(
-        abs(px) < x.lim & abs(py) < y.lim, 'sub',
+        abs(px) < x.lim && abs(py) < y.lim, 'sub',
         ifelse(
             abs(vec3) >= tmp[[4]], 't4',
             ifelse(
-                abs(vec3) >= tmp[[3]] & abs(vec3) < tmp[[4]], 't3',
+                abs(vec3) >= tmp[[3]] && abs(vec3) < tmp[[4]], 't3',
                 ifelse(
-                    abs(vec3) >= tmp[[2]] & abs(vec3) < tmp[[3]], 't2','t1'
+                    abs(vec3) >= tmp[[2]] && abs(vec3) < tmp[[3]], 't2','t1'
                 )
             )
         )
@@ -257,13 +257,13 @@
     py <- dat$logFC_y
     
     ifelse(
-        de_a == TRUE & abs(px) >= lfc & abs(py) >= lfc, 'blu',
+        de_a == TRUE && abs(px) >= lfc && abs(py) >= lfc, 'blu',
         ifelse(
-            abs(px) >= lfc & abs(py) < lfc & 
-            de_x == TRUE & de_y == FALSE, 'grn',
+            abs(px) >= lfc && abs(py) < lfc && 
+            de_x == TRUE && de_y == FALSE, 'grn',
             ifelse(
-                abs(px) < lfc & abs(py) >= lfc & 
-                de_x == FALSE & de_y == TRUE, 'red', 'gry'
+                abs(px) < lfc && abs(py) >= lfc && 
+                de_x == FALSE && de_y == TRUE, 'red', 'gry'
             )
         )
     )
@@ -273,7 +273,10 @@
 
 .four.shp.ranker <- function(px, py, x.lim, y.lim) {
     ifelse(
-        (px < x.lim[1]) | (px > x.lim[2]) | (py < y.lim[1]) | (py > y.lim[2]), 
+        (px < x.lim[1]) || 
+        (px > x.lim[2]) || 
+        (py < y.lim[1]) || 
+        (py > y.lim[2]), 
         'tri1', 'circ'
     )
 }

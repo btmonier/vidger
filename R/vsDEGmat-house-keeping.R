@@ -8,19 +8,18 @@
     dat1 <- as.vector(unique(data$sample$group))
     dat2 <- t(combn(dat1, 2))
     l.dat <- split(dat2, row(dat2))
-    ls1 <- list()
-    ls2 <- list()
-    ls3 <- list()
-    for (i in seq_along(l.dat)) {
-        ls1[[i]] <- exactTest(data, pair = l.dat[[i]])
-        for (j in seq_along(ls1)) {
-            ls2[[i]] <- topTags(ls1[[i]], n = nrow(ls1[[i]]$table))
-            ls3[[i]] <- ls2[[i]]$table[order(
-                as.numeric(rownames(ls2[[i]]$table))),]
-            ls3[[i]]$x <- ls2[[i]]$comparison[1]
-            ls3[[i]]$y <- ls2[[i]]$comparison[2]
-        }
-    }
+    ls1 <- lapply(l.dat, function(i) {
+        exactTest(data, pair = i) 
+    })
+    ls2 <- lapply(seq_along(ls1), function(i) {
+        topTags(ls1[[i]], n = nrow(ls1[[i]]$table))
+    })
+    ls3 <- lapply(seq_along(ls1), function(i) {
+        tab <- ls2[[i]]$table[order(as.numeric(rownames(ls2[[i]]$table))),]
+        tab$x <- ls2[[i]]$comparison[1]
+        tab$y <- ls2[[i]]$comparison[2]
+        tab
+    })
     dat3 <- do.call("rbind", ls3)
     dat3 <- dat3[, c('x', 'y', 'PValue','FDR')]
     names(dat3)[names(dat3) == 'FDR'] <- 'padj'
@@ -57,14 +56,15 @@
     dat2 <- t(combn(tmp1, 2))
     dat2 <- cbind(d.factor, dat2)
     l.dat <- split(dat2, row(dat2))
-    ls1 <- list()
-    ls2 <- list()
-    for(i in seq_along(l.dat)) {
-        ls1[[i]] <- as.data.frame(results(data, contrast = l.dat[[i]]))
-        ls2[[i]] <- ls1[[i]][, c('pvalue', 'padj')]
-        ls2[[i]]$x <- l.dat[[i]][2]
-        ls2[[i]]$y <- l.dat[[i]][3]
-    }
+    ls1 <- lapply(seq_along(l.dat), function(i) {
+        as.data.frame(results(data, contrast = l.dat[[i]]))
+    })
+    ls2 <- lapply(seq_along(l.dat), function(i) {
+        tab <- ls1[[i]][, c("pvalue", "padj")]
+        tab$x <- l.dat[[i]][2]
+        tab$y <- l.dat[[i]][3]
+        tab
+    })
     dat3 <- do.call('rbind', ls2)
     dat3 <- dat3[, c('x', 'y', 'pvalue', 'padj')]
     names(dat3)[names(dat3) == 'pvalue'] <- 'pval'

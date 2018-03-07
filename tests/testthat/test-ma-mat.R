@@ -1,25 +1,45 @@
-context("MA Matrices")
+context("vsMAMatrix")
 
-test_that("MA matrices work", {
+test_that("vsMAMatrix() gives proper errors", {
     # Load data
     data(df.cuff)
     data(df.deseq)
     data(df.edger)
 
-    # Cuffdiff test
-    vsMAMatrix(data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
-                    padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
-                    grid = TRUE, counts = TRUE, data.return = FALSE)
-    
-    # DESeq2 test
-    require(DESeq2)
-    vsMAMatrix(data = df.deseq, d.factor = 'condition', type = 'deseq', 
-                    padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
-                    grid = TRUE, counts = TRUE, data.return = FALSE)
-    
-    # edgeR test
-    require(edgeR)
-    vsMAMatrix(data = df.edger, d.factor = NULL, type = 'edger', 
-                    padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
-                    grid = TRUE, counts = TRUE, data.return = FALSE)
+    # cuffdiff with wrong `type` parameter
+    expect_error(
+        vsMAMatrix(
+            data = df.cuff, d.factor = NULL, type = "deseq", 
+            padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
+            grid = TRUE, counts = TRUE, data.return = FALSE
+        )        
+    )
+
+    # DESeq2 with no `d.factor` parameter
+    expect_error(
+        vsMAMatrix(
+            data = df.deseq, d.factor = NULL, type = "deseq", 
+            padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
+            grid = TRUE, counts = TRUE, data.return = FALSE
+        )
+    )
+
+    # edgeR with missing `type` parameter
+    expect_error(
+        vsMAMatrix(
+            data = df.edger, d.factor = NULL, type = "", 
+            padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
+            grid = TRUE, counts = TRUE, data.return = FALSE
+        )        
+    )
+
+    # cuffdiff with completely wrong `type` parameter
+    expect_error(
+        vsMAMatrix(
+            data = df.cuff, d.factor = NULL, type = "cufdif", 
+            padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
+            grid = TRUE, counts = TRUE, data.return = FALSE
+        )        
+    )
+
 })
