@@ -169,8 +169,8 @@
 
 
 .ma.col.ranker <- function(isDE, log2fc, lfc) {
-    ifelse(isDE == TRUE && abs(log2fc) < lfc, 'grn', 
-                 ifelse(isDE == TRUE && abs(log2fc) > lfc, 'blu', 'gry'))
+    ifelse(isDE == TRUE & abs(log2fc) < lfc, 'grn', 
+                 ifelse(isDE == TRUE & abs(log2fc) > lfc, 'blu', 'gry'))
 }
 
 
