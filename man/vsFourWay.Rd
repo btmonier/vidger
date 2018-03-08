@@ -118,7 +118,7 @@ tmp <- vsFourWay(
  x = 'WM', y = 'WW', control = 'MM', data = df.edger, 
  d.factor = NULL, type = 'edger', padj = 0.05, 
  x.lim = NULL, y.lim = NULL, lfc = 2, title = TRUE, 
- grid = TRUE, data.return = FALSE
+ grid = TRUE, data.return = TRUE
 )
 df.four <- tmp[[1]]
 head(df.four)
