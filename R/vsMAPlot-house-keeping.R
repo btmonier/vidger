@@ -46,7 +46,7 @@
     dat$pval <- deg$p_value
     dat$padj <- deg$q_value
     dat <- do.call(
-        data.frame, lapply(dat, function(x) replace(x, is.infinite(x),NA))
+        data.frame, lapply(dat, function(x) replace(x, is.infinite(x), NA))
     )
 
     dat <- dat[complete.cases(dat), ]
@@ -157,9 +157,9 @@
         ifelse(
             abs(vec2) >= tmp[[4]], 't4',
             ifelse(
-                abs(vec2) >= tmp[[3]] && abs(vec2) < tmp[[4]], 't3',
+                abs(vec2) >= tmp[[3]] & abs(vec2) < tmp[[4]], 't3',
                 ifelse(
-                    abs(vec2) >= tmp[[2]] && abs(vec2) < tmp[[3]], 't2','t1'
+                    abs(vec2) >= tmp[[2]] & abs(vec2) < tmp[[3]], 't2','t1'
                 )
             )
         )
@@ -169,8 +169,10 @@
 
 
 .ma.col.ranker <- function(isDE, log2fc, lfc) {
-    ifelse(isDE == TRUE & abs(log2fc) < lfc, 'grn', 
-                 ifelse(isDE == TRUE & abs(log2fc) > lfc, 'blu', 'gry'))
+    ifelse(
+        isDE == TRUE & abs(log2fc) < lfc, 'grn',
+        ifelse(isDE == TRUE & abs(log2fc) > lfc, 'blu', 'gry')
+    )
 }
 
 
