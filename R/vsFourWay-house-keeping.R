@@ -111,7 +111,7 @@
         col1 = paste0('padj(x, y) > ', padj),
         col2 = paste0(
             'padj(x) < ', padj, ', |lfc(x)| > ', lfc, 
-            '|lfc(y)| < ', lfc, ' (', g ,')'
+            ' |lfc(y)| < ', lfc, ' (', g ,')'
         ),
         col3 = paste0(
             'padj(y) < ', padj, ', |lfc(x)| < ', lfc, ' |lfc(y)| > ',
