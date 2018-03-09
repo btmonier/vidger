@@ -8,6 +8,7 @@ sudo: required
 warnings_are_errors: true
 
 r-packages:
+    - devtools
     - GGally
     - ggplot2
     - scales
