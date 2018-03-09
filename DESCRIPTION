@@ -1,6 +1,6 @@
 Package: vidger
 Title: Create rapid visualizations of RNAseq data in R
-Version: 0.99.3
+Version: 0.99.4
 Author: Brandon Monier, Adam McDermaid, Qin Ma
 Maintainer: Brandon Monier <brandon.monier@sdstate.edu>
 Description: 
@@ -31,4 +31,4 @@ VignetteBuilder:
     rmarkdown
 RoxygenNote: 6.0.1
 License: GPL-2 | file LICENSE
-biocViews: Visualization, RNASeq, DifferentialExpression
+biocViews: Visualization, RNASeq, DifferentialExpression, GeneExpression
