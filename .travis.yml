@@ -6,18 +6,18 @@ sudo: required
 warnings_are_errors: true
 
 r-packages:
-- GGally,
-- ggplot2,
-- scales,
-- stats,
-- tidyr, 
+- GGally
+- ggplot2
+- scales
+- stats
+- tidyr 
 - utils
 
 bioc_packages:
-- Biobase,
-- DESeq2,
-- edgeR,
-- GenomicRanges,
+- Biobase
+- DESeq2
+- edgeR
+- GenomicRanges
 - SummarizedExperiment
 
 r_check_args: --no-build-vignettes --no-vignettes
