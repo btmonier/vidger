@@ -8,7 +8,7 @@ author: >
 date: >
     `r format(Sys.Date(), '%m/%d/%Y')`
 output: 
-    rmarkdown::html_document:
+    rmarkdown::html_vignette:
         toc: true
         fig_caption: yes 
         number_sections: true
