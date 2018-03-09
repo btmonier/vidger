@@ -1,10 +1,13 @@
 language: r
+cache: packages
+sudo: true
+dist: trusty
+
 r:
+    - oldrel
+    - release
     - devel
 
-sudo: required
-
-cache: packages
 
 # Be strict when checking our package
 warnings_are_errors: true
