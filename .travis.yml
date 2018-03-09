@@ -1,95 +1,19 @@
-language: r
+
+language: R
 sudo: false
 cache: packages
+r:
+    - devel
+
 warnings_are_errors: true
-use_bioc: true
 bioc_required: true
-cran: http://cran.rstudio.com
+bioc_use_devel: true
 
-addons:
-  apt:
-    packages:
-    - libfftw3-dev
-    - libgsl0-dev
-    - libgsl0ldbl
+bioc_packages:
+    - Biobase
+    - DESeq2
+    - edgeR
+    - SummarizedExperiment
 
-os:
-  - linux
-  - osx
-osx_image: xcode9 
-dist: trusty
-
-env:
-  global: 
-    - RGL_USE_NULL=TRUE
-    - PROJECT_NAME=neuroconductor
-    - DISPLAY=:99.0
-r_check_args: --as-cran --install-args=--build
-# r_check_args: "--as-cran --install-args=--build"
-
-before_install:
-  - export PROJ_DIR=`basename $PWD`    
-  - fname=travis_helpers.sh
-  - wget -O ${fname} http://bit.ly/travis_helpers
-  - cat ${fname}; source ${fname}; rm ${fname}  
-  - cat DESCRIPTION
-  - start_xvfb ;
-  - no_open_mp ; 
-  - Rscript -e 'source("https://install-github.me/mangothecat/callr")'
-  - remove_neuroc_packages 
-  - cat DESCRIPTION
-  - install_remotes_no_dep
-  - cat DESCRIPTION
-  - export PACKAGE_NAME=`package_name`
-  - if [[ "${PACKAGE_NAME}" == "waveslim" ]]; 
-    then
-      fftw_install ;
-    fi
-  - if [[ "${PACKAGE_NAME}" == "dti" ]]; 
-    then
-      gsl_install ;
-    fi
-  - if [[ "${PACKAGE_NAME}" == "ROpenCVLite" ]]; 
-    then
-      shopt -s expand_aliases ;
-      x=`Rscript -e "cat(Sys.which('R'))"` ;
-      alias R="travis_wait 100 ${x}" ;
-    fi
-  # - ralias; R -e "cat('test')"; ls travis_*.log
-
-after_success:
-  - cat ${PACKAGE_NAME}.Rcheck/00install.out
-  - cat ${PACKAGE_NAME}.Rcheck/00check.log
-
-after_failure:
-  - cat ${PACKAGE_NAME}.Rcheck/00install.out
-  - cat ${PACKAGE_NAME}.Rcheck/00check.log
-
-# need this explicitly
-# for naming convention
-before_deploy:
-  # - travis_wait 100 R CMD INSTALL --build ${PKG_TARBALL}
-  # so no overwrite of linux build
-  - if [[ "${TRAVIS_OS_NAME}" = "osx" ]];
-    then
-      rm -f *.tar.gz;
-    fi
-
-deploy:
-  provider: releases
-  skip_cleanup: true
-  api_key:
-    secure: "${NEUROCKEY}"
-  file_glob: true
-  file: ${PACKAGE_NAME}*.t*gz
-  on:
-    tags: true
-
-after_deploy:
-  # travis_wait 100 Rscript -e 'covr::coveralls(type = "all")' ;
-  - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; 
-    then
-      echo 'covr::coveralls(type = "all")' > neuroc_covr.R ;
-      travis_wait 100 Rscript neuroc_covr.R ;
-      rm neuroc_covr.R ;
-    fi
+install:
+  - Rscript -e 'install.packages("devtools", repos = "http://cran.rstudio.com")'
