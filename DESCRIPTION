@@ -1,6 +1,6 @@
 Package: vidger
 Title: Create rapid visualizations of RNAseq data in R
-Version: 0.99.4
+Version: 0.99.5
 Author: Brandon Monier, Adam McDermaid, Qin Ma
 Maintainer: Brandon Monier <brandon.monier@sdstate.edu>
 Description: 
