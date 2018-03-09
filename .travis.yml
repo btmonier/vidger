@@ -1,4 +1,6 @@
 language: r
+r:
+    - devel
 
 sudo: required
 
@@ -6,21 +8,21 @@ sudo: required
 warnings_are_errors: true
 
 r-packages:
-- GGally
-- ggplot2
-- scales
-- stats
-- tidyr 
-- utils
+    - GGally
+    - ggplot2
+    - scales
+    - stats
+    - tidyr 
+    - utils
 
 bioc_packages:
-- Biobase
-- DESeq2
-- edgeR
-- GenomicRanges
-- SummarizedExperiment
+    - Biobase
+    - DESeq2
+    - edgeR
+    - GenomicRanges
+    - SummarizedExperiment
 
 r_check_args: --no-build-vignettes --no-vignettes
 
 after_success:
-  - Rscript -e 'library(covr);codecov()'
+    - Rscript -e 'library(covr);codecov()'
