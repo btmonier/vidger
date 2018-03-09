@@ -16,9 +16,9 @@ r-packages:
 bioc_packages:
 - Biobase,
 - DESeq2,
-- edgeR
+- edgeR,
 - GenomicRanges,
-- SummarizedExperiment,
+- SummarizedExperiment
 
 r_check_args: --no-build-vignettes --no-vignettes
 
