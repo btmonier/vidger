@@ -2,12 +2,12 @@
 ViDGER <img src="man/figures/logo-02.png" align="right" />
 ==========================================================
 
-[![Build Status](https://travis-ci.org/btmonier/vidger.svg?branch=master)](https://travis-ci.org/btmonier/vidger)
+[![Build Status](https://travis-ci.org/btmonier/vidger.svg?branch=master)](https://travis-ci.org/btmonier/vidger) [![appveyor](https://ci.appveyor.com/api/projects/status/github/btmonier/vidger?branch=master&svg=true)](https://ci.appveyor.com/project/btmonier/vidger) [![codecov](https://codecov.io/gh/btmonier/vidger/branch/master/graph/badge.svg)](https://codecov.io/gh/btmonier/vidger) [![platforms](https://bioconductor.org/shields/availability/3.7/vidger.svg)](https://bioconductor.org/packages/release/bioc/html/vidger.html#archives)
 
 Overview
 --------
 
-`vidger` (**Vi**sualization of **D**ifferential **G**ene **E**xpression using **R**), is an `R` package that can rapidly generate information-rich visualizations for the interpretation of differential gene expression results from three widely-used tools: `Cuffdiff`, `DESeq2`, and `edgeR`.
+ViDGER (**Vi**sualization of **D**ifferential **G**ene **E**xpression using **R**), is an `R` package that can rapidly generate information-rich visualizations for the interpretation of differential gene expression results from three widely-used tools: `Cuffdiff`, `DESeq2`, and `edgeR`.
 
 Installation
 ------------
