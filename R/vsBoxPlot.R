@@ -29,6 +29,15 @@
 #'  If set to `FALSE`, no legend will display in plot.
 #' @param grid display major and minor axis lines. Logical; defaults to `TRUE`.
 #'  If set to `FALSE`, no axis lines will display in plot.
+#' @param aes changes overall layout of the graph. \code{box}: box plot;
+#'  \code{violin}: violin plot; \code{boxdot}: box plot with dots;
+#'  \code{viodot}: violin plot with dots; \code{viosumm}: violin plot with
+#'  summary statistics; \code{notch}: box plots with notches.
+#'  Defaults to \code{box}.
+#' @param fill.color changes the fill color for the plots. See 
+#'  \code{RColorBrewer::display.brewer.all()} function for further details.
+#'  If \code{NULL}, colors will default to standard \code{ggplot2} 
+#'  aesthetics.
 #' 
 #' @return An object created by \code{ggplot}
 #' 
@@ -60,7 +69,9 @@
 
 vsBoxPlot <- function(
     data, d.factor = NULL, type = c("cuffdiff", "deseq", "edger"), 
-    title = TRUE, legend = TRUE, grid = TRUE
+    title = TRUE, legend = TRUE, grid = TRUE,
+    aes = c("box", "violin", "boxdot", "viodot", "viosumm", "notch"),
+    fill.color = NULL
 ) {
     if (missing(type) || !type %in% c("cuffdiff", "deseq", "edger")) {
         stop('Please specify analysis type ("cuffdiff", "deseq", or "edger")')
@@ -101,14 +112,81 @@ vsBoxPlot <- function(
         y.lab <- expression(paste('log'['10'], ' (FPM)'))
     }
 
+    aes_types <- c("box", "violin", "boxdot", "viodot", "viosumm", "notch")
+    if (missing(aes)) {
+        aes <- "box"
+    } else if (!aes %in% aes_types) {
+        stop(
+            paste0(
+                "Please specfiy correct aesthetic:", "\n",
+                "\t", "\"box\"....... (box plot)", "\n",
+                "\t", "\"violin\".... (violin plot)", "\n",
+                "\t", "\"boxdot\".... (box plot with dots)", "\n",
+                "\t", "\"viodot\".... (violin plot with dots)", "\n",
+                "\t", "\"viosumm\"... (violin plot with summary stats)", "\n",
+                "\t", "\"notch\"..... (box plot with notch)", "\n"
+            )
+        )
+    }
+
+    brew_cols <- rownames(RColorBrewer::brewer.pal.info)
+    if (is.null(fill.color)) {
+        scale_col <- NULL
+    } else if (!fill.color %in% brew_cols) {
+        stop(
+            paste(
+                "Please specify correct `RColorBrewer` pallette.", "\n",
+                "See `RColorBrewer::display.brewer.all()` for",
+                "available options."
+            )
+        )
+    } else {
+        scale_col <- scale_fill_brewer(palette = fill.color)
+    }
+
     key <- value <- NULL
-    tmp.plot <- ggplot(dat, aes(x = key, y = log10(value + 1), fill = key)) +
-        geom_boxplot() +
+
+    if (aes == "box") {
+        aes_plot_1 <- geom_boxplot()
+        aes_plot_2 <- NULL
+    } else if (aes == "violin") {
+        aes_plot_1 <- geom_violin(trim = FALSE)
+        aes_plot_2 <- NULL
+    } else if (aes == "boxdot") {
+        aes_plot_1 <- geom_boxplot()
+        aes_plot_2 <- geom_jitter(
+            shape = 16,
+            color = "grey14",
+            alpha = 0.7,
+            position = position_jitter(0.2)
+        )
+    } else if (aes == "viodot") {
+        aes_plot_1 <- geom_violin(trim = FALSE)
+        aes_plot_2 <- geom_jitter(
+            shape = 16,
+            color = "grey14",
+            alpha = 0.7,
+            position = position_jitter(0.2)
+        )        
+    } else if (aes == "viosumm") {
+        aes_plot_1 <- geom_violin(trim = FALSE)
+        aes_plot_2 <- geom_boxplot(width = 0.1, fill = "white")
+    } else if (aes == "notch") {
+        aes_plot_1 <- geom_boxplot(notch = TRUE)
+        aes_plot_2 <- NULL
+    }
+
+
+    tmp.plot <- ggplot(
+            dat, aes(x = key, y = log10(value + 1), fill = key)
+        ) +
+        aes_plot_1 + 
+        aes_plot_2 +
         xlab('Condition') +
         ylab(y.lab) +
         guides(fill = guide_legend(title = 'Condition')) +
-        theme_bw() +
         theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-        leg + m.title + grid
+        leg + m.title + grid + scale_col
+
     print(tmp.plot)
 }
