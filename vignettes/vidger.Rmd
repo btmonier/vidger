@@ -6,12 +6,13 @@ subtitle: >
 author: >
     Brandon Monier^a^, Adam McDermaid^b,c^, Jing Zhao^d^, and Qin Ma^b,c,e^
 date: >
-    `r format(Sys.Date(), '%m/%d/%Y')`
+    `r format(Sys.Date(), '%m/%d/%Y')` 
 output: 
-    rmarkdown::html_vignette:
+    BiocStyle::html_document:
         toc: true
-        fig_caption: yes 
-        number_sections: true
+        fig_caption: true
+        # toc_float: true
+        number_sections: false
 vignette: >
   %\VignetteIndexEntry{Visualizing RNA-seq data with ViDGER}
   %\VignetteEngine{knitr::rmarkdown}
