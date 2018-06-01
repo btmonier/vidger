@@ -29,6 +29,12 @@
 #'  If set to `FALSE`, no title will display in plot.
 #' @param grid display major and minor axis lines. Logical; defaults to `TRUE`.
 #'  If set to `FALSE`, no axis lines will display in plot.
+#' @param highlight character string of IDs that will be highlighted. Set to
+#'  `NULL` if you do not want highlighted data. 
+#' @param data.return returns data output of plot Logical; defaults to `FALSE`.
+#'  If set to `TRUE`, a data frame will also be called. Assign to object
+#'  for reproduction and saving of data frame. See final example for further
+#'  details.
 #' 
 #' @return An object created by \code{ggplot}
 #' 
@@ -58,10 +64,27 @@
 #'  x = 'WW', y = 'WM', data = df.edger, d.factor = NULL, 
 #'  type = 'edger', title = TRUE, grid = TRUE
 #' )
+#' 
+#' # Highlight IDs
+#' data("df.cuff")
+#' hl <- c("XLOC_000033", "XLOC_000099", "XLOC_001414", "XLOC_001409") 
+#' vsScatterPlot(
+#'  x = 'hESC', y = 'iPS', data = df.cuff, d.factor = NULL, 
+#'  type = 'cuffdiff', title = TRUE, grid = TRUE, highlight = hl
+#' )
+#' 
+#' # Extract data frame from visualization
+#' data("df.cuff")
+#' tmp <- vsScatterPlot(
+#'  x = 'hESC', y = 'iPS', data = df.cuff, d.factor = NULL, 
+#'  type = 'cuffdiff', title = TRUE, grid = TRUE, data.return = TRUE
+#' )
+#' df.scatter <- tmp[[1]]
+#' head(df.scatter)
 
 vsScatterPlot <- function(
     x, y, data, d.factor = NULL, type = c("cuffdiff", "deseq", "edger"), 
-    title = TRUE, grid = TRUE
+    title = TRUE, grid = TRUE, highlight = NULL, data.return = FALSE
 ) {
     if (missing(type) || !type %in% c("cuffdiff", "deseq", "edger")) {
         stop('Please specify analysis type ("cuffdiff", "deseq", or "edger")')
@@ -96,11 +119,55 @@ vsScatterPlot <- function(
         aes.ylab <- bquote('log'['10'] ~ '(FPM) -' ~ .(y))
     }
     
-    tmp.plot <- ggplot(dat, aes(x = log10(x + 1), y = log10(y + 1))) +
-        geom_point(size = 1) +
-        xlab(aes.xlab) +
-        ylab(aes.ylab) +
-        geom_abline(intercept = 0, slope = 1, linetype = "dashed") +
-        grid + m.title
-    print(tmp.plot)
+    id <- NULL
+    if (is.null(highlight)) {
+        tmp.plot <- ggplot(dat, aes(x = log10(x + 1), y = log10(y + 1))) +
+            geom_point(size = 1) +
+            xlab(aes.xlab) +
+            ylab(aes.ylab) +
+            geom_abline(intercept = 0, slope = 1, linetype = "dashed") +
+            grid + m.title
+        
+    } else {
+        tl <- length(setdiff(highlight, dat$id))
+        if (!is.atomic(highlight)) {
+            stop("\"highlight\" must be vector.")
+        } else if (all(highlight %in% dat$id)) {
+            hl <- highlight
+        } else if (tl > 0 && tl < length(highlight)) {
+            remove <- setdiff(highlight, dat$id)
+            message("Some IDs not found in data frame:")
+            print(remove)
+            message("Plotting the remaining samples...")
+            hl <- highlight[!highlight %in% remove]
+        } else if (!all(highlight %in% dat$id)) {
+            stop("No IDs in highlight vector are present in data frame.")
+        }
+        tmp.plot <- ggplot(dat, aes(x = log10(x + 1), y = log10(y + 1))) +
+            geom_point(size = 1, color = "grey73") +
+            xlab(aes.xlab) +
+            ylab(aes.ylab) +
+            geom_abline(intercept = 0, slope = 1, linetype = "dashed") +
+            ggrepel::geom_label_repel(
+                data = dat[which(dat$id %in% hl), ],
+                aes(label = id),
+                segment.size = 1,
+                segment.color = "royalblue1",
+                box.padding = unit(0.4, "lines"),
+                point.padding = unit(0.4, "lines") 
+            ) + 
+            geom_point(
+                data = dat[which(dat$id %in% hl), ], 
+                aes(x = log10(x), y = log10(y)),
+                color = "royalblue1",
+                size = 3
+            ) +             
+            grid + m.title
+    }
+    if (isTRUE(data.return)) {
+        plot.l <- list(data = dat, plot = tmp.plot)
+        return(plot.l)
+    } else {
+        print(tmp.plot)
+    }
 }
