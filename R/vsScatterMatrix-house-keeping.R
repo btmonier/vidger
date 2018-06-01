@@ -24,14 +24,16 @@
 .getDeseqScatterMatrix <- function(data, d.factor = NULL) {
     if(is.null(d.factor)) {
         stop(
-            'This appears to be a DESeq object. 
-            Please state d.factor variable.'
+            paste(
+                "This appears to be a DESeq object.",
+                "Please state \"d.factor\" variable."
+            )
         )
     }
     dat1 <- as.data.frame(colData(data))
     dat2 <- fpm(data)
     nam <- as.vector(unique(dat1[[d.factor]]))
-    ls.nam <- lapply(seq_along(nam), function(i) {
+    ls.nam <- lapply(nam, function(i) {
         row.names(dat1[which(dat1[d.factor] == i), ])
     })
     ls.mean <- lapply(seq_along(ls.nam), function(i) {
@@ -48,12 +50,13 @@
     dat.cpm <- cpm(data$counts)
     nam <- as.vector(unique(data$sample$group))
 
-    ls.nam <- lapply(seq_along(nam), function(i) {
+    ls.nam <- lapply(nam, function(i) {
         row.names(data$samples[which(data$samples$group == i), ])
     })
     ls.mean <- lapply(seq_along(ls.nam), function(i) {
         rowMeans(dat.cpm[, ls.nam[[i]]])
-    })    
+    })
+       
     names(ls.mean) <- sapply(nam, paste)
     dat <- as.data.frame(ls.mean)
     return(dat)
