@@ -17,6 +17,7 @@ Imports:
     ggplot2,
     ggrepel,
     knitr,
+    RColorBrewer,
     rmarkdown,
     scales,
     stats,
