@@ -94,9 +94,9 @@ vsScatterMatrix <- function(
         m.title <- 'FPKM Comparisons'
     }
     if (!isTRUE(grid)) {
-        grid <- ggplot::theme_classic()
+        grid <- theme_classic()
     } else {
-        grid <- ggplot::theme_bw()
+        grid <- theme_bw()
     }
     if (type == 'edger') {
         aes.xlab <- bquote('log'['10'] ~ '(CPM)')
