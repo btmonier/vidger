@@ -17,7 +17,7 @@
     deg_y <- deg_y$table[order(as.numeric(rownames(deg_y$table))),]
     
     dat_all <- data.frame(
-        x = dat_x$y, y = dat_y$y, control = dat_x$x,
+        id = dat_x$id, x = dat_x$y, y = dat_y$y, control = dat_x$x,
         logFC_x = deg_x$logFC, pval_x = deg_x$PValue, padj_x = deg_x$FDR,
         logFC_y = deg_y$logFC, pval_y = deg_y$PValue, padj_y = deg_y$FDR
     )
@@ -32,7 +32,7 @@
     deg <- data
     deg_x <- subset(deg, (sample_1 == x & sample_2 == control) | 
                                         (sample_1 == control & sample_2 == x))
-    dat_x <- data.frame(test_id = deg_x$test_id)
+    dat_x <- data.frame(id = deg_x$test_id)
     if (x %in% deg_x$sample_1 && control %in% deg_x$sample_2) {
         dat_x$x <- deg_x$value_1
         dat_x$control <- deg_x$value_2
@@ -46,7 +46,7 @@
     
     deg_y <- subset(deg, (sample_1 == y & sample_2 == control) | 
                                         (sample_1 == control & sample_2 == y))
-    dat_y <- data.frame(test_id = deg_y$test_id)
+    dat_y <- data.frame(id = deg_y$test_id)
     if (y %in% deg_y$sample_1 && control %in% deg_y$sample_2) {
         dat_y$y <- deg_y$value_1
         dat_y$control <- deg_y$value_2
@@ -84,8 +84,9 @@
     
     x <- rowMeans(dat2[, nam_x])
     y <- rowMeans(dat2[, nam_y])
+    id <- rownames(dat2)
     control <- rowMeans(dat2[, nam_c])
-    dat_all <- data.frame(x, y, control)
+    dat_all <- data.frame(id, x, y, control)
     dat_all$logFC_x <- log2(dat_all$x / dat_all$control)
     dat_all$pval_x <- dat3_x$pvalue
     dat_all$padj_x <- dat3_x$padj

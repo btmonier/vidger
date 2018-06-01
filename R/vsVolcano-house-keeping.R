@@ -161,7 +161,7 @@
     deg <- data
     deg <- subset(deg, (sample_1 == x & sample_2 == y) | 
                                     (sample_1 == y & sample_2 == x))
-    dat <- data.frame(test_id = deg$test_id)
+    dat <- data.frame(id = deg$test_id)
     if (x %in% deg$sample_1 & y %in% deg$sample_2) {
         dat$x <- deg$value_1
         dat$y <- deg$value_2
@@ -192,7 +192,8 @@
     nam_y <- row.names(dat1[which(dat1[d.factor] == y),])
     x <- rowMeans(dat2[, nam_x])
     y <- rowMeans(dat2[, nam_y])
-    dat4 <- data.frame(x, y)
+    id <- row.names(data)
+    dat4 <- data.frame(id, x, y)
     dat4$logFC <- log2(dat4$y / dat4$x)
     dat4$pval <- dat3$pvalue
     dat4$padj <- dat3$padj

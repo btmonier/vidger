@@ -39,6 +39,8 @@
 #'  If set to `FALSE`, no legend will display in plot.
 #' @param grid display major and minor axis lines. Logical; defaults to `TRUE`.
 #'  If set to `FALSE`, no axis lines will display in plot.
+#' @param highlight character string of IDs that will be highlighted. Set to
+#'  `NULL` if you do not want highlighted data. 
 #' @param data.return returns data output of plot Logical; defaults to `FALSE`.
 #'  If set to `TRUE`, a data frame will also be called. Assign to object
 #'  for reproduction and saving of data frame. See final example for further
@@ -75,6 +77,23 @@
 #'  type = 'edger', padj = 0.1, x.lim = NULL, lfc = 2, 
 #'  title = FALSE, grid = TRUE, data.return = FALSE
 #' )
+#' 
+#  #Highlight IDs
+#' data("df.deseq")
+#' require(DESeq2)
+#' hl <- c(
+#'     "FBgn0036248",
+#'     "FBgn0026573", 
+#'     "FBgn0259742",
+#'     "FBgn0038961",
+#'     "FBgn0038928"
+#' )
+#' vsVolcano(
+#'     x = 'treated_paired.end', y = 'untreated_paired.end', 
+#'     data = df.deseq, d.factor = 'condition', 
+#'     type = 'deseq', padj = 0.05, x.lim = NULL, lfc = NULL, 
+#'     title = TRUE, grid = TRUE, data.return = FALSE, highlight = hl
+#' )
 #'                 
 #' # Extract data frame from visualization
 #' data("df.cuff")
@@ -90,7 +109,7 @@
 vsVolcano <- function(
     x, y, data, d.factor = NULL, type = c("cuffdiff", "deseq", "edger"), 
     padj = 0.05, x.lim = NULL, lfc = NULL, title = TRUE, legend = TRUE, 
-    grid = TRUE, data.return = FALSE
+    grid = TRUE, highlight = NULL, data.return = FALSE
 ) {
     if (missing(type) || !type %in% c("cuffdiff", "deseq", "edger")) {
         stop('Please specify analysis type ("cuffdiff", "deseq", or "edger")')
@@ -157,12 +176,56 @@ vsVolcano <- function(
         comp1[[4]], comp1[[6]], comp1[[5]], comp1[[1]], comp1[[2]], comp1[[3]]
     )
     
-    tmp.plot <- ggplot(
-        dat, aes(x = pmax(x.lim[1], pmin(x.lim[2], px)), y = -log10(padj) )
-    ) +
-        point + comp2$color + comp2$shape + comp1$vline1 + comp1$vline2 + 
-        comp1$vline3 + comp1$x.lab + comp1$y.lab + comp1$hline1 + grid  + 
-        m.lab + xlim(x.lim) + comp2$size + leg
+    id <- logFC <- NULL
+    if (is.null(highlight)) {
+        tmp.plot <- ggplot(
+            dat, aes(x = pmax(x.lim[1], pmin(x.lim[2], px)), y = -log10(padj) )
+        ) +
+            point + comp2$color + comp2$shape + comp1$vline1 + comp1$vline2 + 
+            comp1$vline3 + comp1$x.lab + comp1$y.lab + comp1$hline1 + grid  + 
+            m.lab + xlim(x.lim) + comp2$size + leg
+    } else {
+        tl <- length(setdiff(highlight, dat$id))
+        if (!is.atomic(highlight)) {
+            stop("\"highlight\" must be vector.")
+        } else if (all(highlight %in% dat$id)) {
+            hl <- highlight
+        } else if (tl > 0 && tl < length(highlight)) {
+            remove <- setdiff(highlight, dat$id)
+            message("Some IDs not found in data frame:")
+            print(remove)
+            message("Plotting the remaining samples...")
+            hl <- highlight[!highlight %in% remove]
+        } else if (!all(highlight %in% dat$id)) {
+            stop("No IDs in highlight vector are present in data frame.")
+        }
+
+        tmp.plot <- ggplot(
+            dat, aes(x = pmax(x.lim[1], pmin(x.lim[2], px)), y = -log10(padj) )
+        ) +
+            geom_point(
+                alpha = 0.4, 
+                aes(color = tmp.col, shape = tmp.shp, size = tmp.size)
+            ) + 
+            comp2$color + comp2$shape + comp1$vline1 + comp1$vline2 + 
+            comp1$vline3 + comp1$x.lab + comp1$y.lab + comp1$hline1 + 
+            comp2$size  + m.lab + xlim(x.lim) + 
+            ggrepel::geom_label_repel(
+                data = dat[which(dat$id %in% hl), ],
+                aes(label = id, x = logFC, y = padj),
+                segment.size = 1,
+                segment.color = "gray10",
+                box.padding = unit(0.4, "lines"),
+                point.padding = unit(0.4, "lines") 
+            ) + 
+            geom_point(
+                data = dat[which(dat$id %in% hl), ], 
+                aes(x = logFC, y = padj),
+                color = "red",
+                size = 3
+            ) +            
+            grid + leg                
+    }
     
     if (isTRUE(data.return)) {
         dat2 <- dat[, -ncol(dat)]

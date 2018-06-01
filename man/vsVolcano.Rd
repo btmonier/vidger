@@ -6,7 +6,7 @@
 \usage{
 vsVolcano(x, y, data, d.factor = NULL, type = c("cuffdiff", "deseq",
   "edger"), padj = 0.05, x.lim = NULL, lfc = NULL, title = TRUE,
-  legend = TRUE, grid = TRUE, data.return = FALSE)
+  legend = TRUE, grid = TRUE, highlight = NULL, data.return = FALSE)
 }
 \arguments{
 \item{x}{treatment `x` for comparison (log2(x/control)). This will be a
@@ -49,6 +49,9 @@ If set to `FALSE`, no legend will display in plot.}
 \item{grid}{display major and minor axis lines. Logical; defaults to `TRUE`.
 If set to `FALSE`, no axis lines will display in plot.}
 
+\item{highlight}{character string of IDs that will be highlighted. Set to
+`NULL` if you do not want highlighted data.}
+
 \item{data.return}{returns data output of plot Logical; defaults to `FALSE`.
 If set to `TRUE`, a data frame will also be called. Assign to object
 for reproduction and saving of data frame. See final example for further
@@ -89,6 +92,22 @@ vsVolcano(
  x = 'WM', y = 'MM', data = df.edger, d.factor = NULL, 
  type = 'edger', padj = 0.1, x.lim = NULL, lfc = 2, 
  title = FALSE, grid = TRUE, data.return = FALSE
+)
+
+data("df.deseq")
+require(DESeq2)
+hl <- c(
+    "FBgn0036248",
+    "FBgn0026573", 
+    "FBgn0259742",
+    "FBgn0038961",
+    "FBgn0038928"
+)
+vsVolcano(
+    x = 'treated_paired.end', y = 'untreated_paired.end', 
+    data = df.deseq, d.factor = 'condition', 
+    type = 'deseq', padj = 0.05, x.lim = NULL, lfc = NULL, 
+    title = TRUE, grid = TRUE, data.return = FALSE, highlight = hl
 )
                 
 # Extract data frame from visualization
