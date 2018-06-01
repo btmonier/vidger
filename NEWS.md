@@ -1,4 +1,4 @@
-# ViDGER 1.0.1
+# ViDGER 1.1.0
 
 * Added labelling parameters for user to highlight/label IDs of interest.
   This was added to the following functions:
