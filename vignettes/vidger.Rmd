@@ -1,30 +1,50 @@
 ---
-title: >
-    Visualizing RNA-seq data with ViDGER
-subtitle: >
-    Supplementary Material
-author: >
-    Brandon Monier^a^, Adam McDermaid^b,c^, Jing Zhao^d^, and Qin Ma^b,c,e^
-date: >
-    `r format(Sys.Date(), '%m/%d/%Y')` 
+title:
+  - ViDGER Supplementary Material
+author:
+- name: Brandon Monier
+  affiliation:
+  - &id South Dakota State University
+  - Department of Biology and Microbiology
+- name: Adam McDermaid
+  affiliation: 
+  - *id
+  - &id2 Bioinformatics and Mathematical Biosciences Lab
+  - &id3 Department of Mathematics and Statistics
+- name: Jing Zhao
+  affiliation:
+  - Population Health Group, Sanford Research
+  - Department of Internal Medicine, Sanford School of Medicine
+- name: Qin Ma
+  affiliation:
+  - *id
+  - *id2
+  - &id4 Department of Agronomy, Horticulture, and Plant Science
+  - BioSNTR  
+date: "`r format(Sys.Date())`"
+abstract: >
+  Differential gene expression (DGE) is one of the most common applications
+  of RNA-sequencing (RNA-seq) data. This process allows for the elucidation 
+  of differentially expressed genes (DEGs) across two or more conditions. 
+  Interpretation of the DGE results can be non-intuitive and time consuming 
+  due to the variety of formats based on the tool of choice and the numerous 
+  pieces of information provided in these results files. Here we present an 
+  R package, ViDGER (Visualization of Differential Gene Expression Results 
+  using R), which contains nine functions that generate information-rich 
+  visualizations for the interpretation of DGE results from three 
+  widely-used tools, Cuffdiff, DESeq2, and edgeR.
 output: 
-    BiocStyle::html_document:
-        toc: true
-        fig_caption: true
-        # toc_float: true
-        number_sections: false
+  BiocStyle::html_document:
+    toc: true
+    fig_caption: true
+    toc_float: true
+    number_sections: false
 vignette: >
   %\VignetteIndexEntry{Visualizing RNA-seq data with ViDGER}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   %\usepackage[utf8]{inputenc}      
 ---
-^a^Department of Biology and Microbiology, South Dakota State University, 
-Brookings, SD, USA; ^b,c^Bioinformatics and Mathematical Biosciences Lab, 
-Department of Agronomy, Horticulture and Plant Science, 
-South Dakota State University, Brookings, SD, USA; ^d^Population Health Group 
-at Sanford Research, Sioux Falls, SD, USA; ^e^BioSNTR, Brookings, SD, USA.
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
@@ -39,9 +59,9 @@ knitr::opts_chunk$set(
 ```
 
 ```{r, echo=FALSE, message=FALSE}
-require(vidger)
-require(DESeq2)
-require(edgeR)
+library(vidger)
+library(DESeq2)
+library(edgeR)
 data("df.cuff")
 data("df.deseq")
 data("df.edger")
@@ -110,7 +130,7 @@ transcripts (IDs), and size of the data object in terms of megabytes (MB).
 |------------|----------|-----------------|------|--------|-------|-----------|
 | `df.cuff`  | CuffDiff | *H*             | 2    | 3      | 1200  | 0.2       |
 |            |          | *sapiens*       |      |        |       |           |
-| `df.deseq` | DESeq2   | *D.*            | 2    | 3      | 29391 | 2.3       | 
+| `df.deseq` | DESeq2   | *D.*            | 2    | 3      | 29391 | 2.3       |
 |            |          | *melanogaster*  |      |        |       |           |
 | `df.deseq` | edgeR    | *A.*            | 2    | 3      | 724   | 0.1       |
 |            |          | *thaliana*      |      |        |       |           |
@@ -838,7 +858,7 @@ as SUB while data points that exceed this area are classified as T-1 through
 T-4."
 ```
 ```{r, echo=FALSE, out.width = "500px", fig.align='center', fig.cap=my.cap}
-knitr::include_graphics("lfc-shape.png", auto_pdf = TRUE)
+knitr::include_graphics("img/lfc-shape.png", auto_pdf = TRUE)
 ```
 
 \newpage
@@ -858,7 +878,7 @@ three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets
 contained 1200, 724, and 29391 transcripts, respectively. "
 ```
 ```{r, echo=FALSE, out.width = "500px", fig.cap=my.cap}
-knitr::include_graphics("eff-scatter.png", auto_pdf = TRUE)
+knitr::include_graphics("img/eff-scatter.png", auto_pdf = TRUE)
 ```
 
 \newpage
@@ -871,7 +891,7 @@ three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets
 contained 1200, 724, and 29391 transcripts, respectively. "
 ```
 ```{r, echo=FALSE, out.width = "500px", fig.cap=my.cap}
-knitr::include_graphics("eff-smatrix.png", auto_pdf = TRUE)
+knitr::include_graphics("img/eff-smatrix.png", auto_pdf = TRUE)
 ```
 
 \newpage
@@ -884,7 +904,7 @@ three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets
 contained 1200, 724, and 29391 transcripts, respectively. "
 ```
 ```{r, echo=FALSE, out.width = "500px", fig.cap=my.cap}
-knitr::include_graphics("eff-box.png", auto_pdf = TRUE)
+knitr::include_graphics("img/eff-box.png", auto_pdf = TRUE)
 ```
 
 \newpage
@@ -897,7 +917,7 @@ three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets
 contained 1200, 724, and 29391 transcripts, respectively. "
 ```
 ```{r, echo=FALSE, out.width = "500px", fig.cap=my.cap}
-knitr::include_graphics("eff-deg.png", auto_pdf = TRUE)
+knitr::include_graphics("img/eff-deg.png", auto_pdf = TRUE)
 ```
 
 \newpage
@@ -910,7 +930,7 @@ three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets
 contained 1200, 724, and 29391 transcripts, respectively. "
 ```
 ```{r, echo=FALSE, out.width = "500px", fig.cap=my.cap}
-knitr::include_graphics("eff-volcano.png", auto_pdf = TRUE)
+knitr::include_graphics("img/eff-volcano.png", auto_pdf = TRUE)
 ```
 
 \newpage
@@ -923,7 +943,7 @@ three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets
 contained 1200, 724, and 29391 transcripts, respectively. "
 ```
 ```{r, echo=FALSE, out.width = "500px", fig.cap=my.cap}
-knitr::include_graphics("eff-vmatrix.png", auto_pdf = TRUE)
+knitr::include_graphics("img/eff-vmatrix.png", auto_pdf = TRUE)
 ```
 
 \newpage
@@ -936,7 +956,7 @@ three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets
 contained 1200, 724, and 29391 transcripts, respectively. "
 ```
 ```{r, echo=FALSE, out.width = "500px", fig.cap=my.cap}
-knitr::include_graphics("eff-maplot.png", auto_pdf = TRUE)
+knitr::include_graphics("img/eff-maplot.png", auto_pdf = TRUE)
 ```
 
 \newpage
@@ -949,7 +969,7 @@ three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets
 contained 1200, 724, and 29391 transcripts, respectively. "
 ```
 ```{r, echo=FALSE, out.width = "500px", fig.cap=my.cap}
-knitr::include_graphics("eff-mamatrix.png", auto_pdf = TRUE)
+knitr::include_graphics("img/eff-mamatrix.png", auto_pdf = TRUE)
 ```
 
 \newpage
@@ -962,5 +982,5 @@ three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets
 contained 1200, 724, and 29391 transcripts, respectively. "
 ```
 ```{r, echo=FALSE, out.width = "500px", fig.cap=my.cap}
-knitr::include_graphics("eff-four.png", auto_pdf = TRUE)
+knitr::include_graphics("img/eff-four.png", auto_pdf = TRUE)
 ```
