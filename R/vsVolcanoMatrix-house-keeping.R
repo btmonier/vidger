@@ -96,7 +96,7 @@
         tab
     })
     dat1 <- do.call('rbind', l1)
-    dat1 <- dat1[, c(6:7, 1:2, 3:5)]
+    dat1 <- dat1[, c(7:8, 2:3, 4:6)]
     dat1$id_x <- as.factor(dat1$id_x)
     dat1$id_y <- as.factor(dat1$id_y)
     return(dat1)
@@ -147,7 +147,7 @@
         tab
     })
     dat1 <- do.call('rbind', l1)
-    dat1 <- dat1[, c(1:2, 6:7, 3:5)]
+    dat1 <- dat1[, c(2:3, 7:8, 4:6, 1)]
     dat1$id_x <- as.factor(dat1$id_x)
     dat1$id_y <- as.factor(dat1$id_y)
     return(dat1)
