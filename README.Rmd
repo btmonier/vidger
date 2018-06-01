@@ -83,3 +83,6 @@ package:
 ```{r, eval=FALSE}
 vignette("vidger")
 ```
+
+- - -
+*Last updated:* `r format(Sys.Date())`

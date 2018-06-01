@@ -68,3 +68,7 @@ For a more in-depth analysis, consider reading the vignette provided with this p
 ``` r
 vignette("vidger")
 ```
+
+------------------------------------------------------------------------
+
+*Last updated:* 2018-05-31
