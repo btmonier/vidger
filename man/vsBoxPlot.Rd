@@ -5,7 +5,8 @@
 \title{Box plot for log10(FPKM or CPM) distributions}
 \usage{
 vsBoxPlot(data, d.factor = NULL, type = c("cuffdiff", "deseq", "edger"),
-  title = TRUE, legend = TRUE, grid = TRUE)
+  title = TRUE, legend = TRUE, grid = TRUE, aes = c("box", "violin",
+  "boxdot", "viodot", "viosumm", "notch"), fill.color = NULL)
 }
 \arguments{
 \item{data}{output generated from calling the main routines of either
@@ -32,6 +33,17 @@ If set to `FALSE`, no legend will display in plot.}
 
 \item{grid}{display major and minor axis lines. Logical; defaults to `TRUE`.
 If set to `FALSE`, no axis lines will display in plot.}
+
+\item{aes}{changes overall layout of the graph. \code{box}: box plot;
+\code{violin}: violin plot; \code{boxdot}: box plot with dots;
+\code{viodot}: violin plot with dots; \code{viosumm}: violin plot with
+summary statistics; \code{notch}: box plots with notches.
+Defaults to \code{box}.}
+
+\item{fill.color}{changes the fill color for the plots. See 
+\code{RColorBrewer::display.brewer.all()} function for further details.
+If \code{NULL}, colors will default to standard \code{ggplot2} 
+aesthetics.}
 }
 \value{
 An object created by \code{ggplot}
