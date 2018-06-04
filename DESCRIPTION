@@ -1,12 +1,39 @@
 Package: vidger
 Title: Create rapid visualizations of RNAseq data in R
-Version: 1.1.1
-Author: Brandon Monier, Adam McDermaid, Qin Ma
-Maintainer: Brandon Monier <brandon.monier@sdstate.edu>
+Version: 1.1.2
+Authors@R: c(
+    person(
+        given = "Brandon",
+        family = "Monier",
+        email = "brandon.monier@sdstate.edu",
+        role = c("aut", "cre")
+    ),
+    person(
+        given = "Adam",
+        family = "McDermaid",
+        role = "aut"
+    ),
+    person(
+        given = "Jing",
+        family = "Zhao",
+        role = "aut"
+    ),
+    person(
+        given = "Qin",
+        family = "Ma",
+        email = "qin.ma@sdstate.edu",
+        role = c("aut", "fnd")
+    )
+)
 Description: 
     The aim of vidger is to rapidly generate information-rich visualizations
     for the interpretation of differential gene expression results from three
     widely-used tools: Cuffdiff, DESeq2, and edgeR.
+URL: 
+    https://github.com/btmonier/vidger, 
+    https://bioconductor.org/packages/release/bioc/html/vidger.html 
+BugReports:
+    https://github.com/btmonier/vidger/issues
 Depends:
     R (>= 3.5)
 Imports:
@@ -32,7 +59,7 @@ LazyData: true
 VignetteBuilder:
     knitr
 RoxygenNote: 6.0.1
-License: GPL-2 | file LICENSE
+License: GPL-3 | file LICENSE
 biocViews: 
     Visualization, 
     RNASeq, 
