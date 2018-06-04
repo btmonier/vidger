@@ -2,7 +2,8 @@
 % Please edit documentation in R/vsVolcanoMatrix.R
 \name{vsVolcanoMatrix}
 \alias{vsVolcanoMatrix}
-\title{Volcano plot matrix from log2 fold changes and -log10(p-values)}
+\title{Volcano plot matrix from \eqn{log_{2}} fold changes and
+\eqn{-log_{10}}(\eqn{p}-values)}
 \usage{
 vsVolcanoMatrix(data, d.factor = NULL, type = c("cuffdiff", "deseq",
   "edger"), padj = 0.05, x.lim = NULL, lfc = NULL, title = TRUE,
@@ -11,79 +12,83 @@ vsVolcanoMatrix(data, d.factor = NULL, type = c("cuffdiff", "deseq",
 \arguments{
 \item{data}{a cuffdiff, DESeq2, or edgeR object.}
 
-\item{d.factor}{a specified factor; for use with DESeq2 objects only. 
-Defaults to `NULL`}
+\item{d.factor}{a specified factor; for use with DESeq2 objects only.
+Defaults to \code{NULL}}
 
-\item{type}{an analysis classifier to tell the function how to process the 
-data. Must be either `cuffdiff`, `deseq`, or `edgeR`.}
+\item{type}{an analysis classifier to tell the function how to process the
+data. Must be either \code{cuffdiff}, \code{deseq}, or \code{edgeR}.}
 
-\item{padj}{a user defined adjusted p-value cutoff point. 
-Defaults to `0.05`.}
+\item{padj}{a user defined adjusted \eqn{p}-value cutoff point.
+Defaults to \code{0.05}.}
 
-\item{x.lim}{set manual limits to the x axis. Defaults to `NULL`.}
+\item{x.lim}{set manual limits to the x axis. Defaults to \code{NULL}.}
 
-\item{lfc}{log fold change level for setting conditonals. If no user input 
-is added (`NULL`), value defaults to `1`.}
+\item{lfc}{\eqn{log} fold change level for setting conditonals. If no user
+input is added (\code{NULL}), value defaults to \code{1}.}
 
-\item{title}{show title of plot. Defaults to `TRUE`.}
+\item{title}{show title of plot. Defaults to \code{TRUE}.}
 
-\item{legend}{shows legend of plot. Defaults to `TRUE`.}
+\item{legend}{shows legend of plot. Defaults to \code{TRUE}.}
 
-\item{grid}{show major and minor axis lines. Defaults to `TRUE`.}
+\item{grid}{show major and minor axis lines. Defaults to \code{TRUE}.}
 
-\item{counts}{displays the number of differentially expressed genes for 
-each treatment comparison. Defaults to `TRUE`.}
+\item{counts}{displays the number of differentially expressed genes for
+each treatment comparison. Defaults to \code{TRUE}.}
 
-\item{data.return}{returns data output of plot if set to `TRUE`. Defaults 
-to `FASLSE`.}
+\item{data.return}{returns data output of plot if set to \code{TRUE}.
+Defaults to \code{FALSE}.}
 }
 \value{
 An object created by \code{ggplot}
 }
 \description{
-This function allows you to extract necessary results-based data from a 
-DESEq object class to create a volcano plot (i.e. a scatter plot) of the
-negative log of the p-value versus the log of the fold change while
-implementing ggplot2 aesthetics for all possible combinations of
+This function allows you to extract necessary results-based data from
+either a \code{DESeq2} object, \code{edgeR} object, or \code{cuffdiff} data
+frame to create a volcano plot (i.e. a scatter plot) of the negative
+\eqn{log} of the \eqn{p}-value versus the \eqn{log} of the fold change
+while implementing ggplot2 aesthetics for all possible combinations of
 treatments.
 }
 \examples{
 # Cuffdiff example
 data("df.cuff")
 vsVolcanoMatrix(
- data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
- padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE, 
- grid = TRUE, counts = TRUE, data.return = FALSE
+ 	data = df.cuff, d.factor = NULL, type = "cuffdiff",
+ 	padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE,
+ 	grid = TRUE, counts = TRUE, data.return = FALSE
 )
 
 # DESeq2 example
 data("df.deseq")
 require(DESeq2)
 vsVolcanoMatrix(
- data = df.deseq, d.factor = 'condition', type = 'deseq', 
- padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE, 
- grid = TRUE, counts = TRUE, data.return = FALSE
+ 	data = df.deseq, d.factor = "condition", type = "deseq",
+ 	padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE,
+ 	grid = TRUE, counts = TRUE, data.return = FALSE
 )
 
 # edgeR example
 data("df.edger")
 require(edgeR)
 vsVolcanoMatrix(
- data = df.edger, d.factor = NULL, type = 'edger', 
- padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE, 
- grid = TRUE, counts = TRUE, data.return = FALSE
+ 	data = df.edger, d.factor = NULL, type = "edger",
+ 	padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE,
+ 	grid = TRUE, counts = TRUE, data.return = FALSE
 )
-                
+
 # Extract data frame from visualization
 data("df.cuff")
 tmp <- vsVolcanoMatrix(
- data = df.cuff, d.factor = NULL, 
- type = 'cuffdiff', padj = 0.05, x.lim = NULL,
- lfc = 2, title = TRUE, grid = TRUE, 
- counts = TRUE, data.return = TRUE
+ 	data = df.cuff, d.factor = NULL,
+ 	type = "cuffdiff", padj = 0.05, x.lim = NULL,
+ 	lfc = 2, title = TRUE, grid = TRUE,
+ 	counts = TRUE, data.return = TRUE
 )
-df.vmat <- tmp[[1]]
-head(df.vmat)
+df_vmat <- tmp[[1]]
+head(df_vmat)
+
+# Show plot from object (see prior example for more details)
+tmp[[2]] ## or use tmp$plot
 }
 \author{
 Brandon Monier, \email{brandon.monier@sdstate.edu}
