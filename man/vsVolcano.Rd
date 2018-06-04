@@ -2,124 +2,130 @@
 % Please edit documentation in R/vsVolcano.R
 \name{vsVolcano}
 \alias{vsVolcano}
-\title{Volcano plot from log2 fold changes and -log10(p-values)}
+\title{Volcano plot from \eqn{log_{2}} fold changes and
+\eqn{-log_{10}}(\eqn{p}-values)}
 \usage{
 vsVolcano(x, y, data, d.factor = NULL, type = c("cuffdiff", "deseq",
   "edger"), padj = 0.05, x.lim = NULL, lfc = NULL, title = TRUE,
   legend = TRUE, grid = TRUE, highlight = NULL, data.return = FALSE)
 }
 \arguments{
-\item{x}{treatment `x` for comparison (log2(x/control)). This will be a
-factor level in your data.}
+\item{x}{treatment \code{x} for comparison (\eqn{log_{2}}(x/control)). This
+will be a factor level in your data.}
 
-\item{y}{treatment `y` for comparison (log2(y/control)). This will be a 
-factor level in your data.}
+\item{y}{treatment \code{y} for comparison (\eqn{log_{2}}(y/control)). This
+will be a factor level in your data.}
 
 \item{data}{output generated from calling the main routines of either
-`cuffdiff`, `DESeq2`, or `edgeR` analyses. For `cuffdiff`, this will be a 
-`*_exp.diff` file. For `DESeq2`, this will be a generated object of class 
-`DESeqDataSet`. For `edgeR`, this will be a generated object of class 
-`DGEList`.}
+\code{cuffdiff}, \code{DESeq2}, or \code{edgeR} analyses. For
+\code{cuffdiff}, this will be a \code{*_exp.diff} file. For \code{DESeq2},
+this will be a generated object of class \code{DESeqDataSet}. For
+\code{edgeR}, this will be a generated object of class \code{DGEList}.}
 
-\item{d.factor}{a specified factor; for use with `DESeq2` objects only.
-This input equates to the first parameter for the contrast argument when 
-invoking the `results()` function in `DESeq2`. Defaults to `NULL`.}
+\item{d.factor}{a specified factor; for use with \code{DESeq2} objects only.
+This input equates to the first parameter for the contrast argument when
+invoking the \code{results()} function in \code{DESeq2}. Defaults to
+\code{NULL}.}
 
-\item{type}{an analysis classifier to tell the function how to process the 
-data. Must be either `cuffdiff`, `deseq`, or `edger`. `cuffdiff` must be 
-used with `cuffdiff` data; `deseq` must be used for `DESeq2` output; 
-`edgeR` must be used with `edgeR` data. See the `data` parameter for 
-further details.}
+\item{type}{an analysis classifier to tell the function how to process the
+data. Must be either \code{cuffdiff}, \code{deseq}, or \code{edger}.
+\code{cuffdiff} must be used with \code{cuffdiff} data; \code{deseq} must
+be used for \code{DESeq2} output; \code{edgeR} must be used with
+\code{edgeR} data. See the \code{data} parameter for further details.}
 
-\item{padj}{a user defined adjusted p-value cutoff point. 
-Defaults to `0.05`.}
+\item{padj}{a user defined adjusted \eqn{p}-value cutoff point.
+Defaults to \code{0.05}.}
 
-\item{x.lim}{set manual limits (boundaries) to the x axis. Defaults to 
-`NULL`.}
+\item{x.lim}{set manual limits (boundaries) to the x axis. Defaults to
+\code{NULL}.}
 
-\item{lfc}{log fold change level for setting conditonals. If no user input
-is added (`NULL`), value defaults to `1`.}
+\item{lfc}{\eqn{log} fold change level for setting conditonals. If no user
+input is added (\code{NULL}), value defaults to \code{1}.}
 
-\item{title}{display the main title of plot. Logical; defaults to `TRUE`.
-If set to `FALSE`, no title will display in plot.}
+\item{title}{display the main title of plot. Logical; defaults to
+\code{TRUE}. If set to \code{FALSE}, no title will display in plot.}
 
-\item{legend}{display legend of plot. Logical; defaults to `TRUE`.
-If set to `FALSE`, no legend will display in plot.}
+\item{legend}{display legend of plot. Logical; defaults to \code{TRUE}.
+If set to \code{FALSE}, no legend will display in plot.}
 
-\item{grid}{display major and minor axis lines. Logical; defaults to `TRUE`.
-If set to `FALSE`, no axis lines will display in plot.}
+\item{grid}{display major and minor axis lines. Logical; defaults to
+\code{TRUE}. If set to \code{FALSE}, no axis lines will display in plot.}
 
 \item{highlight}{character string of IDs that will be highlighted. Set to
-`NULL` if you do not want highlighted data.}
+\code{NULL} if you do not want highlighted data.}
 
-\item{data.return}{returns data output of plot Logical; defaults to `FALSE`.
-If set to `TRUE`, a data frame will also be called. Assign to object
-for reproduction and saving of data frame. See final example for further
-details.}
+\item{data.return}{returns data output of plot Logical; defaults to
+\code{FALSE}. If set to \code{TRUE}, a data frame will also be called.
+Assign to object for reproduction and saving of data frame. See final
+example for further details.}
 }
 \value{
 An object created by \code{ggplot}
 }
 \description{
-This function allows you to extract necessary results-based data from a 
-DESEq object class to create a volcano plot (i.e. a scatter plot) of the
-negative log of the p-value versus the log of the fold change while
-implementing ggplot2 aesthetics.
+This function allows you to extract necessary results-based data from
+either a \code{DESeq2} object, \code{edgeR} object, or \code{cuffdiff} data
+frame to create a volcano plot (i.e. a scatter plot) of the negative
+\eqn{log} of the \eqn{p}-value versus the \eqn{log} of the fold change
+while implementing ggplot2 aesthetics.
 }
 \examples{
 # Cuffdiff example
 data("df.cuff")
 vsVolcano(
- x = 'hESC', y = 'iPS', data = df.cuff, d.factor = NULL, 
- type = 'cuffdiff', padj = 0.05, x.lim = NULL, lfc = 2, 
- title = TRUE, grid = TRUE, data.return = FALSE
+ 	x = "hESC", y = "iPS", data = df.cuff, d.factor = NULL,
+ 	type = "cuffdiff", padj = 0.05, x.lim = NULL, lfc = 2,
+ 	title = TRUE, grid = TRUE, data.return = FALSE
 )
 
 # DESeq2 example
 data("df.deseq")
 require(DESeq2)
 vsVolcano(
- x = 'treated_paired.end', y = 'untreated_paired.end', 
- data = df.deseq, d.factor = 'condition', 
- type = 'deseq', padj = 0.05, x.lim = NULL, lfc = NULL, 
- title = TRUE, grid = TRUE, data.return = FALSE
+ 	x = "treated_paired.end", y = "untreated_paired.end",
+ 	data = df.deseq, d.factor = "condition",
+ 	type = "deseq", padj = 0.05, x.lim = NULL, lfc = NULL,
+ 	title = TRUE, grid = TRUE, data.return = FALSE
 )
 
 # edgeR example
 data("df.edger")
 require(edgeR)
 vsVolcano(
- x = 'WM', y = 'MM', data = df.edger, d.factor = NULL, 
- type = 'edger', padj = 0.1, x.lim = NULL, lfc = 2, 
- title = FALSE, grid = TRUE, data.return = FALSE
+ 	x = "WM", y = "MM", data = df.edger, d.factor = NULL,
+ 	type = "edger", padj = 0.1, x.lim = NULL, lfc = 2,
+ 	title = FALSE, grid = TRUE, data.return = FALSE
 )
 
 data("df.deseq")
 require(DESeq2)
 hl <- c(
     "FBgn0036248",
-    "FBgn0026573", 
+    "FBgn0026573",
     "FBgn0259742",
     "FBgn0038961",
     "FBgn0038928"
 )
 vsVolcano(
-    x = 'treated_paired.end', y = 'untreated_paired.end', 
-    data = df.deseq, d.factor = 'condition', 
-    type = 'deseq', padj = 0.05, x.lim = NULL, lfc = NULL, 
+    x = "treated_paired.end", y = "untreated_paired.end",
+    data = df.deseq, d.factor = "condition",
+    type = "deseq", padj = 0.05, x.lim = NULL, lfc = NULL,
     title = TRUE, grid = TRUE, data.return = FALSE, highlight = hl
 )
-                
+
 # Extract data frame from visualization
 data("df.cuff")
 tmp <- vsVolcano(
- x = 'hESC', y = 'iPS', data = df.cuff, 
- d.factor = NULL, type = 'cuffdiff', padj = 0.05, 
- x.lim = NULL, lfc = 2, title = TRUE, grid = TRUE, 
- data.return = TRUE
+ 	x = "hESC", y = "iPS", data = df.cuff,
+ 	d.factor = NULL, type = "cuffdiff", padj = 0.05,
+ 	x.lim = NULL, lfc = 2, title = TRUE, grid = TRUE,
+ 	data.return = TRUE
 )
-df.volcano <- tmp[[1]]
-head(df.volcano)
+df_volcano <- tmp[[1]] ## or use tmp$data
+head(df_volcano)
+
+# Show plot from object (see prior example for more details)
+tmp[[2]] ## or use tmp$plot
 }
 \author{
 Brandon Monier, \email{brandon.monier@sdstate.edu}

@@ -2,97 +2,107 @@
 % Please edit documentation in R/vsScatterPlot.R
 \name{vsScatterPlot}
 \alias{vsScatterPlot}
-\title{Scatter plot of log10(FPKM or CPM) values}
+\title{Scatter plot of \eqn{log_{10}}(FPKM or CPM) values}
 \usage{
 vsScatterPlot(x, y, data, d.factor = NULL, type = c("cuffdiff", "deseq",
   "edger"), title = TRUE, grid = TRUE, highlight = NULL,
   data.return = FALSE)
 }
 \arguments{
-\item{x}{treatment `x` for comparison (log2(x/control)). This will be a
-factor level in your data.}
+\item{x}{treatment \code{x} for comparison (\eqn{log_{2}}(x/control)). This
+will be a factor level in your data.}
 
-\item{y}{treatment `y` for comparison (log2(y/control)). This will be a 
-factor level in your data.}
+\item{y}{treatment \code{y} for comparison (\eqn{log_{2}}(y/control)). This
+will be a factor level in your data.}
 
 \item{data}{output generated from calling the main routines of either
-`cuffdiff`, `DESeq2`, or `edgeR` analyses. For `cuffdiff`, this will be a 
-`*_exp.diff` file. For `DESeq2`, this will be a generated object of class 
-`DESeqDataSet`. For `edgeR`, this will be a generated object of class 
-`DGEList`.}
+\code{cuffdiff}, \code{DESeq2}, or \code{edgeR} analyses. For
+\code{cuffdiff}, this will be a \code{*_exp.diff} file. For \code{DESeq2},
+this will be a generated object of class \code{DESeqDataSet}. For
+\code{edgeR}, this will be a generated object of class \code{DGEList}.}
 
-\item{d.factor}{a specified factor; for use with `DESeq2` objects only.
-This input equates to the first parameter for the contrast argument when 
-invoking the `results()` function in `DESeq2`. Defaults to `NULL`.}
+\item{d.factor}{a specified factor; for use with \code{DESeq2} objects only.
+This input equates to the first parameter for the contrast argument when
+invoking the \code{results()} function in \code{DESeq2}. Defaults to
+\code{NULL}.}
 
-\item{type}{an analysis classifier to tell the function how to process the 
-data. Must be either `cuffdiff`, `deseq`, or `edger`. `cuffdiff` must be 
-used with `cuffdiff` data; `deseq` must be used for `DESeq2` output; 
-`edgeR` must be used with `edgeR` data. See the `data` parameter for 
-further details.}
+\item{type}{an analysis classifier to tell the function how to process the
+data. Must be either \code{cuffdiff}, \code{deseq}, or \code{edger}.
+\code{cuffdiff} must be used with \code{cuffdiff} data; \code{deseq} must
+be used for \code{DESeq2} output; \code{edgeR} must be used with
+\code{edgeR} data. See the \code{data} parameter for further details.}
 
-\item{title}{display the main title of plot. Logical; defaults to `TRUE`.
-If set to `FALSE`, no title will display in plot.}
+\item{title}{display the main title of plot. Logical; defaults to
+\code{TRUE}. If set to \code{FALSE}, no title will display in plot.}
 
-\item{grid}{display major and minor axis lines. Logical; defaults to `TRUE`.
-If set to `FALSE`, no axis lines will display in plot.}
+\item{grid}{display major and minor axis lines. Logical; defaults to
+\code{TRUE}. If set to \code{FALSE}, no axis lines will display in plot.}
 
 \item{highlight}{character string of IDs that will be highlighted. Set to
-`NULL` if you do not want highlighted data.}
+\code{NULL} if you do not want highlighted data.}
 
-\item{data.return}{returns data output of plot Logical; defaults to `FALSE`.
-If set to `TRUE`, a data frame will also be called. Assign to object
-for reproduction and saving of data frame. See final example for further
-details.}
+\item{data.return}{returns data output of plot Logical; defaults to
+\code{FALSE}. If set to \code{TRUE}, a data frame will also be called.
+Assign to object for reproduction and saving of data frame. See final
+example for further details.}
 }
 \value{
 An object created by \code{ggplot}
 }
 \description{
-This function allows you to visualize comparisons of log10 values of either 
-FPKM or CPM measurements of two treatments depending on analytical type.
+This function allows you to visualize comparisons of \eqn{log_{10}} values
+of either FPKM or CPM measurements of two treatments depending on
+analytical type.
 }
 \examples{
 # Cuffdiff example
 data("df.cuff")
 vsScatterPlot(
- x = 'hESC', y = 'iPS', data = df.cuff, d.factor = NULL, 
- type = 'cuffdiff', title = TRUE, grid = TRUE
+ 	x = "hESC", y = "iPS", data = df.cuff, d.factor = NULL,
+ 	type = "cuffdiff", title = TRUE, grid = TRUE
 )
 
 # DESeq2 example
 data("df.deseq")
-require(DESeq2)               
+require(DESeq2)
 vsScatterPlot(
- x = 'treated_paired.end', y = 'untreated_paired.end', 
- data = df.deseq, d.factor = 'condition', type = 'deseq', 
- title = TRUE, grid = TRUE
+ 	x = "treated_paired.end", y = "untreated_paired.end",
+ 	data = df.deseq, d.factor = "condition", type = "deseq",
+ 	title = TRUE, grid = TRUE
 )
 
 # edgeR example
 data("df.edger")
 require(edgeR)
 vsScatterPlot(
- x = 'WW', y = 'WM', data = df.edger, d.factor = NULL, 
- type = 'edger', title = TRUE, grid = TRUE
+ 	x = "WW", y = "WM", data = df.edger, d.factor = NULL,
+ 	type = "edger", title = TRUE, grid = TRUE
 )
 
 # Highlight IDs
 data("df.cuff")
-hl <- c("XLOC_000033", "XLOC_000099", "XLOC_001414", "XLOC_001409") 
+hl <- c(
+		"XLOC_000033",
+		"XLOC_000099",
+		"XLOC_001414",
+		"XLOC_001409"
+)
 vsScatterPlot(
- x = 'hESC', y = 'iPS', data = df.cuff, d.factor = NULL, 
- type = 'cuffdiff', title = TRUE, grid = TRUE, highlight = hl
+ 	x = "hESC", y = "iPS", data = df.cuff, d.factor = NULL,
+ 	type = "cuffdiff", title = TRUE, grid = TRUE, highlight = hl
 )
 
 # Extract data frame from visualization
 data("df.cuff")
 tmp <- vsScatterPlot(
- x = 'hESC', y = 'iPS', data = df.cuff, d.factor = NULL, 
- type = 'cuffdiff', title = TRUE, grid = TRUE, data.return = TRUE
+ 	x = "hESC", y = "iPS", data = df.cuff, d.factor = NULL,
+ 	type = "cuffdiff", title = TRUE, grid = TRUE, data.return = TRUE
 )
-df.scatter <- tmp[[1]]
-head(df.scatter)
+df_scatter <- tmp[[1]] ## or use tmp$data
+head(df_scatter)
+
+# Show plot from object (see prior example for more details)
+tmp[[2]] ## or use tmp$plot
 }
 \author{
 Brandon Monier, \email{brandon.monier@sdstate.edu}
