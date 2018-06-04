@@ -23,8 +23,7 @@ Authors@R: c(
         family = "Ma",
         email = "qin.ma@sdstate.edu",
         role = c("aut", "fnd")
-    )
-)
+    ))
 Description: 
     The aim of vidger is to rapidly generate information-rich visualizations
     for the interpretation of differential gene expression results from three
