@@ -1,3 +1,23 @@
+# ViDGER 1.1.2
+
+* Added `data.return` parameters to *all* functions. 
+
+* Added new aesthetic design parameter (`aes`) for the `vsBoxPlot()` function:
+    + `box`: standard box plot
+    + `violin`: violin plot
+    + `boxdot`: box plot with dot plot overlay
+    + `viodot`: violin plot with dot plot overlay
+    + `viosumm`: violin plot with summary stats overlay
+    + `notch`: box plot with notch
+
+* Added new fill color parameter (`fill.color`) for the `vsBoxplot()` function:
+    + Based on palettes found in the `RColorBrewer` 
+      [package.](https://cran.r-project.org/web/packages/RColorBrewer/RColorBrewer.pdf)
+    + A visual list of all the palettes can be found
+      [here.](http://www.r-graph-gallery.com/38-rcolorbrewers-palettes/)
+
+
+
 # ViDGER 1.1.0
 
 * Added labelling parameters for user to highlight/label IDs of interest.
