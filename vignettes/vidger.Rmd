@@ -43,7 +43,8 @@ vignette: >
   %\VignetteIndexEntry{Visualizing RNA-seq data with ViDGER}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-  %\usepackage[utf8]{inputenc}      
+  %\usepackage[utf8]{inputenc}
+  %\usepackage{float}      
 ---
 
 ```{r setup, include=FALSE}
@@ -53,8 +54,8 @@ knitr::opts_chunk$set(
     fig.align='center',
     external=TRUE,
     echo=TRUE,
-    warning=FALSE,
-    fig.pos="H"
+    warning=FALSE
+    # fig.pos="H"
 )
 ```
 
@@ -137,10 +138,11 @@ transcripts (IDs), and size of the data object in terms of megabytes (MB).
 | `df.deseq` | edgeR    | *A.*            | 2    | 3      | 724   | 0.1       |
 |            |          | *thaliana*      |      |        |       |           |
 
-Table 2:  "Real-world" (RW) data set statistics. To test the reliability of our 
-package, real data was used from human collections and several plant samples. 
-Each data set is summarized in terms of organism ID, number of experimental 
-samples (n), experimental conditions, and number of transcripts (IDs).
+Table 2:  "Real-world" (RW) data set statistics. To test the reliability of
+our package, real data was used from human collections and several plant 
+samples. Each data set is summarized in terms of organism ID, number of 
+experimental samples (n), experimental conditions, and number of transcripts (
+IDs).
 
 | Data | Organism   | n  | Exp. Conditions                      | IDs    |
 |------|------------|----|--------------------------------------|--------|
@@ -178,7 +180,7 @@ my.cap <- "A box plot example using the `vsBoxPlot()` function with
 `cuffdiff` data. In this example, FPKM distributions for each treatment within 
 an experiment are shown in the form of a box and whisker plot."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 vsBoxPlot(
     data = df.cuff, d.factor = NULL, type = 'cuffdiff', title = TRUE, 
     legend = TRUE, grid = TRUE
@@ -193,7 +195,7 @@ my.cap <- "A box plot example using the `vsBoxPlot()` function with
 `DESeq2` data. In this example, FPKM distributions for each treatment within 
 an experiment are shown in the form of a box and whisker plot."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 vsBoxPlot(
     data = df.deseq, d.factor = 'condition', type = 'deseq', 
     title = TRUE, legend = TRUE, grid = TRUE
@@ -208,7 +210,7 @@ my.cap <- "A box plot example using the `vsBoxPlot()` function with `edgeR`
 data. In this example, CPM distributions for each treatment within an 
 experiment are shown in the form of a box and whisker plot"
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 vsBoxPlot(
     data = df.edger, d.factor = NULL, type = 'edger', 
     title = TRUE, legend = TRUE, grid = TRUE
@@ -233,7 +235,7 @@ Currently, there are 6 different variants:
 ```{r, echo=FALSE}
 my.cap <- "A box plot example using the `aes` parameter: `box`."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 data("df.edger")
 vsBoxPlot(
    data = df.edger, d.factor = NULL, type = "edger", title = TRUE,
@@ -247,7 +249,7 @@ vsBoxPlot(
 ```{r, echo=FALSE}
 my.cap <- "A box plot example using the `aes` parameter: `violin`."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 data("df.edger")
 vsBoxPlot(
    data = df.edger, d.factor = NULL, type = "edger", title = TRUE,
@@ -261,7 +263,7 @@ vsBoxPlot(
 ```{r, echo=FALSE}
 my.cap <- "A box plot example using the `aes` parameter: `boxdot`."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 data("df.edger")
 vsBoxPlot(
    data = df.edger, d.factor = NULL, type = "edger", title = TRUE,
@@ -275,7 +277,7 @@ vsBoxPlot(
 ```{r, echo=FALSE}
 my.cap <- "A box plot example using the `aes` parameter: `viodot`."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 data("df.edger")
 vsBoxPlot(
    data = df.edger, d.factor = NULL, type = "edger", title = TRUE,
@@ -289,7 +291,7 @@ vsBoxPlot(
 ```{r, echo=FALSE}
 my.cap <- "A box plot example using the `aes` parameter: `viosumm`."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 data("df.edger")
 vsBoxPlot(
    data = df.edger, d.factor = NULL, type = "edger", title = TRUE,
@@ -303,7 +305,7 @@ vsBoxPlot(
 ```{r, echo=FALSE}
 my.cap <- "A box plot example using the `aes` parameter: `notch`."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 data("df.edger")
 vsBoxPlot(
    data = df.edger, d.factor = NULL, type = "edger", title = TRUE,
@@ -328,7 +330,7 @@ palettes found in the `RColorBrewer`
 my.cap <- "Color variant 1. A box plot example using the `fill.color` 
 parameter: `RdGy`."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 data("df.edger")
 vsBoxPlot(
    data = df.edger, d.factor = NULL, type = "edger", title = TRUE,
@@ -343,7 +345,7 @@ vsBoxPlot(
 my.cap <- "Color variant 2. A violin plot example using the `fill.color` 
 parameter: `Paired` with the `aes` parameter: `viosumm`."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 data("df.edger")
 vsBoxPlot(
    data = df.edger, d.factor = NULL, type = "edger", title = TRUE,
@@ -359,7 +361,7 @@ my.cap <- "Color variant 3. A notched box plot example using the `fill.color`
 parameter: `Greys` with the `aes` parameter: `notch`. Using these parameters,
 we can also generate grey-scale plots."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 data("df.edger")
 vsBoxPlot(
    data = df.edger, d.factor = NULL, type = "edger", title = TRUE,
@@ -384,7 +386,7 @@ my.cap <- "A scatterplot example using the `vsScatterPlot()` function with
 fragments per kilobase of transcript per million mapped reads (FPKM) 
 measurments. The dashed line represents regression line for the comparison."
 ```
-```{r, message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r, message=FALSE, fig.cap=my.cap}
 vsScatterPlot(
     x = 'hESC', y = 'iPS', data = df.cuff, type = 'cuffdiff',
     d.factor = NULL, title = TRUE, grid = TRUE
@@ -400,7 +402,7 @@ my.cap <- "A scatterplot example using the `vsScatterPlot()` function with
 fragments per kilobase of transcript per million mapped reads (FPKM) 
 measurments. The dashed line represents regression line for the comparison."
 ```
-```{r, message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r, message=FALSE, fig.cap=my.cap}
 vsScatterPlot(
     x = 'treated_paired.end', y = 'untreated_paired.end', 
     data = df.deseq, type = 'deseq', d.factor = 'condition', 
@@ -417,7 +419,7 @@ my.cap <- "A scatterplot example using the `vsScatterPlot()` function with
 fragments per kilobase of transcript per million mapped reads (FPKM) 
 measurments. The dashed line represents regression line for the comparison."
 ```
-```{r, message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r, message=FALSE, fig.cap=my.cap}
 vsScatterPlot(
     x = 'WM', y = 'MM', data = df.edger, type = 'edger',
     d.factor = NULL, title = TRUE, grid = TRUE
@@ -441,7 +443,7 @@ visualization allows for all comparisons to be made within an experiment. In
 addition to the scatterplot visuals, FPKM distributions (histograms) and 
 correlation (Corr) values are generated."
 ```
-```{r, message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r, message=FALSE, fig.cap=my.cap}
 vsScatterMatrix(
     data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
     comp = NULL, title = TRUE, grid = TRUE, man.title = NULL
@@ -458,7 +460,7 @@ visualization allows for all comparisons to be made within an experiment. In
 addition to the scatterplot visuals, FPKM distributions (histograms) and 
 correlation (Corr) values are generated."
 ```
-```{r, message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r, message=FALSE, fig.cap=my.cap}
 vsScatterMatrix(
     data = df.deseq, d.factor = 'condition', type = 'deseq',
     comp = NULL, title = TRUE, grid = TRUE, man.title = NULL
@@ -475,7 +477,7 @@ visualization allows for all comparisons to be made within an experiment. In
 addition to the scatterplot visuals, FPKM distributions (histograms) and 
 correlation (Corr) values are generated."
 ```
-```{r, message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r, message=FALSE, fig.cap=my.cap}
 vsScatterMatrix(
     data = df.edger, d.factor = NULL, type = 'edger', comp = NULL,
     title = TRUE, grid = TRUE, man.title = NULL
@@ -488,9 +490,9 @@ vsScatterMatrix(
 
 # Example S5: Creating differential gene expression matrices
 Using the `vsDEGMatrix()` function allows the user to visualize the number of 
-differentially expressed genes (DEGs) at a given adjusted *p*-value (`padj = `) 
-for each experimental treatment level. Higher color intensity correlates to a 
-higher number of DEGs.
+differentially expressed genes (DEGs) at a given adjusted *p*-value (`padj = `
+) for each experimental treatment level. Higher color intensity correlates to 
+a higher number of DEGs.
 
 ## With Cuffdiff
 ```{r, echo=FALSE}
@@ -500,7 +502,7 @@ function, the user is able to visualize the number of DEGs ata given adjusted
 *p*-value for each experimental treatment level. Higher color intensity 
 correlates to a higher number of DEGs."
 ```
-```{r, message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r, message=FALSE, fig.cap=my.cap}
 vsDEGMatrix(
     data = df.cuff, padj = 0.05, d.factor = NULL, type = 'cuffdiff', 
     title = TRUE, legend = TRUE, grid = TRUE
@@ -517,7 +519,7 @@ function, the user is able to visualize the number of DEGs ata given adjusted
 *p*-value for each experimental treatment level. Higher color intensity 
 correlates to a higher number of DEGs."
 ```
-```{r, message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r, message=FALSE, fig.cap=my.cap}
 vsDEGMatrix(
     data = df.deseq, padj = 0.05, d.factor = 'condition', 
     type = 'deseq', title = TRUE, legend = TRUE, grid = TRUE
@@ -534,10 +536,24 @@ function, the user is able to visualize the number of DEGs ata given adjusted
 *p*-value for each experimental treatment level. Higher color intensity 
 correlates to a higher number of DEGs."
 ```
-```{r, message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r, message=FALSE, fig.cap=my.cap}
 vsDEGMatrix(
     data = df.edger, padj = 0.05, d.factor = NULL, type = 'edger', 
     title = TRUE, legend = TRUE, grid = TRUE
+)
+```
+
+\newpage
+
+## Grey-scale DEG matrices
+A grey-scale option is available for this function if you wish to use a 
+grey-to-white gradient instead of the classic blue-to-white gradient. This
+can be invoked by setting the `grey.scale` parameter to `TRUE`.
+
+
+```{r}
+vsDEGMatrix(data = df.deseq, d.factor = "condition", type = "deseq",
+    grey.scale = TRUE
 )
 ```
 
@@ -554,19 +570,19 @@ plotted, please refer to the figure captions and Method S1.
 ## With Cuffdiff
 ```{r, echo=FALSE}
 my.cap <- "MA plot visualization using the `vsMAPLot()` function with 
-`Cuffdiff` data. LFCs are plotted mean counts to determine the variance between 
-two treatments in terms of gene expression. Blue nodes on the graph represent 
-statistically significant LFCs which are greater than a given value than a 
-user-defined LFC parameter. Green nodes indicate statistically significant LFCs 
-which are less than the user-defined LFC parameter. Gray nodes are data points 
-that are not statistically significant. Numerical values in parantheses for 
-each legend color indicate the number of transcripts that meet the prior 
-conditions. Triangular shapes represent values that exceed the viewing area of 
-the graph. Node size changes represent the magnitude of the LFC values (i.e. 
-larger shapes reflect larger LFC values). Dashed lines indicate user-defined 
-LFC values."
+`Cuffdiff` data. LFCs are plotted mean counts to determine the variance 
+between two treatments in terms of gene expression. Blue nodes on the graph 
+represent statistically significant LFCs which are greater than a given value 
+than a user-defined LFC parameter. Green nodes indicate statistically 
+significant LFCs which are less than the user-defined LFC parameter. Gray 
+nodes are data points that are not statistically significant. Numerical values 
+in parantheses for each legend color indicate the number of transcripts that 
+meet the prior conditions. Triangular shapes represent values that exceed the 
+viewing area of the graph. Node size changes represent the magnitude of the 
+LFC values (i.e. larger shapes reflect larger LFC values). Dashed lines 
+indicate user-defined LFC values."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 vsMAPlot(
     x = 'iPS', y = 'hESC', data = df.cuff, d.factor = NULL, 
     type = 'cuffdiff', padj = 0.05, y.lim = NULL, lfc = NULL, 
@@ -582,16 +598,16 @@ my.cap <- "MA plot visualization using the `vsMAPLot()` function with
 `DESeq2` data. LFCs are plotted mean counts to determine the variance between 
 two treatments in terms of gene expression. Blue nodes on the graph represent 
 statistically significant LFCs which are greater than a given value than a 
-user-defined LFC parameter. Green nodes indicate statistically significant LFCs 
-which are less than the user-defined LFC parameter. Gray nodes are data points 
-that are not statistically significant. Numerical values in parantheses for 
-each legend color indicate the number of transcripts that meet the prior 
+user-defined LFC parameter. Green nodes indicate statistically significant
+LFCs which are less than the user-defined LFC parameter. Gray nodes are data 
+points that are not statistically significant. Numerical values in parantheses 
+for each legend color indicate the number of transcripts that meet the prior 
 conditions. Triangular shapes represent values that exceed the viewing area of 
 the graph. Node size changes represent the magnitude of the LFC values (i.e. 
 larger shapes reflect larger LFC values). Dashed lines indicate user-defined 
 LFC values."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 vsMAPlot(
     x = 'treated_paired.end', y = 'untreated_paired.end', 
     data = df.deseq, d.factor = 'condition', type = 'deseq', 
@@ -608,16 +624,16 @@ my.cap <- "MA plot visualization using the `vsMAPLot()` function with
 `edgeR` data. LFCs are plotted mean counts to determine the variance between 
 two treatments in terms of gene expression. Blue nodes on the graph represent 
 statistically significant LFCs which are greater than a given value than a 
-user-defined LFC parameter. Green nodes indicate statistically significant LFCs 
-which are less than the user-defined LFC parameter. Gray nodes are data points 
-that are not statistically significant. Numerical values in parantheses for 
-each legend color indicate the number of transcripts that meet the prior 
+user-defined LFC parameter. Green nodes indicate statistically significant 
+LFCs which are less than the user-defined LFC parameter. Gray nodes are data 
+points that are not statistically significant. Numerical values in parantheses 
+for each legend color indicate the number of transcripts that meet the prior 
 conditions. Triangular shapes represent values that exceed the viewing area of 
 the graph. Node size changes represent the magnitude of the LFC values (i.e. 
 larger shapes reflect larger LFC values). Dashed lines indicate user-defined 
 LFC values."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 vsMAPlot(
     x = 'WW', y = 'MM', data = df.edger, d.factor = NULL, 
     type = 'edger', padj = 0.05, y.lim = NULL, lfc = NULL, 
@@ -648,10 +664,11 @@ user-defined LFC parameter. Gray nodes are data points that are not
 statistically significant. Numerical values in parantheses for each legend 
 color indicate the number of transcripts that meet the prior conditions. 
 Triangular shapes represent values that exceed the viewing area of the graph. 
-Node size changes represent the magnitude of the LFC values (i.e. larger shapes 
-reflect larger LFC values). Dashed lines indicate user-defined LFC values."
+Node size changes represent the magnitude of the LFC values (i.e. larger 
+shapes reflect larger LFC values). Dashed lines indicate user-defined LFC 
+values."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
  vsMAMatrix(
     data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
     padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
@@ -674,10 +691,11 @@ user-defined LFC parameter. Gray nodes are data points that are not
 statistically significant. Numerical values in parantheses for each legend 
 color indicate the number of transcripts that meet the prior conditions. 
 Triangular shapes represent values that exceed the viewing area of the graph. 
-Node size changes represent the magnitude of the LFC values (i.e. larger shapes 
-reflect larger LFC values). Dashed lines indicate user-defined LFC values."
+Node size changes represent the magnitude of the LFC values (i.e. larger 
+shapes reflect larger LFC values). Dashed lines indicate user-defined LFC 
+values."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 vsMAMatrix(
     data = df.deseq, d.factor = 'condition', type = 'deseq', 
     padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
@@ -700,10 +718,11 @@ user-defined LFC parameter. Gray nodes are data points that are not
 statistically significant. Numerical values in parantheses for each legend 
 color indicate the number of transcripts that meet the prior conditions. 
 Triangular shapes represent values that exceed the viewing area of the graph. 
-Node size changes represent the magnitude of the LFC values (i.e. larger shapes 
-reflect larger LFC values). Dashed lines indicate user-defined LFC values."
+Node size changes represent the magnitude of the LFC values (i.e. larger 
+shapes reflect larger LFC values). Dashed lines indicate user-defined LFC 
+values."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 vsMAMatrix(
     data = df.edger, d.factor = NULL, type = 'edger', 
     padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE, 
@@ -740,7 +759,7 @@ the graph. Node size changes represent the magnitude of the LFC values (i.e.
 larger shapes reflect larger LFC values). Vertical and horizontal lines 
 indicate user-defined LFC and adjusted *p*-values, respectively."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 vsVolcano(
     x = 'iPS', y = 'hESC', data = df.cuff, d.factor = NULL, 
     type = 'cuffdiff', padj = 0.05, x.lim = NULL, lfc = NULL, 
@@ -766,7 +785,7 @@ the graph. Node size changes represent the magnitude of the LFC values (i.e.
 larger shapes reflect larger LFC values). Vertical and horizontal lines 
 indicate user-defined LFC and adjusted *p*-values, respectively."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 vsVolcano(
     x = 'treated_paired.end', y = 'untreated_paired.end', 
     data = df.deseq, d.factor = 'condition', type = 'deseq', 
@@ -793,7 +812,7 @@ the graph. Node size changes represent the magnitude of the LFC values (i.e.
 larger shapes reflect larger LFC values). Vertical and horizontal lines 
 indicate user-defined LFC and adjusted *p*-values, respectively."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 vsVolcano(
     x = 'WW', y = 'MM', data = df.edger, d.factor = NULL, 
     type = 'edger', padj = 0.05, x.lim = NULL, lfc = NULL, 
@@ -820,16 +839,16 @@ experiment. Comparisons are made between the $-log_{10}$ *p*-value versus the
 $log_2$ fold change (LFC) between two treatments. Blue nodes on the graph 
 represent statistically significant LFCs which are greater than a given value 
 than a user-defined LFC parameter. Green nodes indicate statistically 
-significant LFCs which are less than the user-defined LFC parameter. Gray nodes 
-are data points that are not statistically significant. The blue and green 
-numbers in each facet represent the number of transcripts that meet the 
+significant LFCs which are less than the user-defined LFC parameter. Gray 
+nodes are data points that are not statistically significant. The blue and 
+green numbers in each facet represent the number of transcripts that meet the 
 criteria for blue and green nodes in each comparison. Left and right brackets 
-(< and >) represent values that exceed the viewing area of the graph. Node size 
-changes represent the magnitude of the LFC values (i.e. larger shapes reflect 
-larger LFC values). Vertical and horizontal lines indicate user-defined LFC and 
-adjusted *p*-values, respectively."
+(< and >) represent values that exceed the viewing area of the graph. Node 
+size changes represent the magnitude of the LFC values (i.e. larger shapes 
+reflect larger LFC values). Vertical and horizontal lines indicate 
+user-defined LFC and adjusted *p*-values, respectively."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 vsVolcanoMatrix(
     data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
     padj = 0.05, x.lim = NULL, lfc = NULL, title = TRUE, 
@@ -848,16 +867,16 @@ experiment. Comparisons are made between the $-log_{10}$ *p*-value versus the
 $log_2$ fold change (LFC) between two treatments. Blue nodes on the graph 
 represent statistically significant LFCs which are greater than a given value 
 than a user-defined LFC parameter. Green nodes indicate statistically 
-significant LFCs which are less than the user-defined LFC parameter. Gray nodes 
-are data points that are not statistically significant. The blue and green 
-numbers in each facet represent the number of transcripts that meet the 
+significant LFCs which are less than the user-defined LFC parameter. Gray 
+nodes are data points that are not statistically significant. The blue and 
+green numbers in each facet represent the number of transcripts that meet the 
 criteria for blue and green nodes in each comparison. Left and right brackets 
-(< and >) represent values that exceed the viewing area of the graph. Node size 
-changes represent the magnitude of the LFC values (i.e. larger shapes reflect 
-larger LFC values). Vertical and horizontal lines indicate user-defined LFC and 
-adjusted *p*-values, respectively."
+(< and >) represent values that exceed the viewing area of the graph. Node 
+size changes represent the magnitude of the LFC values (i.e. larger shapes 
+reflect larger LFC values). Vertical and horizontal lines indicate 
+user-defined LFC and adjusted *p*-values, respectively."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 vsVolcanoMatrix(
     data = df.deseq, d.factor = 'condition', type = 'deseq', 
     padj = 0.05, x.lim = NULL, lfc = NULL, title = TRUE, 
@@ -876,16 +895,16 @@ experiment. Comparisons are made between the $-log_{10}$ *p*-value versus the
 $log_2$ fold change (LFC) between two treatments. Blue nodes on the graph 
 represent statistically significant LFCs which are greater than a given value 
 than a user-defined LFC parameter. Green nodes indicate statistically 
-significant LFCs which are less than the user-defined LFC parameter. Gray nodes 
-are data points that are not statistically significant. The blue and green 
-numbers in each facet represent the number of transcripts that meet the 
+significant LFCs which are less than the user-defined LFC parameter. Gray 
+nodes are data points that are not statistically significant. The blue and 
+green numbers in each facet represent the number of transcripts that meet the 
 criteria for blue and green nodes in each comparison. Left and right brackets 
-(< and >) represent values that exceed the viewing area of the graph. Node size 
-changes represent the magnitude of the LFC values (i.e. larger shapes reflect 
-larger LFC values). Vertical and horizontal lines indicate user-defined LFC and 
-adjusted *p*-values, respectively."
+(< and >) represent values that exceed the viewing area of the graph. Node 
+size changes represent the magnitude of the LFC values (i.e. larger shapes 
+reflect larger LFC values). Vertical and horizontal lines indicate 
+user-defined LFC and adjusted *p*-values, respectively."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 vsVolcanoMatrix(
     data = df.edger, d.factor = NULL, type = 'edger', padj = 0.05, 
     x.lim = NULL, lfc = NULL, title = TRUE, legend = TRUE, 
@@ -919,7 +938,7 @@ viewing are for the graph. Size change reflects the magnitude of LFC values (
 i.e. larger shapes reflect larger LFC values). Vertical and horizontal dashed 
 lines indicate user-defined LFC values."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 vsFourWay(
     x = 'iPS', y = 'hESC', control = 'Fibroblasts', data = df.cuff,
     d.factor = NULL, type = 'cuffdiff', padj = 0.05, x.lim = NULL,
@@ -945,7 +964,7 @@ viewing are for the graph. Size change reflects the magnitude of LFC values (
 i.e. larger shapes reflect larger LFC values). Vertical and horizontal dashed 
 lines indicate user-defined LFC values."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 vsFourWay(
     x = 'treated_paired.end', y = 'untreated_single.read', 
     control = 'untreated_paired.end', data = df.deseq, 
@@ -972,7 +991,7 @@ viewing are for the graph. Size change reflects the magnitude of LFC values (
 i.e. larger shapes reflect larger LFC values). Vertical and horizontal dashed 
 lines indicate user-defined LFC values."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 vsFourWay(
     x = 'WW', y = 'WM', control = 'MM', data = df.edger,
     d.factor = NULL, type = 'edger', padj = 0.05, x.lim = NULL,
@@ -990,6 +1009,7 @@ vsFourWay(
 For point-based plots, users can highlight IDs of interest (i.e. genes, 
 transcripts, etc.). Currently, this functionality is implemented in the 
 following functions:
+
   * `vsScatterPlot()`
   * `vsMAPlot()`
   * `vsVolcano()`
@@ -1023,7 +1043,7 @@ will turn grey while highlighted points will turn blue. Text tags will *try*
 to optimize their location within the graph without trying to overlap each
 other."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 data("df.cuff")
 hl <- c(
   "XLOC_000033",
@@ -1047,7 +1067,7 @@ will decrease in transparency (i.e. lower alpha values) while highlighted
 points will turn red. Text tags will *try* to optimize their location within 
 the graph without trying to overlap each other."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 hl <- c(
   "FBgn0022201",
   "FBgn0003042",
@@ -1073,7 +1093,7 @@ will decrease in transparency (i.e. lower alpha values) while highlighted
 points will turn red. Text tags will *try* to optimize their location within 
 the graph without trying to overlap each other."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 hl <- c(
   "FBgn0036248",
   "FBgn0026573",
@@ -1099,7 +1119,7 @@ will decrease in transparency (i.e. lower alpha values) while highlighted
 points will turn dark grey. Text tags will *try* to optimize their location 
 within the graph without trying to overlap each other."
 ```
-```{r,  message=FALSE, fig.width=7, fig.height=5, fig.cap=my.cap}
+```{r,  message=FALSE, fig.cap=my.cap}
 data("df.edger")
 hl <- c(
     "ID_639",
@@ -1115,6 +1135,123 @@ vsFourWay(
     data.return = FALSE, highlight = hl
 )
 ```
+
+
+\newpage
+
+# Example S12: Extracting datasets from plots
+
+## Overview
+For **all** plots, users can extract datasets used for the visualizations. 
+You may want to pursue this option if you want to use a highly customized
+plot script or you would like to perform some unmentioned analysis, for 
+example.
+
+To use this this feature, set the `data.return` parameter in the function 
+you are using to `TRUE`. You will also need to assign the function to an 
+object. See the following example for further details. 
+
+
+## The data extraction process
+In this example, we will use the toy data set `df.cuff`, a cuffdiff output 
+on the function `vsScatterPlot()`. Take note that we are assigning the 
+function to an object `tmp`:
+
+```{r}
+# Extract data frame from visualization
+data("df.cuff")
+tmp <- vsScatterPlot(
+   x = "hESC", y = "iPS", data = df.cuff, d.factor = NULL,
+   type = "cuffdiff", title = TRUE, grid = TRUE, data.return = TRUE
+)
+```
+The object we have created is a list with two elements: `data` and `plot`. 
+To extract the data, we can call the first element of the list using the 
+subset method (`<object>[[1]]`) or by invoking its element name 
+(`<object>$data`):
+
+```{r}
+df_scatter <- tmp[[1]] ## or use tmp$data
+head(df_scatter)
+```
+
+## Return the plot
+By assigning each of these functions to a list, we can also store the plot
+as another element. To extract the plot, we can call the second element of 
+the list using the aformentioned procedures:
+
+```{r}
+my_plot <- tmp[[2]] ## or use tmp$plot
+my_plot
+```
+
+
+
+\newpage
+
+# Example S13: Changing text sizes
+
+## Overview
+For all functions, users can modify the font size of multiple portions of the 
+plot. These portions primarily revolve around these components:
+
+  * Axis text and titles
+  * Plot title
+  * Legend text and titles
+  * Facet titles
+
+To manipulate these components, users can modify the default values of the 
+following parameters:
+
+  * `xaxis.text.size`
+  * `yaxis.text.size`
+  * `xaxis.title.size`
+  * `yaxis.title.size`
+  * `main.title.size`
+  * `legend.text.size`
+  * `legend.title.size`
+  * `facet.title.size`
+
+## What exactly can you manipulate?
+Each of parameters mentioned in the prior section refer to numerical values.
+These values correlate to font size in typographic points. To illustrate what 
+exactly these parameters modify, please refer to the following figure:
+
+```{r, echo=FALSE}
+my.cap <- "A visual guide to text size parameters. Users can modify these
+components which are highlighted by their respective parameter."
+```
+```{r, echo=FALSE, fig.cap=my.cap}
+knitr::include_graphics("img/text-size-parameters-01.png", auto_pdf = TRUE)
+```
+
+The `facet.title.size` parameter refers to the facets which are allocated in
+the matrix functions (`vsScatterMatrix()`, `vsMAMatrix()`, 
+`vsVolcanoMatrix()`). This is illustrated in the following figure:
+
+```{r, echo=FALSE}
+my.cap <- "Location of facet titles. Facet title sizes can be modified using
+the `facet.title.size` parameter."
+```
+```{r, echo=FALSE, fig.cap=my.cap}
+knitr::include_graphics("img/text-size-parameters-02.png", auto_pdf = TRUE)
+```
+
+Since not all functions are equal in their parameters and component layout,
+some functions will either have or lack some of the prior parameters. To 
+get an idea of which have functions have which, please refer to the following
+figure:
+
+```{r, echo=FALSE}
+my.cap <- "An overview of text size parameters for each function. Cells 
+highlighted in red refer to parameters (columns) which are found in their
+respective functions (rows). Cells which are grey indicate parameters which
+are not found in each of the functions."
+```
+```{r, echo=FALSE, fig.cap=my.cap}
+knitr::include_graphics("img/text-size-parameters-03.png", auto_pdf = TRUE)
+```
+
 
 
 
@@ -1149,8 +1286,8 @@ increases (top bar). Data points that fall within the viewing area classified
 as SUB while data points that exceed this area are classified as T-1 through 
 T-4."
 ```
-```{r, echo=FALSE, out.width = "500px", fig.align='center', fig.cap=my.cap}
-knitr::include_graphics("img/lfc-shape.png", auto_pdf = TRUE)
+```{r, echo=FALSE, fig.cap=my.cap, out.width = "75%"}
+knitr::include_graphics("img/lfc-shape.png")
 ```
 
 \newpage
@@ -1165,11 +1302,11 @@ processor running at 2.7 GHz.
 ## Scatterplots
 ```{r, echo=FALSE}
 my.cap <- "Benchmarks for the `vsScatterPlot()` function. Time (ms) 
-distributions were generated for this function using 100 trials for each of the 
-three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets 
+distributions were generated for this function using 100 trials for each of
+the three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets 
 contained 1200, 724, and 29391 transcripts, respectively. "
 ```
-```{r, echo=FALSE, out.width = "500px", fig.cap=my.cap}
+```{r, echo=FALSE, fig.cap=my.cap, out.width = "75%"}
 knitr::include_graphics("img/eff-scatter.png", auto_pdf = TRUE)
 ```
 
@@ -1178,11 +1315,11 @@ knitr::include_graphics("img/eff-scatter.png", auto_pdf = TRUE)
 ## Scatterplot matrices
 ```{r, echo=FALSE}
 my.cap <- "Benchmarks for the `vsScatterMatrix()` function. Time (ms) 
-distributions were generated for this function using 100 trials for each of the 
-three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets 
+distributions were generated for this function using 100 trials for each of 
+the three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets 
 contained 1200, 724, and 29391 transcripts, respectively. "
 ```
-```{r, echo=FALSE, out.width = "500px", fig.cap=my.cap}
+```{r, echo=FALSE, fig.cap=my.cap, out.width = "75%"}
 knitr::include_graphics("img/eff-smatrix.png", auto_pdf = TRUE)
 ```
 
@@ -1191,11 +1328,11 @@ knitr::include_graphics("img/eff-smatrix.png", auto_pdf = TRUE)
 ## Box plots
 ```{r, echo=FALSE}
 my.cap <- "Benchmarks for the `vsBoxPlot()` function. Time (ms) 
-distributions were generated for this function using 100 trials for each of the 
-three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets 
+distributions were generated for this function using 100 trials for each of 
+the three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets 
 contained 1200, 724, and 29391 transcripts, respectively. "
 ```
-```{r, echo=FALSE, out.width = "500px", fig.cap=my.cap}
+```{r, echo=FALSE, fig.cap=my.cap, out.width = "75%"}
 knitr::include_graphics("img/eff-box.png", auto_pdf = TRUE)
 ```
 
@@ -1204,11 +1341,11 @@ knitr::include_graphics("img/eff-box.png", auto_pdf = TRUE)
 ## Differential gene expression matrices
 ```{r, echo=FALSE}
 my.cap <- "Benchmarks for the `vsDEGMatrix()` function. Time (ms) 
-distributions were generated for this function using 100 trials for each of the 
-three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets 
+distributions were generated for this function using 100 trials for each of 
+the three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets 
 contained 1200, 724, and 29391 transcripts, respectively. "
 ```
-```{r, echo=FALSE, out.width = "500px", fig.cap=my.cap}
+```{r, echo=FALSE, fig.cap=my.cap, out.width = "75%"}
 knitr::include_graphics("img/eff-deg.png", auto_pdf = TRUE)
 ```
 
@@ -1217,11 +1354,11 @@ knitr::include_graphics("img/eff-deg.png", auto_pdf = TRUE)
 ## Volcano plots
 ```{r, echo=FALSE}
 my.cap <- "Benchmarks for the `vsVolcano()` function. Time (ms) 
-distributions were generated for this function using 100 trials for each of the 
-three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets 
+distributions were generated for this function using 100 trials for each of 
+the three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets 
 contained 1200, 724, and 29391 transcripts, respectively. "
 ```
-```{r, echo=FALSE, out.width = "500px", fig.cap=my.cap}
+```{r, echo=FALSE, fig.cap=my.cap, out.width = "75%"}
 knitr::include_graphics("img/eff-volcano.png", auto_pdf = TRUE)
 ```
 
@@ -1230,11 +1367,11 @@ knitr::include_graphics("img/eff-volcano.png", auto_pdf = TRUE)
 ## Volcano plot matrices
 ```{r, echo=FALSE}
 my.cap <- "Benchmarks for the `vsVolcanoMatrix()` function. Time (ms) 
-distributions were generated for this function using 100 trials for each of the 
-three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets 
+distributions were generated for this function using 100 trials for each of 
+the three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets 
 contained 1200, 724, and 29391 transcripts, respectively. "
 ```
-```{r, echo=FALSE, out.width = "500px", fig.cap=my.cap}
+```{r, echo=FALSE, fig.cap=my.cap, out.width = "75%"}
 knitr::include_graphics("img/eff-vmatrix.png", auto_pdf = TRUE)
 ```
 
@@ -1243,11 +1380,11 @@ knitr::include_graphics("img/eff-vmatrix.png", auto_pdf = TRUE)
 ## MA plots
 ```{r, echo=FALSE}
 my.cap <- "Benchmarks for the `vsMAPlot()` function. Time (ms) 
-distributions were generated for this function using 100 trials for each of the 
-three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets 
+distributions were generated for this function using 100 trials for each of 
+the three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets 
 contained 1200, 724, and 29391 transcripts, respectively. "
 ```
-```{r, echo=FALSE, out.width = "500px", fig.cap=my.cap}
+```{r, echo=FALSE, fig.cap=my.cap, out.width = "75%"}
 knitr::include_graphics("img/eff-maplot.png", auto_pdf = TRUE)
 ```
 
@@ -1256,11 +1393,11 @@ knitr::include_graphics("img/eff-maplot.png", auto_pdf = TRUE)
 ## MA matrices
 ```{r, echo=FALSE}
 my.cap <- "Benchmarks for the `vsMAMatrix()` function. Time (s) 
-distributions were generated for this function using 100 trials for each of the 
-three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets 
+distributions were generated for this function using 100 trials for each of 
+the three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets 
 contained 1200, 724, and 29391 transcripts, respectively. "
 ```
-```{r, echo=FALSE, out.width = "500px", fig.cap=my.cap}
+```{r, echo=FALSE, fig.cap=my.cap, out.width = "75%"}
 knitr::include_graphics("img/eff-mamatrix.png", auto_pdf = TRUE)
 ```
 
@@ -1269,11 +1406,11 @@ knitr::include_graphics("img/eff-mamatrix.png", auto_pdf = TRUE)
 ## Four way plots
 ```{r, echo=FALSE}
 my.cap <- "Benchmarks for the `vsFourWay()` function. Time (ms) 
-distributions were generated for this function using 100 trials for each of the 
-three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets 
+distributions were generated for this function using 100 trials for each of 
+the three RNAseq data objects. Cuffdiff, DESeq2, and edgeR example data sets 
 contained 1200, 724, and 29391 transcripts, respectively. "
 ```
-```{r, echo=FALSE, out.width = "500px", fig.cap=my.cap}
+```{r, echo=FALSE, fig.cap=my.cap, out.width = "75%"}
 knitr::include_graphics("img/eff-four.png", auto_pdf = TRUE)
 ```
 
