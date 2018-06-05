@@ -7,7 +7,10 @@
 \usage{
 vsVolcanoMatrix(data, d.factor = NULL, type = c("cuffdiff", "deseq",
   "edger"), padj = 0.05, x.lim = NULL, lfc = NULL, title = TRUE,
-  legend = TRUE, grid = TRUE, counts = TRUE, data.return = FALSE)
+  legend = TRUE, grid = TRUE, counts = TRUE, data.return = FALSE,
+  xaxis.text.size = 9, yaxis.text.size = 9, xaxis.title.size = 10,
+  yaxis.title.size = 10, main.title.size = 15, legend.text.size = 9,
+  facet.title.size = 10)
 }
 \arguments{
 \item{data}{a cuffdiff, DESeq2, or edgeR object.}
@@ -37,6 +40,27 @@ each treatment comparison. Defaults to \code{TRUE}.}
 
 \item{data.return}{returns data output of plot if set to \code{TRUE}.
 Defaults to \code{FALSE}.}
+
+\item{xaxis.text.size}{change the font size of the \code{x}-axis text.
+Defaults to \code{9}.}
+
+\item{yaxis.text.size}{change the font size of the \code{y}-axis text.
+Defaults to \code{9}.}
+
+\item{xaxis.title.size}{change the font size of the \code{x}-axis title
+text. Defaults to \code{10}.}
+
+\item{yaxis.title.size}{change the font size of the \code{y}-axis title
+text. Defaults to \code{10}.}
+
+\item{main.title.size}{change the font size of the plot title text.
+Defaults to \code{15}.}
+
+\item{legend.text.size}{change the font size of the legend body text.
+Defaults to \code{9}.}
+
+\item{facet.title.size}{change the font size of the facet wrap title text.
+Defaults to \code{10}.}
 }
 \value{
 An object created by \code{ggplot}
@@ -53,36 +77,36 @@ treatments.
 # Cuffdiff example
 data("df.cuff")
 vsVolcanoMatrix(
- 	data = df.cuff, d.factor = NULL, type = "cuffdiff",
- 	padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE,
- 	grid = TRUE, counts = TRUE, data.return = FALSE
+     data = df.cuff, d.factor = NULL, type = "cuffdiff",
+     padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE,
+     grid = TRUE, counts = TRUE, data.return = FALSE
 )
 
 # DESeq2 example
 data("df.deseq")
 require(DESeq2)
 vsVolcanoMatrix(
- 	data = df.deseq, d.factor = "condition", type = "deseq",
- 	padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE,
- 	grid = TRUE, counts = TRUE, data.return = FALSE
+     data = df.deseq, d.factor = "condition", type = "deseq",
+     padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE,
+     grid = TRUE, counts = TRUE, data.return = FALSE
 )
 
 # edgeR example
 data("df.edger")
 require(edgeR)
 vsVolcanoMatrix(
- 	data = df.edger, d.factor = NULL, type = "edger",
- 	padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE,
- 	grid = TRUE, counts = TRUE, data.return = FALSE
+     data = df.edger, d.factor = NULL, type = "edger",
+     padj = 0.05, x.lim = NULL, lfc = 2, title = TRUE,
+     grid = TRUE, counts = TRUE, data.return = FALSE
 )
 
 # Extract data frame from visualization
 data("df.cuff")
 tmp <- vsVolcanoMatrix(
- 	data = df.cuff, d.factor = NULL,
- 	type = "cuffdiff", padj = 0.05, x.lim = NULL,
- 	lfc = 2, title = TRUE, grid = TRUE,
- 	counts = TRUE, data.return = TRUE
+     data = df.cuff, d.factor = NULL,
+     type = "cuffdiff", padj = 0.05, x.lim = NULL,
+     lfc = 2, title = TRUE, grid = TRUE,
+     counts = TRUE, data.return = TRUE
 )
 df_vmat <- tmp[[1]]
 head(df_vmat)

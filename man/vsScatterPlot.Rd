@@ -6,7 +6,8 @@
 \usage{
 vsScatterPlot(x, y, data, d.factor = NULL, type = c("cuffdiff", "deseq",
   "edger"), title = TRUE, grid = TRUE, highlight = NULL,
-  data.return = FALSE)
+  data.return = FALSE, xaxis.text.size = 10, yaxis.text.size = 10,
+  xaxis.title.size = 12, yaxis.title.size = 12, main.title.size = 15)
 }
 \arguments{
 \item{x}{treatment \code{x} for comparison (\eqn{log_{2}}(x/control)). This
@@ -45,6 +46,21 @@ be used for \code{DESeq2} output; \code{edgeR} must be used with
 \code{FALSE}. If set to \code{TRUE}, a data frame will also be called.
 Assign to object for reproduction and saving of data frame. See final
 example for further details.}
+
+\item{xaxis.text.size}{change the font size of the \code{x}-axis text. 
+Defaults to \code{10}.}
+
+\item{yaxis.text.size}{change the font size of the \code{y}-axis text. 
+Defaults to \code{10}.}
+
+\item{xaxis.title.size}{change the font size of the \code{x}-axis title 
+text. Defaults to \code{12}.}
+
+\item{yaxis.title.size}{change the font size of the \code{y}-axis title 
+text. Defaults to \code{12}.}
+
+\item{main.title.size}{change the font size of the plot title text. 
+Defaults to \code{15}.}
 }
 \value{
 An object created by \code{ggplot}
@@ -58,45 +74,45 @@ analytical type.
 # Cuffdiff example
 data("df.cuff")
 vsScatterPlot(
- 	x = "hESC", y = "iPS", data = df.cuff, d.factor = NULL,
- 	type = "cuffdiff", title = TRUE, grid = TRUE
+     x = "hESC", y = "iPS", data = df.cuff, d.factor = NULL,
+     type = "cuffdiff", title = TRUE, grid = TRUE
 )
 
 # DESeq2 example
 data("df.deseq")
 require(DESeq2)
 vsScatterPlot(
- 	x = "treated_paired.end", y = "untreated_paired.end",
- 	data = df.deseq, d.factor = "condition", type = "deseq",
- 	title = TRUE, grid = TRUE
+     x = "treated_paired.end", y = "untreated_paired.end",
+     data = df.deseq, d.factor = "condition", type = "deseq",
+     title = TRUE, grid = TRUE
 )
 
 # edgeR example
 data("df.edger")
 require(edgeR)
 vsScatterPlot(
- 	x = "WW", y = "WM", data = df.edger, d.factor = NULL,
- 	type = "edger", title = TRUE, grid = TRUE
+     x = "WW", y = "WM", data = df.edger, d.factor = NULL,
+     type = "edger", title = TRUE, grid = TRUE
 )
 
 # Highlight IDs
 data("df.cuff")
 hl <- c(
-		"XLOC_000033",
-		"XLOC_000099",
-		"XLOC_001414",
-		"XLOC_001409"
+     "XLOC_000033",
+     "XLOC_000099",
+     "XLOC_001414",
+     "XLOC_001409"
 )
 vsScatterPlot(
- 	x = "hESC", y = "iPS", data = df.cuff, d.factor = NULL,
- 	type = "cuffdiff", title = TRUE, grid = TRUE, highlight = hl
+     x = "hESC", y = "iPS", data = df.cuff, d.factor = NULL,
+     type = "cuffdiff", title = TRUE, grid = TRUE, highlight = hl
 )
 
 # Extract data frame from visualization
 data("df.cuff")
 tmp <- vsScatterPlot(
- 	x = "hESC", y = "iPS", data = df.cuff, d.factor = NULL,
- 	type = "cuffdiff", title = TRUE, grid = TRUE, data.return = TRUE
+     x = "hESC", y = "iPS", data = df.cuff, d.factor = NULL,
+     type = "cuffdiff", title = TRUE, grid = TRUE, data.return = TRUE
 )
 df_scatter <- tmp[[1]] ## or use tmp$data
 head(df_scatter)

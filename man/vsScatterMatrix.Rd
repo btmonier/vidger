@@ -6,43 +6,63 @@
 \usage{
 vsScatterMatrix(data, d.factor = NULL, type = c("cuffdiff", "deseq",
   "edger"), comp = NULL, title = TRUE, grid = TRUE, man.title = NULL,
-  data.return = FALSE)
+  data.return = FALSE, xaxis.text.size = 9, yaxis.text.size = 9,
+  xaxis.title.size = 10, yaxis.title.size = 10, main.title.size = 15,
+  facet.title.size = 10)
 }
 \arguments{
 \item{data}{output generated from calling the main routines of either
-\code{cuffdiff}, \code{DESeq2}, or \code{edgeR} analyses. For 
-\code{cuffdiff}, this will be a \code{*_exp.diff} file. For \code{DESeq2}, 
-this will be a generated object of class \code{DESeqDataSet}. For 
+\code{cuffdiff}, \code{DESeq2}, or \code{edgeR} analyses. For
+\code{cuffdiff}, this will be a \code{*_exp.diff} file. For \code{DESeq2},
+this will be a generated object of class \code{DESeqDataSet}. For
 \code{edgeR}, this will be a generated object of class \code{DGEList}.}
 
 \item{d.factor}{a specified factor; for use with \code{DESeq2} objects only.
-This input equates to the first parameter for the contrast argument when 
-invoking the \code{results()} function in \code{DESeq2}. Defaults to 
+This input equates to the first parameter for the contrast argument when
+invoking the \code{results()} function in \code{DESeq2}. Defaults to
 \code{NULL}.}
 
-\item{type}{an analysis classifier to tell the function how to process the 
-data. Must be either \code{cuffdiff}, \code{deseq}, or \code{edger}. 
-\code{cuffdiff} must be used with \code{cuffdiff} data; \code{deseq} must 
-be used for \code{DESeq2} output; \code{edgeR} must be used with 
+\item{type}{an analysis classifier to tell the function how to process the
+data. Must be either \code{cuffdiff}, \code{deseq}, or \code{edger}.
+\code{cuffdiff} must be used with \code{cuffdiff} data; \code{deseq} must
+be used for \code{DESeq2} output; \code{edgeR} must be used with
 \code{edgeR} data. See the \code{data} parameter for further details.}
 
-\item{comp}{treatments you would like to compare in the form of a vector. 
-If no parameter is specified, all possible treatment comparisons will be 
+\item{comp}{treatments you would like to compare in the form of a vector.
+If no parameter is specified, all possible treatment comparisons will be
 made. Defaults to \code{NULL}.}
 
-\item{title}{display the main title of plot. Logical; defaults to 
+\item{title}{display the main title of plot. Logical; defaults to
 \code{TRUE}. If set to \code{FALSE}, no title will display in plot.}
 
-\item{grid}{display major and minor axis lines. Logical; defaults to 
+\item{grid}{display major and minor axis lines. Logical; defaults to
 \code{TRUE}. If set to \code{FALSE}, no axis lines will display in plot.}
 
-\item{man.title}{a manually specified title at the authors discretion. 
+\item{man.title}{a manually specified title at the authors discretion.
 Defaults to \code{NULL}.}
 
 \item{data.return}{returns data output of plot. Logical; defaults to
 \code{FALSE}. If set to \code{TRUE}, a data frame will also be called.
 Assign to object for reproduction and saving of data frame. See final
 example for further details.}
+
+\item{xaxis.text.size}{change the font size of the \code{x}-axis text.
+Defaults to \code{9}.}
+
+\item{yaxis.text.size}{change the font size of the \code{y}-axis text.
+Defaults to \code{9}.}
+
+\item{xaxis.title.size}{change the font size of the \code{x}-axis title
+text. Defaults to \code{10}.}
+
+\item{yaxis.title.size}{change the font size of the \code{y}-axis title
+text. Defaults to \code{10}.}
+
+\item{main.title.size}{change the font size of the plot title text.
+Defaults to \code{15}.}
+
+\item{facet.title.size}{change the font size of the facet wrap title text.
+Defaults to \code{10}.}
 }
 \value{
 An object created by \code{ggplot}
@@ -55,34 +75,34 @@ treatment combinations with additional distribution info.
 # Cuffdiff example
 data("df.cuff")
 vsScatterMatrix(
- 	data = df.cuff, d.factor = NULL, type = "cuffdiff", 
- 	comp = NULL, title = TRUE, grid = TRUE, 
- 	man.title = "Example title"
+     data = df.cuff, d.factor = NULL, type = "cuffdiff",
+     comp = NULL, title = TRUE, grid = TRUE,
+     man.title = "Example title"
 )
 
 # DESeq2 example
 data("df.deseq")
 require(DESeq2)
 vsScatterMatrix(
- 	data = df.deseq, d.factor = "condition", type = "deseq",
- 	comp = NULL, title = TRUE, grid = FALSE, man.title = NULL
+     data = df.deseq, d.factor = "condition", type = "deseq",
+     comp = NULL, title = TRUE, grid = FALSE, man.title = NULL
 )
 
 # edgeR example
 data("df.edger")
 require(edgeR)
 vsScatterMatrix(
- 	data = df.edger, d.factor = NULL, type = "edger", 
- 	comp = c("WM", "MM"), title = TRUE, grid = TRUE, 
- 	man.title = NULL
+     data = df.edger, d.factor = NULL, type = "edger",
+     comp = c("WM", "MM"), title = TRUE, grid = TRUE,
+     man.title = NULL
 )
 
 # Extract data frame from visualization
 data("df.edger")
 tmp <- vsScatterMatrix(
- 	data = df.edger, d.factor = NULL, type = "edger", 
- 	comp = c("WM", "MM"), title = TRUE, grid = TRUE, 
- 	man.title = NULL, data.return = TRUE
+     data = df.edger, d.factor = NULL, type = "edger",
+     comp = c("WM", "MM"), title = TRUE, grid = TRUE,
+     man.title = NULL, data.return = TRUE
 )
 df_scatmat <- tmp[[1]] ## or use tmp$data
 head(df_scatmat)

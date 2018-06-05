@@ -37,6 +37,16 @@
 #'  \code{FALSE}. If set to \code{TRUE}, a data frame will also be called.
 #'  Assign to object for reproduction and saving of data frame. See final
 #'  example for further details.
+#' @param xaxis.title.size change the font size of the \code{x}-axis title 
+#'  text. Defaults to \code{12}.
+#' @param xaxis.text.size change the font size of the \code{x}-axis text. 
+#'  Defaults to \code{10}.
+#' @param yaxis.title.size change the font size of the \code{y}-axis title 
+#'  text. Defaults to \code{12}.
+#' @param yaxis.text.size change the font size of the \code{y}-axis text. 
+#'  Defaults to \code{10}.
+#' @param main.title.size change the font size of the plot title text. 
+#'  Defaults to \code{15}.
 #'
 #' @return An object created by \code{ggplot}
 #'
@@ -46,45 +56,45 @@
 #' # Cuffdiff example
 #' data("df.cuff")
 #' vsScatterPlot(
-#'  	x = "hESC", y = "iPS", data = df.cuff, d.factor = NULL,
-#'  	type = "cuffdiff", title = TRUE, grid = TRUE
+#'      x = "hESC", y = "iPS", data = df.cuff, d.factor = NULL,
+#'      type = "cuffdiff", title = TRUE, grid = TRUE
 #' )
 #'
 #' # DESeq2 example
 #' data("df.deseq")
 #' require(DESeq2)
 #' vsScatterPlot(
-#'  	x = "treated_paired.end", y = "untreated_paired.end",
-#'  	data = df.deseq, d.factor = "condition", type = "deseq",
-#'  	title = TRUE, grid = TRUE
+#'      x = "treated_paired.end", y = "untreated_paired.end",
+#'      data = df.deseq, d.factor = "condition", type = "deseq",
+#'      title = TRUE, grid = TRUE
 #' )
 #'
 #' # edgeR example
 #' data("df.edger")
 #' require(edgeR)
 #' vsScatterPlot(
-#'  	x = "WW", y = "WM", data = df.edger, d.factor = NULL,
-#'  	type = "edger", title = TRUE, grid = TRUE
+#'      x = "WW", y = "WM", data = df.edger, d.factor = NULL,
+#'      type = "edger", title = TRUE, grid = TRUE
 #' )
 #'
 #' # Highlight IDs
 #' data("df.cuff")
 #' hl <- c(
-#' 		"XLOC_000033",
-#' 		"XLOC_000099",
-#' 		"XLOC_001414",
-#' 		"XLOC_001409"
+#'      "XLOC_000033",
+#'      "XLOC_000099",
+#'      "XLOC_001414",
+#'      "XLOC_001409"
 #' )
 #' vsScatterPlot(
-#'  	x = "hESC", y = "iPS", data = df.cuff, d.factor = NULL,
-#'  	type = "cuffdiff", title = TRUE, grid = TRUE, highlight = hl
+#'      x = "hESC", y = "iPS", data = df.cuff, d.factor = NULL,
+#'      type = "cuffdiff", title = TRUE, grid = TRUE, highlight = hl
 #' )
 #'
 #' # Extract data frame from visualization
 #' data("df.cuff")
 #' tmp <- vsScatterPlot(
-#'  	x = "hESC", y = "iPS", data = df.cuff, d.factor = NULL,
-#'  	type = "cuffdiff", title = TRUE, grid = TRUE, data.return = TRUE
+#'      x = "hESC", y = "iPS", data = df.cuff, d.factor = NULL,
+#'      type = "cuffdiff", title = TRUE, grid = TRUE, data.return = TRUE
 #' )
 #' df_scatter <- tmp[[1]] ## or use tmp$data
 #' head(df_scatter)
@@ -93,96 +103,108 @@
 #' tmp[[2]] ## or use tmp$plot
 
 vsScatterPlot <- function(
-	x, y, data, d.factor = NULL, type = c("cuffdiff", "deseq", "edger"),
-	title = TRUE, grid = TRUE, highlight = NULL, data.return = FALSE
+    x, y, data, d.factor = NULL, type = c("cuffdiff", "deseq", "edger"),
+    title = TRUE, grid = TRUE, highlight = NULL, data.return = FALSE,
+    xaxis.text.size = 10, yaxis.text.size = 10, xaxis.title.size = 12, 
+    yaxis.title.size = 12, main.title.size = 15
 ) {
-	if (missing(type) || !type %in% c("cuffdiff", "deseq", "edger")) {
-		stop(
-			paste(
-				"Please specify analysis type",
-				"(\"cuffdiff\", \"deseq\", or \"edger\")"
-			)
-		)
-	}
+    if (missing(type) || !type %in% c("cuffdiff", "deseq", "edger")) {
+        stop(
+            paste(
+                "Please specify analysis type",
+                "(\"cuffdiff\", \"deseq\", or \"edger\")"
+            )
+        )
+    }
 
-	type <- match.arg(type)
-	if (type == "cuffdiff") {
-		dat <- .getCuffScatter(x, y, data)
-	} else if (type == "deseq") {
-		dat <- .getDeseqScatter(x, y, data, d.factor)
-	} else if (type == "edger") {
-		dat <- .getEdgeScatter(x, y, data)
-	}
+    type <- match.arg(type)
+    if (type == "cuffdiff") {
+        dat <- .getCuffScatter(x, y, data)
+    } else if (type == "deseq") {
+        dat <- .getDeseqScatter(x, y, data, d.factor)
+    } else if (type == "edger") {
+        dat <- .getEdgeScatter(x, y, data)
+    }
 
-	if (!isTRUE(title)) {
-		m.title <- NULL
-	} else {
-		m.title <- ggtitle(paste(y, "vs.", x))
-	}
+    if (!isTRUE(title)) {
+        m.title <- NULL
+    } else {
+        m.title <- ggtitle(paste(y, "vs.", x))
+    }
 
-	if (!isTRUE(grid)) {
-		grid <- theme_classic()
-	} else {
-		grid <- theme_bw()
-	}
+    if (!isTRUE(grid)) {
+        grid <- theme_classic()
+    } else {
+        grid <- theme_bw()
+    }
 
-	if (type == "edger") {
-		aes.xlab <- bquote("log"["10"] ~ "(CPM) -" ~ .(x))
-		aes.ylab <- bquote("log"["10"] ~ "(CPM) -" ~ .(y))
-	} else {
-		aes.xlab <- bquote("log"["10"] ~ "(FPM) -" ~ .(x))
-		aes.ylab <- bquote("log"["10"] ~ "(FPM) -" ~ .(y))
-	}
+    if (type == "edger") {
+        aes.xlab <- bquote("log"["10"] ~ "(CPM) -" ~ .(x))
+        aes.ylab <- bquote("log"["10"] ~ "(CPM) -" ~ .(y))
+    } else {
+        aes.xlab <- bquote("log"["10"] ~ "(FPM) -" ~ .(x))
+        aes.ylab <- bquote("log"["10"] ~ "(FPM) -" ~ .(y))
+    }
 
-	id <- NULL
-	if (is.null(highlight)) {
-		tmp.plot <- ggplot(dat, aes(x = log10(x + 1), y = log10(y + 1))) +
-			geom_point(size = 1) +
-			xlab(aes.xlab) +
-			ylab(aes.ylab) +
-			geom_abline(intercept = 0, slope = 1, linetype = "dashed") +
-			grid + m.title
+    text.size <- theme(
+        axis.text.x = element_text(size = xaxis.text.size),
+        axis.text.y = element_text(size = yaxis.text.size),
+        axis.title.x = element_text(size = xaxis.title.size),
+        axis.title.y = element_text(size = yaxis.title.size),
+        plot.title = element_text(size = main.title.size)
+    )
 
-	} else {
-		tl <- length(setdiff(highlight, dat$id))
-		if (!is.atomic(highlight)) {
-			stop("\"highlight\" must be vector.")
-		} else if (all(highlight %in% dat$id)) {
-			hl <- highlight
-		} else if (tl > 0 && tl < length(highlight)) {
-			remove <- setdiff(highlight, dat$id)
-			message("Some IDs not found in data frame:")
-			print(remove)
-			message("Plotting the remaining samples...")
-			hl <- highlight[!highlight %in% remove]
-		} else if (!all(highlight %in% dat$id)) {
-			stop("No IDs in highlight vector are present in data frame.")
-		}
-		tmp.plot <- ggplot(dat, aes(x = log10(x + 1), y = log10(y + 1))) +
-			geom_point(size = 1, color = "grey73") +
-			xlab(aes.xlab) +
-			ylab(aes.ylab) +
-			geom_abline(intercept = 0, slope = 1, linetype = "dashed") +
-			ggrepel::geom_label_repel(
-				data = dat[which(dat$id %in% hl), ],
-				aes(label = id),
-				segment.size = 1,
-				segment.color = "royalblue1",
-				box.padding = unit(0.4, "lines"),
-				point.padding = unit(0.4, "lines")
-			) +
-			geom_point(
-				data = dat[which(dat$id %in% hl), ],
-				aes(x = log10(x), y = log10(y)),
-				color = "royalblue1",
-				size = 3
-			) +
-			grid + m.title
-	}
-	if (isTRUE(data.return)) {
-		plot.l <- list(data = dat, plot = tmp.plot)
-		return(plot.l)
-	} else {
-		print(tmp.plot)
-	}
+    id <- NULL
+    if (is.null(highlight)) {
+        tmp.plot <- ggplot(dat, aes(x = log10(x + 1), y = log10(y + 1))) +
+            geom_point(size = 1) +
+            xlab(aes.xlab) +
+            ylab(aes.ylab) +
+            geom_abline(intercept = 0, slope = 1, linetype = "dashed") +
+            grid + m.title + text.size
+
+
+    } else {
+        tl <- length(setdiff(highlight, dat$id))
+        if (!is.atomic(highlight)) {
+            stop("\"highlight\" must be vector.")
+        } else if (all(highlight %in% dat$id)) {
+            hl <- highlight
+        } else if (tl > 0 && tl < length(highlight)) {
+            remove <- setdiff(highlight, dat$id)
+            message("Some IDs not found in data frame:")
+            print(remove)
+            message("Plotting the remaining samples...")
+            hl <- highlight[!highlight %in% remove]
+        } else if (!all(highlight %in% dat$id)) {
+            stop("No IDs in highlight vector are present in data frame.")
+        }
+        tmp.plot <- ggplot(dat, aes(x = log10(x + 1), y = log10(y + 1))) +
+            geom_point(size = 1, color = "grey73") +
+            xlab(aes.xlab) +
+            ylab(aes.ylab) +
+            geom_abline(intercept = 0, slope = 1, linetype = "dashed") +
+            ggrepel::geom_label_repel(
+                data = dat[which(dat$id %in% hl), ],
+                aes(label = id),
+                segment.size = 1,
+                segment.color = "royalblue1",
+                box.padding = unit(0.4, "lines"),
+                point.padding = unit(0.4, "lines")
+            ) +
+            geom_point(
+                data = dat[which(dat$id %in% hl), ],
+                aes(x = log10(x), y = log10(y)),
+                color = "royalblue1",
+                size = 3
+            ) +
+            theme(text = element_text(size = 30)) +
+            grid + m.title + text.size
+    }
+    if (isTRUE(data.return)) {
+        plot.l <- list(data = dat, plot = tmp.plot)
+        return(plot.l)
+    } else {
+        print(tmp.plot)
+    }
 }

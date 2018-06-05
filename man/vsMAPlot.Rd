@@ -7,7 +7,9 @@ analytical objects}
 \usage{
 vsMAPlot(x, y, data, d.factor = NULL, type = c("cuffdiff", "deseq",
   "edger"), padj = 0.05, y.lim = NULL, lfc = NULL, title = TRUE,
-  legend = TRUE, grid = TRUE, highlight = NULL, data.return = FALSE)
+  legend = TRUE, grid = TRUE, highlight = NULL, data.return = FALSE,
+  xaxis.text.size = 10, yaxis.text.size = 10, xaxis.title.size = 10,
+  yaxis.title.size = 10, main.title.size = 15, legend.text.size = 9)
 }
 \arguments{
 \item{x}{treatment \code{x} for comparison (\eqn{log_{2}}(x/control)). This
@@ -58,6 +60,24 @@ If set to \code{FALSE}, no legend will display in plot.}
 \code{FALSE}. If set to \code{TRUE}, a data frame will also be called.
 Assign to object for reproduction and saving of data frame. See final
 example for further details.}
+
+\item{xaxis.text.size}{change the font size of the \code{x}-axis text.
+Defaults to \code{10}.}
+
+\item{yaxis.text.size}{change the font size of the \code{y}-axis text.
+Defaults to \code{10}.}
+
+\item{xaxis.title.size}{change the font size of the \code{x}-axis title
+text. Defaults to \code{10}.}
+
+\item{yaxis.title.size}{change the font size of the \code{y}-axis title
+text. Defaults to \code{10}.}
+
+\item{main.title.size}{change the font size of the plot title text.
+Defaults to \code{15}.}
+
+\item{legend.text.size}{change the font size of the legend body text.
+Defaults to \code{9}.}
 }
 \value{
 An object created by \code{ggplot}
@@ -72,28 +92,28 @@ ggplot2 aesthetics.
 # Cuffdiff example
 data("df.cuff")
 vsMAPlot(
- 	x = "hESC", y = "iPS", data = df.cuff, d.factor = NULL,
- 	type = "cuffdiff", padj = 0.05, y.lim = NULL, lfc = 1,
- 	title = TRUE, legend = TRUE, grid = TRUE, data.return = FALSE
+     x = "hESC", y = "iPS", data = df.cuff, d.factor = NULL,
+     type = "cuffdiff", padj = 0.05, y.lim = NULL, lfc = 1,
+     title = TRUE, legend = TRUE, grid = TRUE, data.return = FALSE
 )
 
 # DESeq2 example
 data("df.deseq")
 require(DESeq2)
 vsMAPlot(
- 	x = "treated_paired.end", y = "untreated_paired.end",
- 	data = df.deseq, d.factor = "condition", type = "deseq",
- 	padj = 0.05, y.lim = NULL, lfc = NULL, title = TRUE,
- 	legend = TRUE, grid = TRUE, data.return = FALSE
+     x = "treated_paired.end", y = "untreated_paired.end",
+     data = df.deseq, d.factor = "condition", type = "deseq",
+     padj = 0.05, y.lim = NULL, lfc = NULL, title = TRUE,
+     legend = TRUE, grid = TRUE, data.return = FALSE
 )
 
 # edgeR example
 data("df.edger")
 require(edgeR)
 vsMAPlot(
- 	x = "WM", y = "MM", data = df.edger, d.factor = NULL,
- 	type = "edger", padj = 0.1, y.lim = NULL, lfc = 1,
- 	title = FALSE, legend = TRUE, grid = TRUE, data.return = FALSE
+     x = "WM", y = "MM", data = df.edger, d.factor = NULL,
+     type = "edger", padj = 0.1, y.lim = NULL, lfc = 1,
+     title = FALSE, legend = TRUE, grid = TRUE, data.return = FALSE
 )
 
 # Highlight IDs
@@ -107,19 +127,19 @@ hl <- c(
     "FBgn0003371"
 )
 vsMAPlot(
- 	x = "treated_paired.end", y = "untreated_paired.end",
- 	data = df.deseq, d.factor = "condition", type = "deseq",
- 	padj = 0.05, y.lim = NULL, lfc = NULL, title = TRUE,
- 	legend = TRUE, grid = TRUE, data.return = FALSE, highlight = hl
+     x = "treated_paired.end", y = "untreated_paired.end",
+     data = df.deseq, d.factor = "condition", type = "deseq",
+     padj = 0.05, y.lim = NULL, lfc = NULL, title = TRUE,
+     legend = TRUE, grid = TRUE, data.return = FALSE, highlight = hl
 )
 
 # Extract data frame from visualization
 data("df.cuff")
 tmp <- vsMAPlot(
- 	x = "hESC", y = "iPS", data = df.cuff,
- 	d.factor = NULL, type = "cuffdiff", padj = 0.05,
- 	y.lim = NULL, lfc = 1, title = TRUE, grid = TRUE,
- 	data.return = TRUE
+     x = "hESC", y = "iPS", data = df.cuff,
+     d.factor = NULL, type = "cuffdiff", padj = 0.05,
+     y.lim = NULL, lfc = 1, title = TRUE, grid = TRUE,
+     data.return = TRUE
 )
 df_ma <- tmp[[1]] ## or use tmp$data
 head(df_ma)

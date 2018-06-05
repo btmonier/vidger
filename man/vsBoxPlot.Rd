@@ -7,7 +7,9 @@
 vsBoxPlot(data, d.factor = NULL, type = c("cuffdiff", "deseq", "edger"),
   title = TRUE, legend = TRUE, grid = TRUE, aes = c("box", "violin",
   "boxdot", "viodot", "viosumm", "notch"), fill.color = NULL,
-  data.return = FALSE)
+  data.return = FALSE, xaxis.text.size = 10, yaxis.text.size = 10,
+  xaxis.title.size = 12, yaxis.title.size = 12, main.title.size = 15,
+  legend.text.size = 10, legend.title.size = 12)
 }
 \arguments{
 \item{data}{output generated from calling the main routines of either
@@ -51,6 +53,27 @@ aesthetics.}
 \code{FALSE}. If set to \code{TRUE}, a data frame will also be called.
 Assign to object for reproduction and saving of data frame. See final
 example for further details.}
+
+\item{xaxis.text.size}{change the font size of the \code{x}-axis text. 
+Defaults to \code{10}.}
+
+\item{yaxis.text.size}{change the font size of the \code{y}-axis text. 
+Defaults to \code{10}.}
+
+\item{xaxis.title.size}{change the font size of the \code{x}-axis title 
+text. Defaults to \code{12}.}
+
+\item{yaxis.title.size}{change the font size of the \code{y}-axis title 
+text. Defaults to \code{12}.}
+
+\item{main.title.size}{change the font size of the plot title text. 
+Defaults to \code{15}.}
+
+\item{legend.text.size}{change the font size of the legend body text.
+Defaults to \code{10}.}
+
+\item{legend.title.size}{change the font size of the legend title text. 
+Defaults to \code{12}.}
 }
 \value{
 An object created by \code{ggplot}
@@ -64,40 +87,40 @@ distributions for experimental treatments.
 # Cuffdiff example
 data("df.cuff")
 vsBoxPlot(
- 	data = df.cuff, d.factor = NULL, type = "cuffdiff", title = TRUE,
- 	legend = TRUE, grid = TRUE
+     data = df.cuff, d.factor = NULL, type = "cuffdiff", title = TRUE,
+     legend = TRUE, grid = TRUE
 )
 
 # DESeq2 example
 data("df.deseq")
 require(DESeq2)
 vsBoxPlot(
- 	data = df.deseq, d.factor = "condition", type = "deseq",
- 	title = TRUE, legend = TRUE, grid = TRUE
+     data = df.deseq, d.factor = "condition", type = "deseq",
+     title = TRUE, legend = TRUE, grid = TRUE
 )
 
 # edgeR example
 data("df.edger")
 require(edgeR)
 vsBoxPlot(
- 	data = df.edger, d.factor = NULL, type = "edger", title = TRUE,
- 	legend = TRUE, grid = TRUE
+     data = df.edger, d.factor = NULL, type = "edger", title = TRUE,
+     legend = TRUE, grid = TRUE
 )
 
 # Display different colors for plot
 data("df.edger")
 vsBoxPlot(
- 	data = df.edger, d.factor = NULL, type = "edger", title = TRUE,
- 	legend = TRUE, grid = TRUE, fill.color = "RdGy",
-		data.return = FALSE
+     data = df.edger, d.factor = NULL, type = "edger", title = TRUE,
+     legend = TRUE, grid = TRUE, fill.color = "RdGy",
+     data.return = FALSE
 )
 
 # Extract data frame from visualization
 data("df.edger")
 require(edgeR)
 tmp <- vsBoxPlot(
- 	data = df.edger, d.factor = NULL, type = "edger", title = TRUE,
- 	legend = TRUE, grid = TRUE, data.return = FALSE
+     data = df.edger, d.factor = NULL, type = "edger", title = TRUE,
+     legend = TRUE, grid = TRUE, data.return = FALSE
 )
 df_box <- tmp[[1]] ## or use tmp$data
 head(df_box)

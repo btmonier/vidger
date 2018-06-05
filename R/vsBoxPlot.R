@@ -42,6 +42,20 @@
 #'  \code{FALSE}. If set to \code{TRUE}, a data frame will also be called.
 #'  Assign to object for reproduction and saving of data frame. See final
 #'  example for further details.
+#' @param xaxis.title.size change the font size of the \code{x}-axis title 
+#'  text. Defaults to \code{12}.
+#' @param xaxis.text.size change the font size of the \code{x}-axis text. 
+#'  Defaults to \code{10}.
+#' @param yaxis.title.size change the font size of the \code{y}-axis title 
+#'  text. Defaults to \code{12}.
+#' @param yaxis.text.size change the font size of the \code{y}-axis text. 
+#'  Defaults to \code{10}.
+#' @param main.title.size change the font size of the plot title text. 
+#'  Defaults to \code{15}.
+#' @param legend.title.size change the font size of the legend title text. 
+#'  Defaults to \code{12}.
+#' @param legend.text.size change the font size of the legend body text.
+#'  Defaults to \code{10}.
 #'
 #' @return An object created by \code{ggplot}
 #'
@@ -51,40 +65,40 @@
 #' # Cuffdiff example
 #' data("df.cuff")
 #' vsBoxPlot(
-#'  	data = df.cuff, d.factor = NULL, type = "cuffdiff", title = TRUE,
-#'  	legend = TRUE, grid = TRUE
+#'      data = df.cuff, d.factor = NULL, type = "cuffdiff", title = TRUE,
+#'      legend = TRUE, grid = TRUE
 #' )
 #'
 #' # DESeq2 example
 #' data("df.deseq")
 #' require(DESeq2)
 #' vsBoxPlot(
-#'  	data = df.deseq, d.factor = "condition", type = "deseq",
-#'  	title = TRUE, legend = TRUE, grid = TRUE
+#'      data = df.deseq, d.factor = "condition", type = "deseq",
+#'      title = TRUE, legend = TRUE, grid = TRUE
 #' )
 #'
 #' # edgeR example
 #' data("df.edger")
 #' require(edgeR)
 #' vsBoxPlot(
-#'  	data = df.edger, d.factor = NULL, type = "edger", title = TRUE,
-#'  	legend = TRUE, grid = TRUE
+#'      data = df.edger, d.factor = NULL, type = "edger", title = TRUE,
+#'      legend = TRUE, grid = TRUE
 #' )
 #'
 #' # Display different colors for plot
 #' data("df.edger")
 #' vsBoxPlot(
-#'  	data = df.edger, d.factor = NULL, type = "edger", title = TRUE,
-#'  	legend = TRUE, grid = TRUE, fill.color = "RdGy",
-#' 		data.return = FALSE
+#'      data = df.edger, d.factor = NULL, type = "edger", title = TRUE,
+#'      legend = TRUE, grid = TRUE, fill.color = "RdGy",
+#'      data.return = FALSE
 #' )
 #'
 #' # Extract data frame from visualization
 #' data("df.edger")
 #' require(edgeR)
 #' tmp <- vsBoxPlot(
-#'  	data = df.edger, d.factor = NULL, type = "edger", title = TRUE,
-#'  	legend = TRUE, grid = TRUE, data.return = FALSE
+#'      data = df.edger, d.factor = NULL, type = "edger", title = TRUE,
+#'      legend = TRUE, grid = TRUE, data.return = FALSE
 #' )
 #' df_box <- tmp[[1]] ## or use tmp$data
 #' head(df_box)
@@ -93,134 +107,145 @@
 #' tmp[[2]] ## or use tmp$plot
 
 vsBoxPlot <- function(
-	data, d.factor = NULL, type = c("cuffdiff", "deseq", "edger"),
-	title = TRUE, legend = TRUE, grid = TRUE,
-	aes = c("box", "violin", "boxdot", "viodot", "viosumm", "notch"),
-	fill.color = NULL, data.return = FALSE
+    data, d.factor = NULL, type = c("cuffdiff", "deseq", "edger"),
+    title = TRUE, legend = TRUE, grid = TRUE,
+    aes = c("box", "violin", "boxdot", "viodot", "viosumm", "notch"),
+    fill.color = NULL, data.return = FALSE, xaxis.text.size = 10, 
+    yaxis.text.size = 10, xaxis.title.size = 12, yaxis.title.size = 12, 
+    main.title.size = 15, legend.text.size = 10, legend.title.size = 12
 ) {
-	if (missing(type) || !type %in% c("cuffdiff", "deseq", "edger")) {
-		stop(
-			paste(
-				"Please specify analysis type",
-				"(\"cuffdiff\", \"deseq\", or \"edger\")"
-			)
-		)
-	}
+    if (missing(type) || !type %in% c("cuffdiff", "deseq", "edger")) {
+        stop(
+            paste(
+                "Please specify analysis type",
+                "(\"cuffdiff\", \"deseq\", or \"edger\")"
+            )
+        )
+    }
 
-	type <- match.arg(type)
-	if(type == "cuffdiff") {
-		dat <- .getCuffBox(data)
-	} else if (type == "deseq") {
-		dat <- .getDeseqBox(data, d.factor)
-	} else if (type == "edger") {
-		dat <- .getEdgeBox(data)
-	}
+    type <- match.arg(type)
+    if(type == "cuffdiff") {
+        dat <- .getCuffBox(data)
+    } else if (type == "deseq") {
+        dat <- .getDeseqBox(data, d.factor)
+    } else if (type == "edger") {
+        dat <- .getEdgeBox(data)
+    }
 
-	if (!isTRUE(title)) {
-		m.title <- NULL
-	} else if (isTRUE(title) & type == "edger") {
-		m.title <- ggtitle("CPM distribution")
-	} else {
-		m.title <- ggtitle("FPM distribution")
-	}
+    if (!isTRUE(title)) {
+        m.title <- NULL
+    } else if (isTRUE(title) & type == "edger") {
+        m.title <- ggtitle("CPM distribution")
+    } else {
+        m.title <- ggtitle("FPM distribution")
+    }
 
-	if (!isTRUE(legend)) {
-		leg <- guides(fill = FALSE)
-	} else {
-		leg <- NULL
-	}
+    if (!isTRUE(legend)) {
+        leg <- guides(fill = FALSE)
+    } else {
+        leg <- NULL
+    }
 
-	if (!isTRUE(grid)) {
-		grid <- theme_classic()
-	} else {
-		grid <- theme_bw()
-	}
+    if (!isTRUE(grid)) {
+        grid <- theme_classic()
+    } else {
+        grid <- theme_bw()
+    }
 
-	if (type == "edger") {
-		y.lab <- expression(paste("log"["10"], ' (CPM)'))
-	} else {
-		y.lab <- expression(paste("log"["10"], ' (FPM)'))
-	}
+    if (type == "edger") {
+        y.lab <- expression(paste("log"["10"], ' (CPM)'))
+    } else {
+        y.lab <- expression(paste("log"["10"], ' (FPM)'))
+    }
 
-	aes_types <- c("box", "violin", "boxdot", "viodot", "viosumm", "notch")
-	if (missing(aes)) {
-		aes <- "box"
-	} else if (!aes %in% aes_types) {
-		stop(
-			paste0(
-				"Please specfiy correct aesthetic:", "\n",
-				"\t", "\"box\"....... (box plot)", "\n",
-				"\t", "\"violin\".... (violin plot)", "\n",
-				"\t", "\"boxdot\".... (box plot with dots)", "\n",
-				"\t", "\"viodot\".... (violin plot with dots)", "\n",
-				"\t", "\"viosumm\"... (violin plot with summary stats)", "\n",
-				"\t", "\"notch\"..... (box plot with notch)", "\n"
-			)
-		)
-	}
+    aes_types <- c("box", "violin", "boxdot", "viodot", "viosumm", "notch")
+    if (missing(aes)) {
+        aes <- "box"
+    } else if (!aes %in% aes_types) {
+        stop(
+            paste0(
+                "Please specfiy correct aesthetic:", "\n",
+                "\t", "\"box\"....... (box plot)", "\n",
+                "\t", "\"violin\".... (violin plot)", "\n",
+                "\t", "\"boxdot\".... (box plot with dots)", "\n",
+                "\t", "\"viodot\".... (violin plot with dots)", "\n",
+                "\t", "\"viosumm\"... (violin plot with summary stats)", "\n",
+                "\t", "\"notch\"..... (box plot with notch)", "\n"
+            )
+        )
+    }
 
-	brew_cols <- rownames(RColorBrewer::brewer.pal.info)
-	if (is.null(fill.color)) {
-		scale_col <- NULL
-	} else if (!fill.color %in% brew_cols) {
-		stop(
-			paste(
-				"Please specify correct RColorBrewer pallette.", "\n",
-				"See \"RColorBrewer::display.brewer.all()\" for",
-				"available options."
-			)
-		)
-	} else {
-		scale_col <- scale_fill_brewer(palette = fill.color)
-	}
+    brew_cols <- rownames(RColorBrewer::brewer.pal.info)
+    if (is.null(fill.color)) {
+        scale_col <- NULL
+    } else if (!fill.color %in% brew_cols) {
+        stop(
+            paste(
+                "Please specify correct RColorBrewer pallette.", "\n",
+                "See \"RColorBrewer::display.brewer.all()\" for",
+                "available options."
+            )
+        )
+    } else {
+        scale_col <- scale_fill_brewer(palette = fill.color)
+    }
 
-	key <- value <- NULL
+    key <- value <- NULL
 
-	if (aes == "box") {
-		aes_plot_1 <- geom_boxplot()
-		aes_plot_2 <- NULL
-	} else if (aes == "violin") {
-		aes_plot_1 <- geom_violin(trim = FALSE)
-		aes_plot_2 <- NULL
-	} else if (aes == "boxdot") {
-		aes_plot_1 <- geom_boxplot()
-		aes_plot_2 <- geom_jitter(
-			shape = 16,
-			color = "grey14",
-			alpha = 0.7,
-			position = position_jitter(0.2)
-		)
-	} else if (aes == "viodot") {
-		aes_plot_1 <- geom_violin(trim = FALSE)
-		aes_plot_2 <- geom_jitter(
-			shape = 16,
-			color = "grey14",
-			alpha = 0.7,
-			position = position_jitter(0.2)
-		)
-	} else if (aes == "viosumm") {
-		aes_plot_1 <- geom_violin(trim = FALSE)
-		aes_plot_2 <- geom_boxplot(width = 0.1, fill = "white")
-	} else if (aes == "notch") {
-		aes_plot_1 <- geom_boxplot(notch = TRUE)
-		aes_plot_2 <- NULL
-	}
+    if (aes == "box") {
+        aes_plot_1 <- geom_boxplot()
+        aes_plot_2 <- NULL
+    } else if (aes == "violin") {
+        aes_plot_1 <- geom_violin(trim = FALSE)
+        aes_plot_2 <- NULL
+    } else if (aes == "boxdot") {
+        aes_plot_1 <- geom_boxplot()
+        aes_plot_2 <- geom_jitter(
+            shape = 16,
+            color = "grey14",
+            alpha = 0.7,
+            position = position_jitter(0.2)
+        )
+    } else if (aes == "viodot") {
+        aes_plot_1 <- geom_violin(trim = FALSE)
+        aes_plot_2 <- geom_jitter(
+            shape = 16,
+            color = "grey14",
+            alpha = 0.7,
+            position = position_jitter(0.2)
+        )
+    } else if (aes == "viosumm") {
+        aes_plot_1 <- geom_violin(trim = FALSE)
+        aes_plot_2 <- geom_boxplot(width = 0.1, fill = "white")
+    } else if (aes == "notch") {
+        aes_plot_1 <- geom_boxplot(notch = TRUE)
+        aes_plot_2 <- NULL
+    }
 
+    text.size <- theme(
+        axis.text.x = element_text(size = xaxis.text.size),
+        axis.text.y = element_text(size = yaxis.text.size),
+        axis.title.x = element_text(size = xaxis.title.size),
+        axis.title.y = element_text(size = yaxis.title.size),
+        plot.title = element_text(size = main.title.size),
+        legend.title = element_text(size = legend.title.size),
+        legend.text = element_text(size = legend.text.size)
+    )
 
-	tmp.plot <- ggplot(
-			dat, aes(x = key, y = log10(value + 1), fill = key)
-		) +
-		aes_plot_1 +
-		aes_plot_2 +
-		xlab("Condition") +
-		ylab(y.lab) +
-		guides(fill = guide_legend(title = "Condition")) +
-		theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-		leg + m.title + grid + scale_col
+    tmp.plot <- ggplot(
+            dat, aes(x = key, y = log10(value + 1), fill = key)
+        ) +
+        aes_plot_1 +
+        aes_plot_2 +
+        xlab("Condition") +
+        ylab(y.lab) +
+        guides(fill = guide_legend(title = "Condition")) +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+        leg + m.title + grid + scale_col + text.size
 
-	if (isTRUE(data.return)) {
-		plot.l <- list(data = dat, plot = tmp.plot)
-	} else {
-		print(tmp.plot)
-	}
+    if (isTRUE(data.return)) {
+        plot.l <- list(data = dat, plot = tmp.plot)
+    } else {
+        print(tmp.plot)
+    }
 }

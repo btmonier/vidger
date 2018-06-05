@@ -36,6 +36,18 @@
 #'  \code{FALSE}. If set to \code{TRUE}, a data frame will also be called.
 #'  Assign to object for reproduction and saving of data frame. See final
 #'  example for further details.
+#' @param grey.scale displays grey color scheme instead of blue if set to
+#' \code{TRUE}. Logical; defaults to \code{FALSE}.
+#' @param xaxis.text.size change the font size of the \code{x}-axis text. 
+#'  Defaults to \code{10}.
+#' @param yaxis.text.size change the font size of the \code{y}-axis text. 
+#'  Defaults to \code{10}.
+#' @param main.title.size change the font size of the plot title text. 
+#'  Defaults to \code{15}.
+#' @param legend.title.size change the font size of the legend title text. 
+#'  Defaults to \code{12}.
+#' @param legend.text.size change the font size of the legend body text.
+#'  Defaults to \code{10}.
 #'
 #' @return An object created by \code{ggplot}
 #'
@@ -45,32 +57,32 @@
 #' # cuffdiff example
 #' data("df.cuff")
 #' vsDEGMatrix(
-#' 		df.cuff, padj = 0.05, d.factor = NULL, type = "cuffdiff",
-#' 		title = TRUE, legend = TRUE, grid = TRUE
+#'      df.cuff, padj = 0.05, d.factor = NULL, type = "cuffdiff",
+#'      title = TRUE, legend = TRUE, grid = TRUE
 #' )
 #'
 #' # DESeq2 example
 #' data("df.deseq")
 #' require(DESeq2)
 #' vsDEGMatrix(
-#' 		df.deseq, padj = 0.05, d.factor = "condition", type = "deseq",
-#' 		title = TRUE, legend = TRUE, grid = TRUE
+#'      df.deseq, padj = 0.05, d.factor = "condition", type = "deseq",
+#'      title = TRUE, legend = TRUE, grid = TRUE
 #' )
 #'
 #' # edgeR example
 #' data("df.edger")
 #' require(edgeR)
 #' vsDEGMatrix(
-#' 		df.edger, padj = 0.05, d.factor = NULL, type = "edger",
-#' 		title = TRUE, legend = TRUE, grid = TRUE
+#'      df.edger, padj = 0.05, d.factor = NULL, type = "edger",
+#'      title = TRUE, legend = TRUE, grid = TRUE
 #' )
 #'
 #' # Extract data frame from visualization
 #' data("df.edger")
 #' require(edgeR)
 #' tmp <- vsDEGMatrix(
-#' 		df.edger, padj = 0.05, d.factor = NULL, type = "edger",
-#' 		title = TRUE, legend = TRUE, grid = TRUE
+#'      df.edger, padj = 0.05, d.factor = NULL, type = "edger",
+#'      title = TRUE, legend = TRUE, grid = TRUE
 #' )
 #' df_deg <- tmp[[1]] ## or use tmp$data
 #' head(df_deg)
@@ -79,67 +91,83 @@
 #' tmp[[2]] ## or use tmp$plot
 
 vsDEGMatrix <- function(
-	data, padj = 0.05, d.factor = NULL,
-	type = c("cuffdiff", "deseq", "edger"), title = TRUE, legend = TRUE,
-	grid = TRUE, data.return = FALSE
+    data, padj = 0.05, d.factor = NULL,
+    type = c("cuffdiff", "deseq", "edger"), title = TRUE, legend = TRUE,
+    grid = TRUE, data.return = FALSE, grey.scale = FALSE, 
+    xaxis.text.size = 10, yaxis.text.size = 10, main.title.size = 15, 
+    legend.text.size = 10, legend.title.size = 12
 ) {
-	if (missing(type) || !type %in% c("cuffdiff", "deseq", "edger")) {
-		stop(
-			paste(
-				"Please specify analysis type",
-				"(\"cuffdiff\", \"deseq\", or \"edger\")"
-			)
-		)
-	}
+    if (missing(type) || !type %in% c("cuffdiff", "deseq", "edger")) {
+        stop(
+            paste(
+                "Please specify analysis type",
+                "(\"cuffdiff\", \"deseq\", or \"edger\")"
+            )
+        )
+    }
 
-	type <- match.arg(type)
-	if (type == "cuffdiff") {
-		dat <- .getCuffDEGMat(data, padj)
-	} else if (type == "deseq") {
-		dat <- .getDeseqDEGMat(data, d.factor, padj)
-	} else if (type == "edger") {
-		dat <- .getEdgeDEGMat(data, padj)
-	}
+    type <- match.arg(type)
+    if (type == "cuffdiff") {
+        dat <- .getCuffDEGMat(data, padj)
+    } else if (type == "deseq") {
+        dat <- .getDeseqDEGMat(data, d.factor, padj)
+    } else if (type == "edger") {
+        dat <- .getEdgeDEGMat(data, padj)
+    }
 
-	if (!isTRUE(legend)) {
-		leg <- guides(fill = FALSE)
-	} else {
-		leg <- NULL
-	}
+    if (!isTRUE(legend)) {
+        leg <- guides(fill = FALSE)
+    } else {
+        leg <- NULL
+    }
 
-	if (!isTRUE(title)) {
-		m.lab <- NULL
-	} else {
-		m.lab  <- ggtitle(
-			bquote("Significant transcripts at " ~ alpha ~ " = " ~ .(padj))
-		)
-	}
+    if (!isTRUE(title)) {
+        m.lab <- NULL
+    } else {
+        m.lab  <- ggtitle(
+            bquote("Significant transcripts at " ~ alpha ~ " = " ~ .(padj))
+        )
+    }
 
-	if (!isTRUE(grid)) {
-		grid <- theme_classic()
-	} else {
-		grid <- theme_bw()
-	}
+    if (!isTRUE(grid)) {
+        grid <- theme_classic()
+    } else {
+        grid <- theme_bw()
+    }
 
-	x <- y <- ..n.. <- NULL
-	tmp.plot <- ggplot(dat, aes(x = x, y = y)) +
-		stat_sum(
-			aes(fill = ..n..),
-			color = "black", size = 0.3, geom = "tile"
-		) +
-		scale_fill_continuous(
-			low = "white", high = "royalblue3",
-			name = "Number of \ntranscripts"
-		) +
-		expand_limits(fill = 0) + leg +
-		stat_sum(
-			aes(label = ..n..), geom = "text", size = 5, show.legend = FALSE
-		) +
-		m.lab + grid + xlab('') + ylab('')
+    text.size <- theme(
+        axis.text.x = element_text(size = xaxis.text.size),
+        axis.text.y = element_text(size = yaxis.text.size),
+        plot.title = element_text(size = main.title.size),
+        legend.title = element_text(size = legend.title.size),
+        legend.text = element_text(size = legend.text.size)
+    )
 
-	if (isTRUE(data.return)) {
-		plot.l <- list(data = dat, plot = tmp.plot)
-	} else {
-		print(tmp.plot)
-	}
+    if (isTRUE(grey.scale)) {
+        ramp = c("white", "grey40")
+    } else {
+        ramp = c("white", "royalblue3")
+    }
+
+    x <- y <- ..n.. <- NULL
+    tmp.plot <- ggplot(dat, aes(x = x, y = y)) +
+        stat_sum(
+            aes(fill = ..n..),
+            color = "black", size = 0.3, geom = "tile"
+        ) +
+        scale_fill_continuous(
+            low = ramp[1], high = ramp[2],
+            name = "Number of \ntranscripts"
+        ) +
+        expand_limits(fill = 0) + leg +
+        stat_sum(
+            aes(label = ..n..), geom = "text", size = 5, show.legend = FALSE
+        ) +
+        m.lab + grid + xlab('') + ylab('') + text.size
+
+    if (isTRUE(data.return)) {
+        plot.l <- list(data = dat, plot = tmp.plot)
+    } else {
+        print(tmp.plot)
+    }
 }

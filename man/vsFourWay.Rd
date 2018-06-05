@@ -8,7 +8,9 @@ RNA-seq experiment from different analytical objects}
 vsFourWay(x, y, control, data, d.factor = NULL, type = c("cuffdiff",
   "deseq", "edger"), padj = 0.05, x.lim = NULL, y.lim = NULL,
   lfc = NULL, legend = TRUE, title = TRUE, grid = TRUE,
-  highlight = NULL, data.return = FALSE)
+  highlight = NULL, data.return = FALSE, xaxis.text.size = 10,
+  yaxis.text.size = 10, xaxis.title.size = 10, yaxis.title.size = 10,
+  main.title.size = 15, legend.text.size = 9)
 }
 \arguments{
 \item{x}{treatment \code{x} for comparison (\eqn{log_{2}}(x/control)). This
@@ -65,6 +67,24 @@ If set to \code{FALSE}, no legend will display in plot.}
 \code{FALSE}. If set to \code{TRUE}, a data frame will also be called.
 Assign to object for reproduction and saving of data frame. See final
 example for further details.}
+
+\item{xaxis.text.size}{change the font size of the \code{x}-axis text. 
+Defaults to \code{10}.}
+
+\item{yaxis.text.size}{change the font size of the \code{y}-axis text. 
+Defaults to \code{10}.}
+
+\item{xaxis.title.size}{change the font size of the \code{x}-axis title 
+text. Defaults to \code{10}.}
+
+\item{yaxis.title.size}{change the font size of the \code{y}-axis title 
+text. Defaults to \code{10}.}
+
+\item{main.title.size}{change the font size of the plot title text. 
+Defaults to \code{15}.}
+
+\item{legend.text.size}{change the font size of the legend body text.
+Defaults to \code{9}.}
 }
 \value{
 An object created by \code{ggplot}
@@ -89,30 +109,30 @@ exceed the default viewing frame of the plot will change character classes
 # Cuffdiff example
 data("df.cuff")
 vsFourWay(
- 	x = "hESC", y = "iPS", control = "Fibroblasts", data = df.cuff,
- 	d.factor = NULL, type = "cuffdiff", padj = 0.05, x.lim = NULL,
- 	y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE,
- 	data.return = FALSE
+     x = "hESC", y = "iPS", control = "Fibroblasts", data = df.cuff,
+     d.factor = NULL, type = "cuffdiff", padj = 0.05, x.lim = NULL,
+     y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE,
+     data.return = FALSE
 )
 
 # DESeq2 example
 data("df.deseq")
 vsFourWay(
- 	x = "treated_paired.end", y = "untreated_paired.end",
- 	control = "untreated_single.read", data = df.deseq,
- 	d.factor = "condition", type = "deseq", padj = 0.05,
- 	x.lim = NULL, y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE,
- 	data.return = FALSE
+     x = "treated_paired.end", y = "untreated_paired.end",
+     control = "untreated_single.read", data = df.deseq,
+     d.factor = "condition", type = "deseq", padj = 0.05,
+     x.lim = NULL, y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE,
+     data.return = FALSE
 )
 
 # edgeR example
 data("df.edger")
 require(edgeR)
 vsFourWay(
- 	x = "WM", y = "WW", control = "MM", data = df.edger,
- 	d.factor = NULL, type = "edger", padj = 0.05, x.lim = NULL,
- 	y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE,
- 	data.return = FALSE
+     x = "WM", y = "WW", control = "MM", data = df.edger,
+     d.factor = NULL, type = "edger", padj = 0.05, x.lim = NULL,
+     y.lim = NULL, lfc = 2, title = TRUE, grid = TRUE,
+     data.return = FALSE
 )
 
 # Highlight IDs
@@ -135,10 +155,10 @@ vsFourWay(
 # Extract data frame from visualization
 data("df.cuff")
 tmp <- vsFourWay(
- 	x = "WM", y = "WW", control = "MM", data = df.edger,
- 	d.factor = NULL, type = "edger", padj = 0.05,
- 	x.lim = NULL, y.lim = NULL, lfc = 2, title = TRUE,
- 	grid = TRUE, data.return = TRUE
+     x = "WM", y = "WW", control = "MM", data = df.edger,
+     d.factor = NULL, type = "edger", padj = 0.05,
+     x.lim = NULL, y.lim = NULL, lfc = 2, title = TRUE,
+     grid = TRUE, data.return = TRUE
 )
 df_four <- tmp[[1]] ## or use tmp$data
 head(df_four)

@@ -56,7 +56,7 @@
     ls.mean <- lapply(seq_along(ls.nam), function(i) {
         rowMeans(dat.cpm[, ls.nam[[i]]])
     })
-       
+
     names(ls.mean) <- sapply(nam, paste)
     dat <- as.data.frame(ls.mean)
     return(dat)

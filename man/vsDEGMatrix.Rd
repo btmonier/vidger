@@ -6,7 +6,9 @@
 \usage{
 vsDEGMatrix(data, padj = 0.05, d.factor = NULL, type = c("cuffdiff",
   "deseq", "edger"), title = TRUE, legend = TRUE, grid = TRUE,
-  data.return = FALSE)
+  data.return = FALSE, grey.scale = FALSE, xaxis.text.size = 10,
+  yaxis.text.size = 10, main.title.size = 15, legend.text.size = 10,
+  legend.title.size = 12)
 }
 \arguments{
 \item{data}{output generated from calling the main routines of either
@@ -42,6 +44,24 @@ If set to \code{FALSE}, no legend will display in plot.}
 \code{FALSE}. If set to \code{TRUE}, a data frame will also be called.
 Assign to object for reproduction and saving of data frame. See final
 example for further details.}
+
+\item{grey.scale}{displays grey color scheme instead of blue if set to
+\code{TRUE}. Logical; defaults to \code{FALSE}.}
+
+\item{xaxis.text.size}{change the font size of the \code{x}-axis text. 
+Defaults to \code{10}.}
+
+\item{yaxis.text.size}{change the font size of the \code{y}-axis text. 
+Defaults to \code{10}.}
+
+\item{main.title.size}{change the font size of the plot title text. 
+Defaults to \code{15}.}
+
+\item{legend.text.size}{change the font size of the legend body text.
+Defaults to \code{10}.}
+
+\item{legend.title.size}{change the font size of the legend title text. 
+Defaults to \code{12}.}
 }
 \value{
 An object created by \code{ggplot}
@@ -56,32 +76,32 @@ higher number of DEGs.
 # cuffdiff example
 data("df.cuff")
 vsDEGMatrix(
-		df.cuff, padj = 0.05, d.factor = NULL, type = "cuffdiff",
-		title = TRUE, legend = TRUE, grid = TRUE
+     df.cuff, padj = 0.05, d.factor = NULL, type = "cuffdiff",
+     title = TRUE, legend = TRUE, grid = TRUE
 )
 
 # DESeq2 example
 data("df.deseq")
 require(DESeq2)
 vsDEGMatrix(
-		df.deseq, padj = 0.05, d.factor = "condition", type = "deseq",
-		title = TRUE, legend = TRUE, grid = TRUE
+     df.deseq, padj = 0.05, d.factor = "condition", type = "deseq",
+     title = TRUE, legend = TRUE, grid = TRUE
 )
 
 # edgeR example
 data("df.edger")
 require(edgeR)
 vsDEGMatrix(
-		df.edger, padj = 0.05, d.factor = NULL, type = "edger",
-		title = TRUE, legend = TRUE, grid = TRUE
+     df.edger, padj = 0.05, d.factor = NULL, type = "edger",
+     title = TRUE, legend = TRUE, grid = TRUE
 )
 
 # Extract data frame from visualization
 data("df.edger")
 require(edgeR)
 tmp <- vsDEGMatrix(
-		df.edger, padj = 0.05, d.factor = NULL, type = "edger",
-		title = TRUE, legend = TRUE, grid = TRUE
+     df.edger, padj = 0.05, d.factor = NULL, type = "edger",
+     title = TRUE, legend = TRUE, grid = TRUE
 )
 df_deg <- tmp[[1]] ## or use tmp$data
 head(df_deg)
