@@ -1,6 +1,6 @@
 
-ViDGER <img src="man/figures/logo-02.png" align="right" />
-==========================================================
+ViDGER <img src="man/figures/logo-02.svg" align="right" height="120"/>
+======================================================================
 
 [![Build Status](https://travis-ci.org/btmonier/vidger.svg?branch=master)](https://travis-ci.org/btmonier/vidger) [![appveyor](https://ci.appveyor.com/api/projects/status/github/btmonier/vidger?branch=master&svg=true)](https://ci.appveyor.com/project/btmonier/vidger) [![codecov](https://codecov.io/gh/btmonier/vidger/branch/master/graph/badge.svg)](https://codecov.io/gh/btmonier/vidger) [![platforms](https://bioconductor.org/shields/availability/3.7/vidger.svg)](https://bioconductor.org/packages/release/bioc/html/vidger.html#archives)
 
@@ -12,7 +12,7 @@ ViDGER (**Vi**sualization of **D**ifferential **G**ene **E**xpression using **R*
 Installation
 ------------
 
-The stable version of this package is available on [Bioconductor](http://bioconductor.org/). You can install it by:
+The stable version of this package is available on [Bioconductor](http://bioconductor.org/packages/release/bioc/html/vidger.html) . You can install it by:
 
 ``` r
 source("http://bioconductor.org/biocLite.R")
@@ -71,4 +71,4 @@ vignette("vidger")
 
 ------------------------------------------------------------------------
 
-*Last updated:* 2018-05-31
+*Last updated:* 2018-06-08
