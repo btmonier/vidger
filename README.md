@@ -15,8 +15,9 @@ Installation
 The stable version of this package is available on [Bioconductor](http://bioconductor.org/). You can install it by:
 
 ``` r
-source("http://bioconductor.org/biocLite.R")
-biocLite("vidger")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("vidger")
 ```
 
 If you want the latest version, install it directly from this GitHub repo:
