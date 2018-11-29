@@ -1,11 +1,11 @@
 Package: vidger
 Title: Create rapid visualizations of RNAseq data in R
-Version: 1.1.3
+Version: 1.1.4
 Authors@R: c(
     person(
         given = "Brandon",
         family = "Monier",
-        email = "brandon.monier@sdstate.edu",
+        email = "brandon.monier@gmail.com",
         role = c("aut", "cre")
     ),
     person(
@@ -63,4 +63,5 @@ biocViews:
     Visualization, 
     RNASeq, 
     DifferentialExpression, 
-    GeneExpression
+    GeneExpression,
+    ImmunoOncology
