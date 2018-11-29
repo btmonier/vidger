@@ -5,7 +5,7 @@ Authors@R: c(
     person(
         given = "Brandon",
         family = "Monier",
-        email = "brandon.monier@sdstate.edu",
+        email = "brandon.monier@gmail.com",
         role = c("aut", "cre")
     ),
     person(
@@ -63,4 +63,5 @@ biocViews:
     Visualization, 
     RNASeq, 
     DifferentialExpression, 
-    GeneExpression
+    GeneExpression,
+    ImmunoOncology
