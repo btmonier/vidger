@@ -1,6 +1,6 @@
 Package: vidger
 Title: Create rapid visualizations of RNAseq data in R
-Version: 1.3.0
+Version: 1.3.1
 Authors@R: c(
     person(
         given = "Brandon",
@@ -59,7 +59,7 @@ VignetteBuilder:
     knitr
 RoxygenNote: 6.0.1
 License: GPL-3 | file LICENSE
-biocViews: 
+biocViews: ImmunoOncology, 
     Visualization, 
     RNASeq, 
     DifferentialExpression, 
