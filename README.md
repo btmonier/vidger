@@ -2,7 +2,7 @@
 ViDGER <img src="man/figures/logo-02.svg" align="right" height="120"/>
 ======================================================================
 
-[![Build Status](https://travis-ci.org/btmonier/vidger.svg?branch=master)](https://travis-ci.org/btmonier/vidger) [![appveyor](https://ci.appveyor.com/api/projects/status/github/btmonier/vidger?branch=master&svg=true)](https://ci.appveyor.com/project/btmonier/vidger) [![codecov](https://codecov.io/gh/btmonier/vidger/branch/master/graph/badge.svg)](https://codecov.io/gh/btmonier/vidger) [![platforms](https://bioconductor.org/shields/availability/3.7/vidger.svg)](https://bioconductor.org/packages/release/bioc/html/vidger.html#archives)
+[![Build Status](https://travis-ci.org/btmonier/vidger.svg?branch=master)](https://travis-ci.org/btmonier/vidger) [![codecov](https://codecov.io/gh/btmonier/vidger/branch/master/graph/badge.svg)](https://codecov.io/gh/btmonier/vidger) [![bioc](http://bioconductor.org/shields/downloads/release/vidger.svg)](https://bioconductor.org/packages/stats/bioc/vidger/) [![platforms](https://bioconductor.org/shields/availability/3.7/vidger.svg)](https://bioconductor.org/packages/release/bioc/html/vidger.html#archives)
 
 Overview
 --------
@@ -15,8 +15,8 @@ Installation
 The stable version of this package is available on [Bioconductor](http://bioconductor.org/packages/release/bioc/html/vidger.html) . You can install it by:
 
 ``` r
-source("http://bioconductor.org/biocLite.R")
-biocLite("vidger")
+if (!require("BiocManager")) install.packages("BiocManager")
+BiocManager::install("vidger")
 ```
 
 If you want the latest version, install it directly from this GitHub repo:
@@ -71,4 +71,4 @@ vignette("vidger")
 
 ------------------------------------------------------------------------
 
-*Last updated:* 2018-06-08
+*Last updated:* 2019-01-18
