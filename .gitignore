@@ -45,3 +45,4 @@ rsconnect/
 
 ## HTML
 *.html
+.Rproj.user
