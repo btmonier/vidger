@@ -23,6 +23,7 @@
 
 # RStudio files
 .Rproj.user/
+*.Rproj
 
 # produced vignettes
 vignettes/*.html
@@ -44,3 +45,4 @@ rsconnect/
 
 ## HTML
 *.html
+.Rproj.user
