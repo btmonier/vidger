@@ -1,6 +1,6 @@
 Package: vidger
 Title: Create rapid visualizations of RNAseq data in R
-Version: 1.1.7
+Version: 1.1.8
 Authors@R: c(
     person(
         given = "Brandon",
