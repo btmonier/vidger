@@ -176,31 +176,27 @@ vsMAMatrix <- function(
 
 	tmp.l <- .mamat.col.count(dat)
 
-	if (isTRUE(counts)) {
-		b.count <- annotate(
-			"text",
-			x = -Inf,
-			y = Inf,
-			vjust = 1.5,
-			hjust = -1,
-			label = tmp.l$blue$Freq,
-			color = "royalblue1",
-			fontface = 2
-		)
-		g.count <- annotate(
-			"text",
-			x = Inf,
-			y = Inf,
-			vjust = 1.5,
-			hjust = 1.5,
-			label = tmp.l$green$Freq,
-			color = "green",
-			fontface = 2
-		)
-	} else {
-		b.count <- NULL
-		g.count <- NULL
-	}
+   if (isTRUE(counts)) {
+      b.count <- ggplot2::geom_text(
+         ggplot2::aes(label = .data$Freq, x = -Inf, y = Inf),
+         data = tmp.l$blue,
+         x = 1.5,
+         y = -1,
+         color = "royalblue1",
+         fontface = 2
+      )
+      g.count <- ggplot2::geom_text(
+         ggplot2::aes(label = .data$Freq, x = Inf, y = Inf),
+         data = tmp.l$green,
+         x = 1.5,
+         y = 1.5,
+         color = "green",
+         fontface = 2
+      )
+   } else {
+      b.count <- NULL
+      g.count <- NULL
+   }
 
 	text.size <- theme(
         axis.text.x = element_text(size = xaxis.text.size),
