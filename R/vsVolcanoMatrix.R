@@ -149,26 +149,32 @@ vsVolcanoMatrix <- function(
     pc <- .vomat.comp(padj, lfc)
 
     tmp.l <- .vomat.col.count(dat)
+    tmp.l_blue <- data.frame(
+        do.call('rbind', strsplit(as.character(tmp.l$blue$Var1)," ",fixed=TRUE))
+    )
+    tmp.l_green <- data.frame(
+        do.call('rbind', strsplit(as.character(tmp.l$green$Var1)," ",fixed=TRUE))
+    )
+    tmp.l$blue$id_x <- tmp.l_blue$X1
+    tmp.l$blue$id_y <- tmp.l_blue$X2
+    tmp.l$green$id_x <- tmp.l_green$X1
+    tmp.l$green$id_y <- tmp.l_green$X2
 
     ## Replace annotate with geom_text() from ggplot2
     if (isTRUE(counts)) {
-        b.count <- annotate(
-            "text",
-            x = -Inf,
-            y = Inf,
-            vjust = 1.5,
-            hjust = -1,
-            label = tmp.l$blue$Freq,
+        b.count <- ggplot2::geom_text(
+            ggplot2::aes(label = .data$Freq, x = -Inf, y = Inf),
+            data = tmp.l$blue,
+            x = 1.5,
+            y = -1,
             color = "royalblue1",
             fontface = 2
         )
-        g.count <- annotate(
-            "text",
-            x = Inf,
-            y = Inf,
-            vjust = 1.5,
-            hjust = 1.5,
-            label = tmp.l$green$Freq,
+        g.count <- ggplot2::geom_text(
+            ggplot2::aes(label = .data$Freq, x = Inf, y = Inf),
+            data = tmp.l$green,
+            x = 1.5,
+            y = 1.5,
             color = "green",
             fontface = 2
         )

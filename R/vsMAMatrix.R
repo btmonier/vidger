@@ -31,7 +31,7 @@
 #' @param lfc \eqn{log} fold change level for setting conditonals. If no user
 #'  input is added (\code{NULL}), value defaults to \code{1}.
 #' @param title display the main title of plot. Logical; defaults to
-#' 	\code{TRUE}. If set to \code{FALSE}, no title will display in plot.
+#'    \code{TRUE}. If set to \code{FALSE}, no title will display in plot.
 #' @param legend display legend of plot. Logical; defaults to \code{TRUE}.
 #'  If set to \code{FALSE}, no legend will display in plot.
 #' @param grid display major and minor axis lines. Logical; defaults to
@@ -42,15 +42,15 @@
 #'  \code{FALSE}. If set to \code{TRUE}, a data frame will also be called.
 #'  Assign to object for reproduction and saving of data frame. See final
 #'  example for further details.
-#' @param xaxis.title.size change the font size of the \code{x}-axis title 
+#' @param xaxis.title.size change the font size of the \code{x}-axis title
 #'  text. Defaults to \code{10}.
-#' @param xaxis.text.size change the font size of the \code{x}-axis text. 
+#' @param xaxis.text.size change the font size of the \code{x}-axis text.
 #'  Defaults to \code{9}.
-#' @param yaxis.title.size change the font size of the \code{y}-axis title 
+#' @param yaxis.title.size change the font size of the \code{y}-axis title
 #'  text. Defaults to \code{10}.
-#' @param yaxis.text.size change the font size of the \code{y}-axis text. 
+#' @param yaxis.text.size change the font size of the \code{y}-axis text.
 #'  Defaults to \code{9}.
-#' @param main.title.size change the font size of the plot title text. 
+#' @param main.title.size change the font size of the plot title text.
 #'  Defaults to \code{15}.
 #' @param legend.text.size change the font size of the legend body text.
 #'  Defaults to \code{9}.
@@ -65,36 +65,36 @@
 #' # Cuffdiff example
 #' data("df.cuff")
 #' vsMAMatrix(
-#'  	data = df.cuff, d.factor = NULL, type = "cuffdiff",
-#'  	padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE,
-#'  	grid = TRUE, counts = TRUE, data.return = FALSE
+#'     data = df.cuff, d.factor = NULL, type = "cuffdiff",
+#'     padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE,
+#'     grid = TRUE, counts = TRUE, data.return = FALSE
 #' )
 #'
 #' # DESeq2 example
 #' data("df.deseq")
 #' require(DESeq2)
 #' vsMAMatrix(
-#'  	data = df.deseq, d.factor = "condition", type = "deseq",
-#'  	padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE,
-#'  	grid = TRUE, counts = TRUE, data.return = FALSE
+#'     data = df.deseq, d.factor = "condition", type = "deseq",
+#'     padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE,
+#'     grid = TRUE, counts = TRUE, data.return = FALSE
 #' )
 #'
 #' # edgeR example
 #' data("df.edger")
 #' require(edgeR)
 #' vsMAMatrix(
-#'  	data = df.edger, d.factor = NULL, type = "edger",
-#'  	padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE,
-#'  	grid = TRUE, counts = TRUE, data.return = FALSE
+#'     data = df.edger, d.factor = NULL, type = "edger",
+#'     padj = 0.05, y.lim = NULL, lfc = 1, title = TRUE,
+#'     grid = TRUE, counts = TRUE, data.return = FALSE
 #' )
 #'
 #' # Extract data frame from visualization
 #' data("df.cuff")
 #' tmp <- vsMAMatrix(
-#'  	data = df.cuff, d.factor = NULL,
-#'  	type = "cuffdiff", padj = 0.05, y.lim = NULL,
-#'  	lfc = 1, title = TRUE, grid = TRUE,
-#'  	counts = TRUE, data.return = TRUE
+#'     data = df.cuff, d.factor = NULL,
+#'     type = "cuffdiff", padj = 0.05, y.lim = NULL,
+#'     lfc = 1, title = TRUE, grid = TRUE,
+#'     counts = TRUE, data.return = TRUE
 #' )
 #' df_mamat <- tmp[[1]] ## or use tmp$data
 #' head(df_mamat)
@@ -103,78 +103,88 @@
 #' tmp[[2]] ## or use tmp$plot
 
 vsMAMatrix <- function(
-	data, d.factor = NULL, type = c("cuffdiff", "deseq", "edger"),
-	padj = 0.05, y.lim = NULL, lfc = NULL, title = TRUE, legend = TRUE,
-	grid = TRUE, counts = TRUE, data.return = FALSE, xaxis.text.size = 9, 
-    yaxis.text.size = 9, xaxis.title.size = 10, yaxis.title.size = 10, 
+   data, d.factor = NULL, type = c("cuffdiff", "deseq", "edger"),
+   padj = 0.05, y.lim = NULL, lfc = NULL, title = TRUE, legend = TRUE,
+   grid = TRUE, counts = TRUE, data.return = FALSE, xaxis.text.size = 9,
+    yaxis.text.size = 9, xaxis.title.size = 10, yaxis.title.size = 10,
     main.title.size = 15, legend.text.size = 9, facet.title.size = 10
 ) {
-	if (missing(type) || !type %in% c("cuffdiff", "deseq", "edger")) {
-		stop(
-			paste(
-				"Please specify analysis type",
-				"(\"cuffdiff\", \"deseq\", or \"edger\")"
-			)
-		)
-	}
+   if (missing(type) || !type %in% c("cuffdiff", "deseq", "edger")) {
+      stop(
+         paste(
+            "Please specify analysis type",
+            "(\"cuffdiff\", \"deseq\", or \"edger\")"
+         )
+      )
+   }
 
-	type <- match.arg(type)
-	if (type == "cuffdiff") {
-		dat <- .getCuffMAMatrix(data)
-	} else if (type == "deseq") {
-		dat <- .getDeseqMAMatrix(data, d.factor)
-	} else if (type == "edger") {
-		dat <- .getEdgeMAMatrix(data)
-	}
+   type <- match.arg(type)
+   if (type == "cuffdiff") {
+      dat <- .getCuffMAMatrix(data)
+   } else if (type == "deseq") {
+      dat <- .getDeseqMAMatrix(data, d.factor)
+   } else if (type == "edger") {
+      dat <- .getEdgeMAMatrix(data)
+   }
 
-	if (!isTRUE(title)) {
-		m.lab <- NULL
-	} else {
-		m.lab <- ggtitle("MA Matrix")
-	}
+   if (!isTRUE(title)) {
+      m.lab <- NULL
+   } else {
+      m.lab <- ggtitle("MA Matrix")
+   }
 
-	if (!isTRUE(legend)) {
-		leg <- theme(legend.position = "none")
-	} else {
-		leg <- guides(colour = guide_legend(override.aes = list(size = 3)))
-	}
+   if (!isTRUE(legend)) {
+      leg <- theme(legend.position = "none")
+   } else {
+      leg <- guides(colour = guide_legend(override.aes = list(size = 3)))
+   }
 
-	if (!isTRUE(grid)) {
-		grid <- theme_classic()
-	} else {
-		grid <- theme_bw()
-	}
+   if (!isTRUE(grid)) {
+      grid <- theme_classic()
+   } else {
+      grid <- theme_bw()
+   }
 
-	dat$isDE <- ifelse(dat$padj <= padj, TRUE, FALSE)
-	py <- dat$M
+   dat$isDE <- ifelse(dat$padj <= padj, TRUE, FALSE)
+   py <- dat$M
 
-	if (is.null(y.lim)) {
-		y.lim = c(-1, 1) * quantile(abs(py[is.finite(py)]), probs = 0.99) * 0.8
-	}
-	if (is.null(lfc)) {
-		lfc = 1
-	}
+   if (is.null(y.lim)) {
+      y.lim = c(-1, 1) * quantile(abs(py[is.finite(py)]), probs = 0.99) * 0.8
+   }
+   if (is.null(lfc)) {
+      lfc = 1
+   }
 
-	dat <- .ma.ranker(dat, padj, lfc, y.lim)
+   dat <- .ma.ranker(dat, padj, lfc, y.lim)
 
-	tmp.size <- .ma.out.ranker(py, y.lim[2])
-	tmp.col <- .ma.col.ranker(dat$isDE, py, lfc)
-	tmp.shp <- .ma.shp.ranker(py, y.lim)
+   tmp.size <- .ma.out.ranker(py, y.lim[2])
+   tmp.col <- .ma.col.ranker(dat$isDE, py, lfc)
+   tmp.shp <- .ma.shp.ranker(py, y.lim)
 
-	tmp.cnt <- .ma.col.counter(dat, lfc)
-	b <- tmp.cnt[[1]]
-	g <- tmp.cnt[[2]]
+   tmp.cnt <- .ma.col.counter(dat, lfc)
+   b <- tmp.cnt[[1]]
+   g <- tmp.cnt[[2]]
 
-	comp1 <- .ma.comp1(y.lim, padj, lfc, b, g)
-	point <- geom_point(
-		alpha = 0.7,
-		aes(color = tmp.col, shape = tmp.shp, size = tmp.size)
-	)
-	comp2 <- .ma.comp2(
-		comp1[[4]], comp1[[6]], comp1[[5]], comp1[[1]], comp1[[2]], comp1[[3]]
-	)
+   comp1 <- .ma.comp1(y.lim, padj, lfc, b, g)
+   point <- geom_point(
+      alpha = 0.7,
+      aes(color = tmp.col, shape = tmp.shp, size = tmp.size)
+   )
+   comp2 <- .ma.comp2(
+      comp1[[4]], comp1[[6]], comp1[[5]], comp1[[1]], comp1[[2]], comp1[[3]]
+   )
 
-	tmp.l <- .mamat.col.count(dat)
+   tmp.l <- .mamat.col.count(dat)
+   tmp.l_blue <- data.frame(
+       do.call('rbind', strsplit(as.character(tmp.l$blue$Var1)," ",fixed=TRUE))
+   )
+   tmp.l_green <- data.frame(
+       do.call('rbind', strsplit(as.character(tmp.l$green$Var1)," ",fixed=TRUE))
+   )
+   tmp.l$blue$id_x <- tmp.l_blue$X1
+   tmp.l$blue$id_y <- tmp.l_blue$X2
+   tmp.l$green$id_x <- tmp.l_green$X1
+   tmp.l$green$id_y <- tmp.l_green$X2
 
    ## Replace annotate with geom_text() from ggplot2
    if (isTRUE(counts)) {
@@ -199,7 +209,7 @@ vsMAMatrix <- function(
       g.count <- NULL
    }
 
-	text.size <- theme(
+   text.size <- theme(
         axis.text.x = element_text(size = xaxis.text.size),
         axis.text.y = element_text(size = yaxis.text.size),
         axis.title.x = element_text(size = xaxis.title.size),
@@ -209,32 +219,32 @@ vsMAMatrix <- function(
         strip.text = element_text(size = facet.title.size)
     )
 
-	M <- A <- pval <- color <- size <- shape <- NULL
-	tmp.plot <- ggplot(
-		dat, aes(x = A, y = pmax(y.lim[1], pmin(y.lim[2], py)))
-	) +
-		point +
-		comp2$shape +
-		comp2$color +
-		comp2$size +
-		comp1$hline1 +
-		comp1$hline2 +
-		comp1$hline3 +
-		comp1$x.lab +
-		comp1$y.lab +
-		m.lab +
-		grid +
-		leg +
-		b.count +
-		g.count +
-		ylim(y.lim) +
-		facet_wrap(id_x ~ id_y) +
-		text.size
+   M <- A <- pval <- color <- size <- shape <- NULL
+   tmp.plot <- ggplot(
+      dat, aes(x = A, y = pmax(y.lim[1], pmin(y.lim[2], py)))
+   ) +
+      point +
+      comp2$shape +
+      comp2$color +
+      comp2$size +
+      comp1$hline1 +
+      comp1$hline2 +
+      comp1$hline3 +
+      comp1$x.lab +
+      comp1$y.lab +
+      m.lab +
+      grid +
+      leg +
+      b.count +
+      g.count +
+      ylim(y.lim) +
+      facet_wrap(id_x ~ id_y) +
+      text.size
 
-	if (isTRUE(data.return)) {
-		dat2 <- dat[, -ncol(dat)]
-		plot.l <- list(data = dat2, plot = tmp.plot)
-	} else {
-		print(tmp.plot)
-	}
+   if (isTRUE(data.return)) {
+      dat2 <- dat[, -ncol(dat)]
+      plot.l <- list(data = dat2, plot = tmp.plot)
+   } else {
+      print(tmp.plot)
+   }
 }
