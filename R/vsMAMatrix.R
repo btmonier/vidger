@@ -176,6 +176,7 @@ vsMAMatrix <- function(
 
 	tmp.l <- .mamat.col.count(dat)
 
+   ## Replace annotate with geom_text() from ggplot2
    if (isTRUE(counts)) {
       b.count <- ggplot2::geom_text(
          ggplot2::aes(label = .data$Freq, x = -Inf, y = Inf),

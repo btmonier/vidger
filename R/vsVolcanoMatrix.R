@@ -150,6 +150,7 @@ vsVolcanoMatrix <- function(
 
     tmp.l <- .vomat.col.count(dat)
 
+    ## Replace annotate with geom_text() from ggplot2
     if (isTRUE(counts)) {
         b.count <- annotate(
             "text",
