@@ -73,8 +73,9 @@ The stable version of this package is available on
 [Bioconductor](https://bioconductor.org/packages/release/bioc/html/vidger.html). You can install it by running the following:
 
 ```{r, eval=FALSE, message=FALSE}
-source("http://bioconductor.org/biocLite.R")
-biocLite("vidger")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("vidger")
 ```
 
 The latest **developmental** version of `ViDGER` can be installed via GitHub 
