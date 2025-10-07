@@ -4,12 +4,24 @@
 \alias{vsBoxPlot}
 \title{Box plot for \eqn{log_{10}}(FPKM or CPM) distributions}
 \usage{
-vsBoxPlot(data, d.factor = NULL, type = c("cuffdiff", "deseq", "edger"),
-  title = TRUE, legend = TRUE, grid = TRUE, aes = c("box", "violin",
-  "boxdot", "viodot", "viosumm", "notch"), fill.color = NULL,
-  data.return = FALSE, xaxis.text.size = 10, yaxis.text.size = 10,
-  xaxis.title.size = 12, yaxis.title.size = 12, main.title.size = 15,
-  legend.text.size = 10, legend.title.size = 12)
+vsBoxPlot(
+  data,
+  d.factor = NULL,
+  type = c("cuffdiff", "deseq", "edger"),
+  title = TRUE,
+  legend = TRUE,
+  grid = TRUE,
+  aes = c("box", "violin", "boxdot", "viodot", "viosumm", "notch"),
+  fill.color = NULL,
+  data.return = FALSE,
+  xaxis.text.size = 10,
+  yaxis.text.size = 10,
+  xaxis.title.size = 12,
+  yaxis.title.size = 12,
+  main.title.size = 15,
+  legend.text.size = 10,
+  legend.title.size = 12
+)
 }
 \arguments{
 \item{data}{output generated from calling the main routines of either
@@ -54,25 +66,25 @@ aesthetics.}
 Assign to object for reproduction and saving of data frame. See final
 example for further details.}
 
-\item{xaxis.text.size}{change the font size of the \code{x}-axis text. 
+\item{xaxis.text.size}{change the font size of the \code{x}-axis text.
 Defaults to \code{10}.}
 
-\item{yaxis.text.size}{change the font size of the \code{y}-axis text. 
+\item{yaxis.text.size}{change the font size of the \code{y}-axis text.
 Defaults to \code{10}.}
 
-\item{xaxis.title.size}{change the font size of the \code{x}-axis title 
+\item{xaxis.title.size}{change the font size of the \code{x}-axis title
 text. Defaults to \code{12}.}
 
-\item{yaxis.title.size}{change the font size of the \code{y}-axis title 
+\item{yaxis.title.size}{change the font size of the \code{y}-axis title
 text. Defaults to \code{12}.}
 
-\item{main.title.size}{change the font size of the plot title text. 
+\item{main.title.size}{change the font size of the plot title text.
 Defaults to \code{15}.}
 
 \item{legend.text.size}{change the font size of the legend body text.
 Defaults to \code{10}.}
 
-\item{legend.title.size}{change the font size of the legend title text. 
+\item{legend.title.size}{change the font size of the legend title text.
 Defaults to \code{12}.}
 }
 \value{
@@ -120,7 +132,7 @@ data("df.edger")
 require(edgeR)
 tmp <- vsBoxPlot(
      data = df.edger, d.factor = NULL, type = "edger", title = TRUE,
-     legend = TRUE, grid = TRUE, data.return = FALSE
+     legend = TRUE, grid = TRUE, data.return = TRUE
 )
 df_box <- tmp[[1]] ## or use tmp$data
 head(df_box)

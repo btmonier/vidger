@@ -4,10 +4,22 @@
 \alias{vsScatterPlot}
 \title{Scatter plot of \eqn{log_{10}}(FPKM or CPM) values}
 \usage{
-vsScatterPlot(x, y, data, d.factor = NULL, type = c("cuffdiff", "deseq",
-  "edger"), title = TRUE, grid = TRUE, highlight = NULL,
-  data.return = FALSE, xaxis.text.size = 10, yaxis.text.size = 10,
-  xaxis.title.size = 12, yaxis.title.size = 12, main.title.size = 15)
+vsScatterPlot(
+  x,
+  y,
+  data,
+  d.factor = NULL,
+  type = c("cuffdiff", "deseq", "edger"),
+  title = TRUE,
+  grid = TRUE,
+  highlight = NULL,
+  data.return = FALSE,
+  xaxis.text.size = 10,
+  yaxis.text.size = 10,
+  xaxis.title.size = 12,
+  yaxis.title.size = 12,
+  main.title.size = 15
+)
 }
 \arguments{
 \item{x}{treatment \code{x} for comparison (\eqn{log_{2}}(x/control)). This

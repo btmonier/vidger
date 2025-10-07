@@ -5,12 +5,29 @@
 \title{Four-Way plot for comparison of log fold changes in a multiple factor
 RNA-seq experiment from different analytical objects}
 \usage{
-vsFourWay(x, y, control, data, d.factor = NULL, type = c("cuffdiff",
-  "deseq", "edger"), padj = 0.05, x.lim = NULL, y.lim = NULL,
-  lfc = NULL, legend = TRUE, title = TRUE, grid = TRUE,
-  highlight = NULL, data.return = FALSE, xaxis.text.size = 10,
-  yaxis.text.size = 10, xaxis.title.size = 10, yaxis.title.size = 10,
-  main.title.size = 15, legend.text.size = 9)
+vsFourWay(
+  x,
+  y,
+  control,
+  data,
+  d.factor = NULL,
+  type = c("cuffdiff", "deseq", "edger"),
+  padj = 0.05,
+  x.lim = NULL,
+  y.lim = NULL,
+  lfc = NULL,
+  legend = TRUE,
+  title = TRUE,
+  grid = TRUE,
+  highlight = NULL,
+  data.return = FALSE,
+  xaxis.text.size = 10,
+  yaxis.text.size = 10,
+  xaxis.title.size = 10,
+  yaxis.title.size = 10,
+  main.title.size = 15,
+  legend.text.size = 9
+)
 }
 \arguments{
 \item{x}{treatment \code{x} for comparison (\eqn{log_{2}}(x/control)). This

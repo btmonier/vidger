@@ -42,17 +42,17 @@
 #'  \code{FALSE}. If set to \code{TRUE}, a data frame will also be called.
 #'  Assign to object for reproduction and saving of data frame. See final
 #'  example for further details.
-#' @param xaxis.title.size change the font size of the \code{x}-axis title 
+#' @param xaxis.title.size change the font size of the \code{x}-axis title
 #'  text. Defaults to \code{12}.
-#' @param xaxis.text.size change the font size of the \code{x}-axis text. 
+#' @param xaxis.text.size change the font size of the \code{x}-axis text.
 #'  Defaults to \code{10}.
-#' @param yaxis.title.size change the font size of the \code{y}-axis title 
+#' @param yaxis.title.size change the font size of the \code{y}-axis title
 #'  text. Defaults to \code{12}.
-#' @param yaxis.text.size change the font size of the \code{y}-axis text. 
+#' @param yaxis.text.size change the font size of the \code{y}-axis text.
 #'  Defaults to \code{10}.
-#' @param main.title.size change the font size of the plot title text. 
+#' @param main.title.size change the font size of the plot title text.
 #'  Defaults to \code{15}.
-#' @param legend.title.size change the font size of the legend title text. 
+#' @param legend.title.size change the font size of the legend title text.
 #'  Defaults to \code{12}.
 #' @param legend.text.size change the font size of the legend body text.
 #'  Defaults to \code{10}.
@@ -98,7 +98,7 @@
 #' require(edgeR)
 #' tmp <- vsBoxPlot(
 #'      data = df.edger, d.factor = NULL, type = "edger", title = TRUE,
-#'      legend = TRUE, grid = TRUE, data.return = FALSE
+#'      legend = TRUE, grid = TRUE, data.return = TRUE
 #' )
 #' df_box <- tmp[[1]] ## or use tmp$data
 #' head(df_box)
@@ -110,8 +110,8 @@ vsBoxPlot <- function(
     data, d.factor = NULL, type = c("cuffdiff", "deseq", "edger"),
     title = TRUE, legend = TRUE, grid = TRUE,
     aes = c("box", "violin", "boxdot", "viodot", "viosumm", "notch"),
-    fill.color = NULL, data.return = FALSE, xaxis.text.size = 10, 
-    yaxis.text.size = 10, xaxis.title.size = 12, yaxis.title.size = 12, 
+    fill.color = NULL, data.return = FALSE, xaxis.text.size = 10,
+    yaxis.text.size = 10, xaxis.title.size = 12, yaxis.title.size = 12,
     main.title.size = 15, legend.text.size = 10, legend.title.size = 12
 ) {
     if (missing(type) || !type %in% c("cuffdiff", "deseq", "edger")) {

@@ -1,3 +1,7 @@
+# ViDGER 1.4.5
+* Fixed data return examples
+
+
 # ViDGER 1.1.3
 
 * Added `grey.scale` parameter to `vsDEGMatrix()` function.

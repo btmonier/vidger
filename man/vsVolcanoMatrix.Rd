@@ -5,12 +5,26 @@
 \title{Volcano plot matrix from \eqn{log_{2}} fold changes and
 \eqn{-log_{10}}(\eqn{p}-values)}
 \usage{
-vsVolcanoMatrix(data, d.factor = NULL, type = c("cuffdiff", "deseq",
-  "edger"), padj = 0.05, x.lim = NULL, lfc = NULL, title = TRUE,
-  legend = TRUE, grid = TRUE, counts = TRUE, data.return = FALSE,
-  xaxis.text.size = 9, yaxis.text.size = 9, xaxis.title.size = 10,
-  yaxis.title.size = 10, main.title.size = 15, legend.text.size = 9,
-  facet.title.size = 10)
+vsVolcanoMatrix(
+  data,
+  d.factor = NULL,
+  type = c("cuffdiff", "deseq", "edger"),
+  padj = 0.05,
+  x.lim = NULL,
+  lfc = NULL,
+  title = TRUE,
+  legend = TRUE,
+  grid = TRUE,
+  counts = TRUE,
+  data.return = FALSE,
+  xaxis.text.size = 9,
+  yaxis.text.size = 9,
+  xaxis.title.size = 10,
+  yaxis.title.size = 10,
+  main.title.size = 15,
+  legend.text.size = 9,
+  facet.title.size = 10
+)
 }
 \arguments{
 \item{data}{a cuffdiff, DESeq2, or edgeR object.}

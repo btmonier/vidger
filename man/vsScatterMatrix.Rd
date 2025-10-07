@@ -4,11 +4,22 @@
 \alias{vsScatterMatrix}
 \title{Scatter plot matrix of \eqn{log_{10}}(FPKM or CPM) values}
 \usage{
-vsScatterMatrix(data, d.factor = NULL, type = c("cuffdiff", "deseq",
-  "edger"), comp = NULL, title = TRUE, grid = TRUE, man.title = NULL,
-  data.return = FALSE, xaxis.text.size = 9, yaxis.text.size = 9,
-  xaxis.title.size = 10, yaxis.title.size = 10, main.title.size = 15,
-  facet.title.size = 10)
+vsScatterMatrix(
+  data,
+  d.factor = NULL,
+  type = c("cuffdiff", "deseq", "edger"),
+  comp = NULL,
+  title = TRUE,
+  grid = TRUE,
+  man.title = NULL,
+  data.return = FALSE,
+  xaxis.text.size = 9,
+  yaxis.text.size = 9,
+  xaxis.title.size = 10,
+  yaxis.title.size = 10,
+  main.title.size = 15,
+  facet.title.size = 10
+)
 }
 \arguments{
 \item{data}{output generated from calling the main routines of either

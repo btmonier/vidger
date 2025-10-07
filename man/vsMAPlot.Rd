@@ -5,11 +5,27 @@
 \title{MA plot from mean expression and \eqn{log} fold changes from different
 analytical objects}
 \usage{
-vsMAPlot(x, y, data, d.factor = NULL, type = c("cuffdiff", "deseq",
-  "edger"), padj = 0.05, y.lim = NULL, lfc = NULL, title = TRUE,
-  legend = TRUE, grid = TRUE, highlight = NULL, data.return = FALSE,
-  xaxis.text.size = 10, yaxis.text.size = 10, xaxis.title.size = 10,
-  yaxis.title.size = 10, main.title.size = 15, legend.text.size = 9)
+vsMAPlot(
+  x,
+  y,
+  data,
+  d.factor = NULL,
+  type = c("cuffdiff", "deseq", "edger"),
+  padj = 0.05,
+  y.lim = NULL,
+  lfc = NULL,
+  title = TRUE,
+  legend = TRUE,
+  grid = TRUE,
+  highlight = NULL,
+  data.return = FALSE,
+  xaxis.text.size = 10,
+  yaxis.text.size = 10,
+  xaxis.title.size = 10,
+  yaxis.title.size = 10,
+  main.title.size = 15,
+  legend.text.size = 9
+)
 }
 \arguments{
 \item{x}{treatment \code{x} for comparison (\eqn{log_{2}}(x/control)). This

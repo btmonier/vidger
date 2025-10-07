@@ -5,11 +5,27 @@
 \title{Volcano plot from \eqn{log_{2}} fold changes and
 \eqn{-log_{10}}(\eqn{p}-values)}
 \usage{
-vsVolcano(x, y, data, d.factor = NULL, type = c("cuffdiff", "deseq",
-  "edger"), padj = 0.05, x.lim = NULL, lfc = NULL, title = TRUE,
-  legend = TRUE, grid = TRUE, highlight = NULL, data.return = FALSE,
-  xaxis.text.size = 10, yaxis.text.size = 10, xaxis.title.size = 10,
-  yaxis.title.size = 10, main.title.size = 15, legend.text.size = 9)
+vsVolcano(
+  x,
+  y,
+  data,
+  d.factor = NULL,
+  type = c("cuffdiff", "deseq", "edger"),
+  padj = 0.05,
+  x.lim = NULL,
+  lfc = NULL,
+  title = TRUE,
+  legend = TRUE,
+  grid = TRUE,
+  highlight = NULL,
+  data.return = FALSE,
+  xaxis.text.size = 10,
+  yaxis.text.size = 10,
+  xaxis.title.size = 10,
+  yaxis.title.size = 10,
+  main.title.size = 15,
+  legend.text.size = 9
+)
 }
 \arguments{
 \item{x}{treatment \code{x} for comparison (\eqn{log_{2}}(x/control)). This
